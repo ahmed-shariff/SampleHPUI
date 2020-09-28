@@ -12,6 +12,13 @@ namespace HPUI.Application.Core
 	public ButtonController nextButton;
 	public ButtonController previousButton;
 
+	public Transform menuDisplay;
+
+	float currentDisplayAngle = 144;
+	float currentAngle = 144;
+	float angleIncrement = 5;
+	// Vector3 currentTarget = Vector3.forward;
+
 	bool showMenu = true;
 
 	int currentAppIndex = 0;
@@ -26,16 +33,22 @@ namespace HPUI.Application.Core
 	    baseButton.contactAction.AddListener(SwitchApp);
 	    nextButton.contactAction.AddListener(incrementAppIndex);
 	    previousButton.contactAction.AddListener(decrementAppIndex);
+	    menuDisplay.localRotation = Quaternion.Euler(0, 144, 0);
+	    // currentTarget = menuDisplay.forward;
 	}
 
 	void incrementAppIndex(ButtonController btn)
 	{
 	    currentAppIndex = (++currentAppIndex % applications.Length + applications.Length) % applications.Length;
+	    currentDisplayAngle += 72;
+	    // currentTarget = Quaternion.Euler(0, 72, 0) * currentTarget;
 	}
 
 	void decrementAppIndex(ButtonController btn)
 	{
 	    currentAppIndex = (--currentAppIndex % applications.Length + applications.Length) % applications.Length;
+	    currentDisplayAngle -= 72;
+	    // currentTarget = Quaternion.Euler(0, -72, 0) * currentTarget;
 	}
 	
 	void SwitchApp(ButtonController btn)
@@ -66,6 +79,15 @@ namespace HPUI.Application.Core
 	{
 	    nextButton.gameObject.SetActive(false);
 	    previousButton.gameObject.SetActive(false);
+	}
+
+	void Update()
+	{
+	    if (Mathf.Abs(currentAngle - currentDisplayAngle) > angleIncrement)
+	    {
+		menuDisplay.localRotation = Quaternion.Euler(0, currentAngle, 0);
+		currentAngle += angleIncrement;
+	    }
 	}
     }
 }
