@@ -43,6 +43,8 @@ namespace HPUI.Core
 	private Color defaultColor;
 	private bool contactEventTriggerd = false;
 
+	private bool processGetButtonsFlag = false;
+	
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -62,6 +64,11 @@ namespace HPUI.Core
 
 	public void getButtons()
 	{
+	    processGetButtonsFlag = true;
+	}
+
+	void processGetButtons()
+	{
 	    buttons = FindObjectsOfType<ButtonController>();
 
 	    btns.Clear();
@@ -75,6 +82,7 @@ namespace HPUI.Core
 		}
 	    }
 	    Debug.Log("Got heaps of buttons "  +  btns.Count);
+	    processGetButtonsFlag = false;
 	}
 
 	protected virtual void startAmend()
@@ -109,36 +117,44 @@ namespace HPUI.Core
 
 	void LateUpdate()
 	{
+	    if (processGetButtonsFlag)
+		processGetButtons();
 	    interactionPreProcess();
 	    if (executeProcess)
 	    {
 		executeProcess = false;
 		// bool did = false;
 		preContactLoopCallback();
-		foreach (ButtonController btn in btns)
+		try
 		{
-		    buttonCallback(btn);
-		    if (btn.stateChanged)
+		    foreach (ButtonController btn in btns)
 		    {
-			switch (btn.state)
+			buttonCallback(btn);
+			if (btn.stateChanged)
 			{
-			    case ButtonController.State.proximate:
-				//btn.proximateAction.Invoke();
-				btn.invokeProximate();
-				break;
-			    case ButtonController.State.contact:
-				//btn.contactAction.Invoke();
-				processContactEventCallback(btn);
-				break;
-			    default:
-				//btn.defaultAction.Invoke();
-				btn.invokeDefault();
-				break;
+			    switch (btn.state)
+			    {
+				case ButtonController.State.proximate:
+				    //btn.proximateAction.Invoke();
+				    btn.invokeProximate();
+				    break;
+				case ButtonController.State.contact:
+				    //btn.contactAction.Invoke();
+				    processContactEventCallback(btn);
+				    break;
+				default:
+				    //btn.defaultAction.Invoke();
+				    btn.invokeDefault();
+				    break;
+			    }
+			    btn.stateChanged = false;
 			}
-			btn.stateChanged = false;
 		    }
+		    StartCoroutine(Timer());
 		}
-		StartCoroutine(Timer());
+		// When the getButtons methos is called from somewhere cancell this round of checking
+		catch (InvalidOperationException e)
+		{}
 	    }
 	    values.Clear();
 	}

@@ -51,7 +51,27 @@ namespace HPUI.Core
 	private List<ButtonController> btnControllers = new List<ButtonController>();
 	public class coord {public int x=0; public int y=0; public float maxX=1; public float maxY=1;}
 	public coord currentCoord = new coord();
-    
+
+	bool _inUse = false;
+	public bool inUse
+	{
+	    get
+	    {
+		return _inUse;
+	    }
+	    set
+	    {
+		_inUse = value;
+		if (generatedBtns)
+		{
+		    if (_inUse)
+			generatePlaneMesh.gameObject.SetActive(true);
+		    else
+			generatePlaneMesh.gameObject.SetActive(false);
+		}
+	    }	
+	}
+	
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -122,7 +142,9 @@ namespace HPUI.Core
 			float yCenterOffset, xCenterOffset;
 			generateBtns(generatePlaneMesh.mesh.vertices, generatePlaneMesh.mesh.normals, generatePlaneMesh.transform, out yCenterOffset, out xCenterOffset);
 			generatedBtns = true;
-			InteractionManger.instance.getButtons();
+			inUse = inUse; //triggering the display
+			if (inUse)
+			    InteractionManger.instance.getButtons();
 		    }
 		    else
 		    {
