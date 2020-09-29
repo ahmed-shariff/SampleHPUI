@@ -455,8 +455,6 @@ MonoBehaviour:
   proximalZone: {fileID: 7436014447027064905}
   contactZone: {fileID: 7436014446386676765}
   relativePosition: 2
-  randomYMax: 0
-  randomYMin: 0
   proximateAction:
     m_PersistentCalls:
       m_Calls: []

@@ -73,12 +73,14 @@ namespace HPUI.Application.Core
 	    nextButton.gameObject.SetActive(true);
 	    previousButton.gameObject.SetActive(true);
 	    InteractionManger.instance.getButtons();
+	    menuDisplay.transform.parent.gameObject.SetActive(true);
 	}
 
 	protected virtual void OnDeactivate()
 	{
 	    nextButton.gameObject.SetActive(false);
 	    previousButton.gameObject.SetActive(false);
+	    menuDisplay.transform.parent.gameObject.SetActive(false);
 	}
 
 	void Update()
@@ -86,7 +88,10 @@ namespace HPUI.Application.Core
 	    if (Mathf.Abs(currentAngle - currentDisplayAngle) > angleIncrement)
 	    {
 		menuDisplay.localRotation = Quaternion.Euler(0, currentAngle, 0);
-		currentAngle += angleIncrement;
+		if (currentAngle < currentDisplayAngle)
+		    currentAngle += angleIncrement;
+		else
+		    currentAngle -= angleIncrement;
 	    }
 	}
     }

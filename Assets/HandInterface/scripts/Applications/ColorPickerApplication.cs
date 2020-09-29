@@ -6,8 +6,11 @@ using HPUI.Application.Core;
 
 namespace HPUI.Application
 {
-    public class MapApplication : ApplicationBase
+    public class ColorPickerApplication : ApplicationBase
     {
+	public Material material;
+	Color color;
+	
 	public BtnMapperStatic btnMapperStatic;
 	public GeneratePlaneMesh generatePlaneMesh;
 	public Texture2D mainTexture;
@@ -27,28 +30,17 @@ namespace HPUI.Application
 	    btnMapperStatic.inUse = false;
 	    spriteRenderer.gameObject.SetActive(false);
 	}
-	
-	// Start is called before the first frame update
-	void Start()
-	{
-	
-	}
 
 	// Update is called once per frame
 	void Update()
 	{
-	    if (btnMapperStatic.currentCoord.x == 0 && btnMapperStatic.currentCoord.y == 0)
+	    if (btnMapperStatic.generatedBtns)
 	    {
-		spriteRenderer.gameObject.SetActive(false);
-	    }
-	    else
-	    {
-		spriteRenderer.gameObject.SetActive(true);
-	    
-		if ((btnMapperStatic.currentCoord.x / btnMapperStatic.currentCoord.maxX) > 0.7)
-		    spriteRenderer.sprite = sprites[0];
-		else
-		    spriteRenderer.sprite = sprites[1];
+		color = mainTexture.GetPixel(Mathf.RoundToInt((btnMapperStatic.currentCoord.x / btnMapperStatic.currentCoord.maxX) * mainTexture.width), Mathf.RoundToInt((btnMapperStatic.currentCoord.y / btnMapperStatic.currentCoord.maxY) * mainTexture.height));
+		if (spriteRenderer)
+		    spriteRenderer.color = color;
+		if (material)
+		    material.color = color;
 	    }
 	}
     }

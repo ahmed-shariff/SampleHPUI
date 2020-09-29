@@ -9,7 +9,6 @@ using System.Threading;
 using System.Linq;
 using System.IO;
 // using ViconDataStreamSDK.DotNET;
-using Newtonsoft.Json;
 
 namespace HPUI.Core
 {
