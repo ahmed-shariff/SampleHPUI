@@ -46,14 +46,14 @@ namespace HPUI.Application.Core
 	void incrementAppIndex(ButtonController btn)
 	{
 	    currentAppIndex = (++currentAppIndex % applications.Length + applications.Length) % applications.Length;
-	    currentDisplayAngle += 72;
+	    currentDisplayAngle += 90;
 	    // currentTarget = Quaternion.Euler(0, 72, 0) * currentTarget;
 	}
 
 	void decrementAppIndex(ButtonController btn)
 	{
 	    currentAppIndex = (--currentAppIndex % applications.Length + applications.Length) % applications.Length;
-	    currentDisplayAngle -= 72;
+	    currentDisplayAngle -= 90;
 	    // currentTarget = Quaternion.Euler(0, -72, 0) * currentTarget;
 	}
 	

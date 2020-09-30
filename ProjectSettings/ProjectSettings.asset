@@ -121,8 +121,10 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.1
-  preloadedAssets: []
+  bundleVersion: OVRTransitionAPKVersion
+  preloadedAssets:
+  - {fileID: 1619927792540918808, guid: 8da2d4e663ff5324b91f4c589bd92063, type: 2}
+  - {fileID: 11400000, guid: 383f4a4ee3229da41970ff6350cc3b89, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -172,7 +174,7 @@ PlayerSettings:
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 0
   aotOptions: 
-  stripEngineCode: 1
+  stripEngineCode: 0
   iPhoneStrippingLevel: 0
   iPhoneScriptCallOptimization: 0
   ForceInternetPermission: 0
