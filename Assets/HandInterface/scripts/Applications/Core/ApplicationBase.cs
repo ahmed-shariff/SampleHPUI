@@ -7,6 +7,8 @@ namespace HPUI.Application.Core
 {
     public class ApplicationBase : MonoBehaviour
     {
+	public bool usesDeformableSurface=false;
+	
 	public void Activate()
 	{
 	    gameObject.SetActive(true);

@@ -7,13 +7,17 @@ namespace HPUI.Application.Core
 {
     public class ApplicationManager : ApplicationBase
     {
-	public ApplicationBase[] applications = new ApplicationBase[1];
 	public ButtonController baseButton;
 	public ButtonController nextButton;
 	public ButtonController previousButton;
 
+	public BtnMapperStatic btnMapperStatic;
+	public DeformableMesh deformableMesh;
+	
 	public Transform menuDisplay;
 
+	public ApplicationBase[] applications = new ApplicationBase[1];
+	
 	float currentDisplayAngle = 144;
 	float currentAngle = 144;
 	float angleIncrement = 5;
@@ -30,7 +34,7 @@ namespace HPUI.Application.Core
 	    {
 		app.Deacivate();
 	    }
-            baseButton.contactAction.AddListener(SwitchApp);
+	    baseButton.contactAction.AddListener(SwitchApp);
 	    nextButton.contactAction.AddListener(incrementAppIndex);
 	    previousButton.contactAction.AddListener(decrementAppIndex);
 	    menuDisplay.localRotation = Quaternion.Euler(0, 144, 0);
@@ -56,6 +60,8 @@ namespace HPUI.Application.Core
 	    if (showMenu)
 	    {
 		applications[currentAppIndex].Deacivate();
+		btnMapperStatic.inUse = false;
+		deformableMesh.gameObject.SetActive(false);
 		//currentAppIndex = ++currentAppIndex % applications.Length;
 		OnActivate();
 	    }

@@ -103,6 +103,8 @@ namespace HPUI.Core
 	{
 	    if (generatedBtns)
 	    {
+		if (!inUse)
+		    return;
 		// var a = DateTimeOffset.Now.ToUnixTimeMilliseconds();
 		deformableMesh.CreateSplines();
 		// var b = DateTimeOffset.Now.ToUnixTimeMilliseconds();
