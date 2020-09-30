@@ -31,11 +31,11 @@ namespace HPUI.Application.Core
 	// Start is called before the first frame update
 	void Start()
 	{
-	    foreach(var app in applications)
-	    {
-		app.Deacivate();
-	    }
-	    applications[2].Activate();
+	    // foreach(var app in applications)
+	    // {
+	    // 	app.Deacivate();
+	    // }
+	    // applications[5].Activate();
 	    baseButton.contactAction.AddListener(SwitchApp);
 	    nextButton.contactAction.AddListener(incrementAppIndex);
 	    previousButton.contactAction.AddListener(decrementAppIndex);

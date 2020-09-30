@@ -22,11 +22,6 @@ namespace HPUI.Application.Sample.CarView
 
 	void Start()
 	{
-	    defaulParent = carObject.parent;
-	    defaultScale = carObject.localScale;
-	    defaultPosition = carObject.localPosition;
-	    defaultRotation = carObject.localRotation;
-
 	    scaleXRange.normalizeScaleOn(carObject.localScale.x);
 	    scaleYRange.normalizeScaleOn(carObject.localScale.y);
 	    scaleZRange.normalizeScaleOn(carObject.localScale.z);
