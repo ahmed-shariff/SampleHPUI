@@ -22,9 +22,9 @@ namespace HPUI.Application.Sample.CarView
 
 	void Start()
 	{
-	    scaleXRange.normalizeScaleOn(carObject.localScale.x);
-	    scaleYRange.normalizeScaleOn(carObject.localScale.y);
-	    scaleZRange.normalizeScaleOn(carObject.localScale.z);
+	    // scaleXRange.normalizeScaleOn(carObject.localScale.x);
+	    // scaleYRange.normalizeScaleOn(carObject.localScale.y);
+	    // scaleZRange.normalizeScaleOn(carObject.localScale.z);
 	}
 
 	public void setParent(Transform parent)

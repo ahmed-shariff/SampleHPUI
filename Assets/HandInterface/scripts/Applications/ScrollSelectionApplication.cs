@@ -35,9 +35,9 @@ namespace HPUI.Application.Sample.CarView
 
 	protected override void OnDeactivate()
 	{
-	    resetCar(c1);
+	    foreach(var c in manager.Cars)
+		resetCar(c);
 	    resetCar(c2, true);
-	    resetCar(c3);
 	}
 
 	void setupViews()

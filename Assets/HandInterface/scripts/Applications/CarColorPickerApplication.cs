@@ -22,6 +22,10 @@ namespace HPUI.Application.Sample.CarView
 	    btnMapperStatic.inUse = true;
 	    spriteRenderer.gameObject.SetActive(true);
 	    generatePlaneMesh.GetComponent<MeshRenderer>().material.mainTexture = mainTexture;
+
+	    var materialColor = generatePlaneMesh.GetComponent<MeshRenderer>().material.color;
+	    materialColor.a = 1;
+	    generatePlaneMesh.GetComponent<MeshRenderer>().material.color = materialColor;
 	}
 
 	protected override void OnDeactivate()

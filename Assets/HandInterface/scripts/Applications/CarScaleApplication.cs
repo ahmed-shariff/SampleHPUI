@@ -73,7 +73,7 @@ namespace HPUI.Application.Sample.CarView
 		{
 		    highlightButtons.Add(btn);
 		    // deformableMesh.skipIds.Add(btn.id);
-		    btn.contactAction.AddListener(updateBar);
+		    // btn.contactAction.AddListener(updateBar);
 		}
 		else
 		{
@@ -125,25 +125,25 @@ namespace HPUI.Application.Sample.CarView
 	    xSelector.invokeDefault();
 	}
 
-	void updateBar(ButtonController btn)
+	void updateBar(bool btn)
 	{
 	    float currentThresh = 0.5f;
 	    switch(currentSelection)
 	    {
 		case selection.x:
-		    if (btn != null)
+		    if (btn)
 			xLevel = btnMapperStatic.currentCoord.y / (maxY - minY);
 		    CarManager.currentCar.setScaleX(xLevel);
 		    currentThresh = xLevel * (maxY - minY);
 		    break;
 		case selection.y:
-		    if (btn != null)
+		    if (btn)
 			yLevel = btnMapperStatic.currentCoord.y / (maxY - minY);
 		    CarManager.currentCar.setScaleY(yLevel);
 		    currentThresh = yLevel * (maxY - minY);
 		    break;
 		case selection.z:
-		    if (btn != null)
+		    if (btn)
 			zLevel = btnMapperStatic.currentCoord.y / (maxY - minY);
 		    CarManager.currentCar.setScaleZ(zLevel);
 		    currentThresh = zLevel * (maxY - minY);
@@ -184,17 +184,13 @@ namespace HPUI.Application.Sample.CarView
 	    foreach(var btn in btnMapperStatic.buttonControllers)
 	    {
 		btn.gameObject.SetActive(true);
-		btn.contactAction.RemoveListener(updateBar);
+		// btn.contactAction.RemoveListener(updateBar);
 		btn.setSelectionDefault(false);
 		btn.invokeDefault();
-		materialColor.a = 1;
-		material.color = materialColor;
 	    }
-	    if (material)
-	    {
-		materialColor.a = 0;
-		material.color = materialColor;
-	    }
+	    materialColor.a = 1;
+	    material.color = materialColor;
+	    updatedScreen = false;
 	}
 
 	// Update is called once per frame
@@ -208,7 +204,11 @@ namespace HPUI.Application.Sample.CarView
 		}
 		if (!updatedScreen)
 		{
-		    updateBar(null);
+		    updateBar(false);
+		}
+		else
+		{
+		    updateBar(true);
 		}
 	    }
 	}
