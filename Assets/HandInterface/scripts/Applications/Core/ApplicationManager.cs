@@ -30,7 +30,7 @@ namespace HPUI.Application.Core
 	    {
 		app.Deacivate();
 	    }
-	    baseButton.contactAction.AddListener(SwitchApp);
+            baseButton.contactAction.AddListener(SwitchApp);
 	    nextButton.contactAction.AddListener(incrementAppIndex);
 	    previousButton.contactAction.AddListener(decrementAppIndex);
 	    menuDisplay.localRotation = Quaternion.Euler(0, 144, 0);
