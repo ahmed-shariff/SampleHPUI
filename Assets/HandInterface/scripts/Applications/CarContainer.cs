@@ -31,6 +31,7 @@ namespace HPUI.Application.Sample.CarView
 	{
 	    defaultPosition = carObject.localPosition;
 	    defaultRotation = carObject.localRotation;
+	    defaulParent = carObject.parent;
 	    carObject.parent = parent;
 	    carObject.localPosition = Vector3.zero;
 	    carObject.localRotation = Quaternion.identity;

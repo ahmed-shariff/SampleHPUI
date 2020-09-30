@@ -36,13 +36,15 @@ namespace HPUI.Application.Sample.CarView
 	protected override void OnDeactivate()
 	{
 	    resetCar(c1);
-	    resetCar(c2);
+	    resetCar(c2, true);
 	    resetCar(c3);
 	}
 
 	void setupViews()
 	{
-	    OnDeactivate();
+	    resetCar(c1);
+	    resetCar(c2);
+	    resetCar(c3);
 	    if (currentIndex > 0)
 		c1 = manager.Cars[currentIndex - 1];
 	    else 
