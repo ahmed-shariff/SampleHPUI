@@ -185,6 +185,10 @@ namespace HPUI.Application.Sample.CarView
 	    {
 		btn.gameObject.SetActive(true);
 		btn.contactAction.RemoveListener(updateBar);
+		btn.setSelectionDefault(false);
+		btn.invokeDefault();
+		materialColor.a = 1;
+		material.color = materialColor;
 	    }
 	    if (material)
 	    {
