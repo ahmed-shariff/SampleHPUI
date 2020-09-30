@@ -6,6 +6,7 @@ using Unity.Jobs;
 using UnityEngine.Jobs;
 using System;
 using System.Linq;
+using HPUI.Utils;
 
 namespace HPUI.Core
 {
@@ -17,6 +18,7 @@ namespace HPUI.Core
 	private GeneratePlaneMesh generatePlaneMesh;
 	private DeformableMesh deformableMesh;
 	private TransformAccessArray btns;
+	public List<ButtonController> buttonControllers {get; private set;} = new List<ButtonController>();
 
 	public bool generatedBtns {get; private set;} = false;
 	public float width = 1.0f;
@@ -49,8 +51,8 @@ namespace HPUI.Core
 	private Vector3 scaleFactor, _scaleFactor;
 
 	private List<ButtonController> btnControllers = new List<ButtonController>();
-	public class coord {public int x=0; public int y=0; public float maxX=1; public float maxY=1;}
-	public coord currentCoord = new coord();
+
+	public Coord currentCoord = new Coord();
 
 	bool _inUse = false;
 	public bool inUse
@@ -274,6 +276,7 @@ namespace HPUI.Core
 		btn.transform.localRotation = Quaternion.identity;
 		btn.transform.localScale = scaleFactor;// Vector3.one * 0.06f;
 		btnCtrl = btn.GetComponentInChildren<ButtonController>();
+		buttonControllers.Add(btnCtrl);
 		btnCtrl.id = i;
 		// Debug.Log(btnCtrl + "" +  btns + "  " + btnCtrl.transform.parent);
 		_btns[i] = btnCtrl.transform.parent;

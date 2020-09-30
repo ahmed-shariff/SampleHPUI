@@ -9,6 +9,7 @@ namespace HPUI.Core
     [RequireComponent(typeof(GeneratePlaneMesh))]
     public class DeformableMesh : MonoBehaviour
     {
+	// public List<int> skipIds = new List<int>();
 	public Vector3[] originalVertices;
 	public Vector3[] modifiedVertices;
 	Vector3[] undeformedVerticesCoordinates;
@@ -161,6 +162,8 @@ namespace HPUI.Core
 	    double[] functionValues;
 	    for (int i = 0; i < undeformedVerticesCoordinates.Length; i++)
 	    {
+		// if (skipIds.Contains(i))
+		//     continue;
 
 		if (method.Equals("rbf"))
 		{

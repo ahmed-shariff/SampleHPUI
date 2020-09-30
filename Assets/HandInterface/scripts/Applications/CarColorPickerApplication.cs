@@ -33,6 +33,7 @@ namespace HPUI.Application.Sample.CarView
 	// Update is called once per frame
 	void Update()
 	{
+	    // TODO: replace this with the listner for the btns
 	    if (btnMapperStatic.generatedBtns)
 	    {
 		color = mainTexture.GetPixel(Mathf.RoundToInt((btnMapperStatic.currentCoord.x / btnMapperStatic.currentCoord.maxX) * mainTexture.width), Mathf.RoundToInt((btnMapperStatic.currentCoord.y / btnMapperStatic.currentCoord.maxY) * mainTexture.height));

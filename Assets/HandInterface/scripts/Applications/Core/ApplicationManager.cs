@@ -20,6 +20,7 @@ namespace HPUI.Application.Core
 	
 	float currentDisplayAngle = 144;
 	float currentAngle = 144;
+	//TODO: make this be dynamically calculated?
 	float angleIncrement = 5;
 	// Vector3 currentTarget = Vector3.forward;
 
