@@ -34,6 +34,7 @@ namespace HPUI.Application.Core
 	    {
 		app.Deacivate();
 	    }
+	    applications[2].Activate();
 	    baseButton.contactAction.AddListener(SwitchApp);
 	    nextButton.contactAction.AddListener(incrementAppIndex);
 	    previousButton.contactAction.AddListener(decrementAppIndex);

@@ -4,7 +4,7 @@ using UnityEngine;
 using HPUI.Core;
 using HPUI.Application.Core;
 
-namespace HPUI.Application
+namespace HPUI.Application.Sample
 {
     public class MapApplication : ApplicationBase
     {

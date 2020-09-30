@@ -4,11 +4,10 @@ using UnityEngine;
 using HPUI.Core;
 using HPUI.Application.Core;
 
-namespace HPUI.Application
+namespace HPUI.Application.Sample.CarView
 {
-    public class ColorPickerApplication : ApplicationBase
+    public class CarColorPickerApplication : ApplicationBase
     {
-	public Material material;
 	Color color;
 	
 	public BtnMapperStatic btnMapperStatic;
@@ -39,8 +38,7 @@ namespace HPUI.Application
 		color = mainTexture.GetPixel(Mathf.RoundToInt((btnMapperStatic.currentCoord.x / btnMapperStatic.currentCoord.maxX) * mainTexture.width), Mathf.RoundToInt((btnMapperStatic.currentCoord.y / btnMapperStatic.currentCoord.maxY) * mainTexture.height));
 		if (spriteRenderer)
 		    spriteRenderer.color = color;
-		if (material)
-		    material.color = color;
+		CarManager.currentCar.material.color = color;
 	    }
 	}
     }
