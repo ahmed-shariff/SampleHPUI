@@ -25,56 +25,56 @@ namespace HPUI.Utils
 	{
 	    //{"Arm", null},
 	    {"Arm", "Hand"},
-	    {"Hand", "R3D1"},
+	    {"Hand", "R3D1_2_2"},
 
-	    {"R1D1", "R1D2"},
-	    {"R1D2", "R1D3"},
-	    {"R1D3", "R1D4"},
+	    {"R1D1_2", "R1D2_2"},
+	    {"R1D2_2", "R1D3_2"},
+	    {"R1D3_2", "R1D4_2"},
         
-	    {"R2D1", "R2D2"},
-	    {"R2D2", "R2D3"},
-	    {"R2D3", "R2D4"},
+	    {"R2D1_2", "R2D2_2"},
+	    {"R2D2_2", "R2D3_2"},
+	    {"R2D3_2", "R2D4_2"},
         
-	    {"R3D1", "R3D2"},
-	    {"R3D2", "R3D3"},
-	    {"R3D3", "R3D4"},
+	    {"R3D1_2", "R3D2_2"},
+	    {"R3D2_2", "R3D3_2"},
+	    {"R3D3_2", "R3D4_2"},
         
-	    {"R4D1", "R4D2"},
-	    {"R4D2", "R4D3"},
-	    {"R4D3", "R4D4"},
+	    {"R4D1_2", "R4D2_2"},
+	    {"R4D2_2", "R4D3_2"},
+	    {"R4D3_2", "R4D4_2"},
 
-	    {"R5D1", "R5D2"},
-	    {"R5D2", "R5D3"},
-	    {"R5D3", "R5D4"},
+	    {"R5D1_2", "R5D2_2"},
+	    {"R5D2_2", "R5D3_2"},
+	    {"R5D3_2", "R5D4_2"},
 	};
 
 	Dictionary<string, string> segmentParents = new Dictionary<string, string>()
 	{
 	    //{"Arm", null},
 	    {"Hand", "Arm"},
-	    //{"R1D1", "Hand"},
-	    //{"R2D1", "Hand"},
-	    {"R3D1", "Hand"},
-	    //{"R4D1", "Hand"},
-	    //{"R5D1", "Hand"},
+	    //{"R1D1_2", "Hand"},
+	    //{"R2D1_2", "Hand"},
+	    {"R3D1_2", "Hand"},
+	    //{"R4D1_2", "Hand"},
+	    //{"R5D1_2", "Hand"},
 
-	    {"R1D2", "R1D1"},
-	    {"R2D2", "R2D1"},
-	    {"R3D2", "R3D1"},
-	    {"R4D2", "R4D1"},
-	    {"R5D2", "R5D1"},
+	    {"R1D2_2", "R1D1_2"},
+	    {"R2D2_2", "R2D1_2"},
+	    {"R3D2_2", "R3D1_2"},
+	    {"R4D2_2", "R4D1_2"},
+	    {"R5D2_2", "R5D1_2"},
         
-	    {"R1D3", "R1D2"},
-	    {"R2D3", "R2D2"},
-	    {"R3D3", "R3D2"},
-	    {"R4D3", "R4D2"},
-	    {"R5D3", "R5D2"},
+	    {"R1D3_2", "R1D2_2"},
+	    {"R2D3_2", "R2D2_2"},
+	    {"R3D3_2", "R3D2_2"},
+	    {"R4D3_2", "R4D2_2"},
+	    {"R5D3_2", "R5D2_2"},
         
-	    {"R1D4", "R1D3"},
-	    {"R2D4", "R2D3"},
-	    {"R3D4", "R3D3"},
-	    {"R4D4", "R4D3"},
-	    {"R5D4", "R5D3"},
+	    {"R1D4_2", "R1D3_2"},
+	    {"R2D4_2", "R2D3_2"},
+	    {"R3D4_2", "R3D3_2"},
+	    {"R4D4_2", "R4D3_2"},
+	    {"R5D4_2", "R5D3_2"},
 	};
 
 	void Start()
@@ -82,30 +82,30 @@ namespace HPUI.Utils
 	    segmentMarkers = new Dictionary<string, List<string>>() {
 		{ "Arm", new List<string>() {"RFA2", "RFA1"}} ,//{ "RWRB", "RFA2", "RFA1", "RWRA" } } ,
 		{    "Hand", new List<string>() { "RWRB", "RWRA" }} ,//{"RH1", "RH3", "RH6"}}, 
-		{    "R1D1",  new List<string>(){"RTH1"}},
-		{    "R1D2", new List<string>(){"RTH2"}},
-		{    "R1D3", new List<string>(){"RTH3", "RTH3P"}},
-		{    "R1D4", new List<string>{"RTH4"}},
+		{    "R1D1_2",  new List<string>(){"RTH1"}},
+		{    "R1D2_2", new List<string>(){"RTH2"}},
+		{    "R1D3_2", new List<string>(){"RTH3", "RTH3P"}},
+		{    "R1D4_2", new List<string>{"RTH4"}},
 
-		{    "R2D1", new List<string>{"RH2"}},
-		{    "R2D2", new List<string>{"RIF1"}}, 
-		{    "R2D3", new List<string>{"RIF2"}},
-		{    "R2D4", new List<string>{"RIF3"}}, 
+		{    "R2D1_2", new List<string>{"RH2"}},
+		{    "R2D2_2", new List<string>{"RIF1"}}, 
+		{    "R2D3_2", new List<string>{"RIF2"}},
+		{    "R2D4_2", new List<string>{"RIF3"}}, 
         
-		{    "R3D1", new List<string>{"RH3"}},
-		{    "R3D2", new List<string>{"RTF1"}},
-		{    "R3D3", new List<string>{"RTF2"}},
-		{    "R3D4", new List<string>{"RTF3"}},
+		{    "R3D1_2", new List<string>{"RH3"}},
+		{    "R3D2_2", new List<string>{"RTF1"}},
+		{    "R3D3_2", new List<string>{"RTF2"}},
+		{    "R3D4_2", new List<string>{"RTF3"}},
         
-		{    "R4D1", new List<string>{"RH4"}},
-		{    "R4D2", new List<string>{"RRF2"}},
-		{    "R4D3", new List<string>{"RRF3"}},
-		{    "R4D4", new List<string>{"RRF4"}},
+		{    "R4D1_2", new List<string>{"RH4"}},
+		{    "R4D2_2", new List<string>{"RRF2"}},
+		{    "R4D3_2", new List<string>{"RRF3"}},
+		{    "R4D4_2", new List<string>{"RRF4"}},
         
-		{   "R5D1", new List<string>(){"RH5"}}, 
-		{    "R5D2",  new List<string>(){"RPF1"}}, 
-		{    "R5D3", new List<string>(){"RPF2"}},
-		{    "R5D4", new List<string>(){"RPF3"}}
+		{   "R5D1_2", new List<string>(){"RH5"}}, 
+		{    "R5D2_2",  new List<string>(){"RPF1"}}, 
+		{    "R5D3_2", new List<string>(){"RPF2"}},
+		{    "R5D4_2", new List<string>(){"RPF3"}}
 	    };
 	    SetupWriter();
 	    SetupFilter();
@@ -116,20 +116,20 @@ namespace HPUI.Utils
 
 	protected override Dictionary<string, Vector3> processSegments(Dictionary<string, Vector3> segments, Data data)
 	{
-	    palm = segments["Hand"] - (segments["R3D1"] + 0.5f * (segments["R4D1"] - segments["R4D1"]));
-	    normal = Vector3.Cross(palm, segments["R4D1"] - segments["R3D1"]);
-	    baseVectors["R1"] = segments[segmentChild["R1D1"]] - segments["R1D1"];
-	    baseVectors["R2"] = segments[segmentChild["R2D1"]] - segments["R2D1"];
-	    baseVectors["R3"] = segments[segmentChild["R3D1"]] - segments["R3D1"];
-	    baseVectors["R4"] = segments[segmentChild["R4D1"]] - segments["R4D1"];
-	    baseVectors["R5"] = segments[segmentChild["R5D1"]] - segments["R5D1"];
+	    palm = segments["Hand"] - (segments["R3D1_2"] + 0.5f * (segments["R4D1_2"] - segments["R4D1_2"]));
+	    normal = Vector3.Cross(palm, segments["R4D1_2"] - segments["R3D1_2"]);
+	    baseVectors["R1"] = segments[segmentChild["R1D1_2"]] - segments["R1D1_2"];
+	    baseVectors["R2"] = segments[segmentChild["R2D1_2"]] - segments["R2D1_2"];
+	    baseVectors["R3"] = segments[segmentChild["R3D1_2"]] - segments["R3D1_2"];
+	    baseVectors["R4"] = segments[segmentChild["R4D1_2"]] - segments["R4D1_2"];
+	    baseVectors["R5"] = segments[segmentChild["R5D1_2"]] - segments["R5D1_2"];
 
 	    // Debug.Log(data.data["RTH3P"] + "  -  "+ data.data["RTH3"]);
 	    var p1 = data.data["RTH3P"];
 	    var p2 = data.data["RTH3"];
 	    baseVectors["R1_right"] = (new Vector3(p2[0], p2[2], p2[1])) - (new Vector3(p1[0], p1[2], p1[1]));
-	    // Vector3.Cross(segments["R1D4"] - segments["R1D3"], segments["R1D3"] - segments["R1D2"]);
-	    // Debug.DrawRay(segments["R3D1"], normal);
+	    // Vector3.Cross(segments["R1D4_2"] - segments["R1D3_2"], segments["R1D3_2"] - segments["R1D2_2"]);
+	    // Debug.DrawRay(segments["R3D1_2"], normal);
 	    //Debug.Log(normal.magnitude);
 	    //Debug.Log((normal * 0.01f).magnitude);
 	    segments["PalmBase"] = normal;// *0.01f;
