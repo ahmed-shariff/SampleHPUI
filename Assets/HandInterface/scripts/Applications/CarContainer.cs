@@ -17,10 +17,15 @@ namespace HPUI.Application.Sample.CarView
 	
 	private Transform defaulParent;
 	private Vector3 defaultScale;
+	private Vector3 defaultPosition;
+	private Quaternion defaultRotation;
 
 	void Start()
 	{
-	    defaulParent = carObject.transform.parent;
+	    defaulParent = carObject.parent;
+	    defaultScale = carObject.localScale;
+	    defaultPosition = carObject.localPosition;
+	    defaultRotation = carObject.localRotation;
 
 	    scaleXRange.normalizeScaleOn(carObject.localScale.x);
 	    scaleYRange.normalizeScaleOn(carObject.localScale.y);
@@ -29,14 +34,18 @@ namespace HPUI.Application.Sample.CarView
 
 	public void setParent(Transform parent)
 	{
+	    defaultPosition = carObject.localPosition;
+	    defaultRotation = carObject.localRotation;
 	    carObject.parent = parent;
-	    carObject.position = Vector3.zero;
+	    carObject.localPosition = Vector3.zero;
+	    carObject.localRotation = Quaternion.identity;
 	}
 
 	public void resetParent()
 	{
 	    carObject.parent = defaulParent;
-	    carObject.position = Vector3.zero;
+	    carObject.localPosition = defaultPosition;
+	    carObject.localRotation = defaultRotation;
 	}
 
 	public void setScale(float scaleFactor)
