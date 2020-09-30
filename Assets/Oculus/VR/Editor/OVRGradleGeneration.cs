@@ -36,13 +36,16 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEditor.Build;
+#if UNITY_2018_1_OR_NEWER
 using UnityEditor.Build.Reporting;
+#endif
 #if UNITY_ANDROID
 using UnityEditor.Android;
 #endif
 
 [InitializeOnLoad]
 public class OVRGradleGeneration
+#if UNITY_2018_2_OR_NEWER
 	: IPreprocessBuildWithReport, IPostprocessBuildWithReport
 #if UNITY_ANDROID
 	, IPostGenerateGradleAndroidProject
@@ -51,7 +54,7 @@ public class OVRGradleGeneration
 	public OVRADBTool adbTool;
 	public Process adbProcess;
 
-	public int callbackOrder { get { return 99999; } }
+	public int callbackOrder { get { return 3; } }
 	static private System.DateTime buildStartTime;
 	static private System.Guid buildGuid;
 
@@ -135,19 +138,24 @@ public class OVRGradleGeneration
 		UnityEngine.Debug.Log("OVRGradleGeneration triggered.");
 
 		var targetOculusPlatform = new List<string>();
+		if (OVRDeviceSelector.isTargetDeviceGearVrOrGo)
+		{
+			targetOculusPlatform.Add("geargo");
+		}
 		if (OVRDeviceSelector.isTargetDeviceQuest)
 		{
 			targetOculusPlatform.Add("quest");
 		}
 		OVRPlugin.AddCustomMetadata("target_oculus_platform", String.Join("_", targetOculusPlatform.ToArray()));
-		UnityEngine.Debug.LogFormat("Quest = {0}", OVRDeviceSelector.isTargetDeviceQuest);
+		UnityEngine.Debug.LogFormat("  GearVR or Go = {0}  Quest = {1}", OVRDeviceSelector.isTargetDeviceGearVrOrGo, OVRDeviceSelector.isTargetDeviceQuest);
 
 #if UNITY_2019_3_OR_NEWER
 		string gradleBuildPath = Path.Combine(path, "../launcher/build.gradle");
 #else
 		string gradleBuildPath = Path.Combine(path, "build.gradle");
 #endif
-		bool v2SigningEnabled = true;
+		//Enable v2signing for Quest only
+		bool v2SigningEnabled = OVRDeviceSelector.isTargetDeviceQuest && !OVRDeviceSelector.isTargetDeviceGearVrOrGo;
 
 		if (File.Exists(gradleBuildPath))
 		{
@@ -427,5 +435,8 @@ public class OVRGradleGeneration
 			}
 		}
 	}
+#endif
+#else
+{
 #endif
 }

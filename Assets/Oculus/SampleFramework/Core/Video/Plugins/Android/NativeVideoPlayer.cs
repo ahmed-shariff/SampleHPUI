@@ -10,21 +10,12 @@ using UnityEngine;
 
 public static class NativeVideoPlayer {
 
-    public enum PlabackState {
-        Idle = 1,
-        Preparing = 2,
-        Buffering = 3,
-        Ready = 4,
-        Ended = 5
-    }
-
     private static System.IntPtr? _Activity;
     private static System.IntPtr? _VideoPlayerClass;
 
     private static readonly jvalue[] EmptyParams = new jvalue[0];
 
     private static System.IntPtr getIsPlayingMethodId;
-    private static System.IntPtr getCurrentPlaybackStateMethodId;
     private static System.IntPtr getDurationMethodId;
     private static System.IntPtr getPlaybackPositionMethodId;
     private static System.IntPtr setPlaybackPositionMethodId;
@@ -123,17 +114,6 @@ public static class NativeVideoPlayer {
             }
 
             return AndroidJNI.CallStaticBooleanMethod(VideoPlayerClass, getIsPlayingMethodId, EmptyParams);
-        }
-    }
-
-    public static PlabackState CurrentPlaybackState {
-        get {
-            if (getCurrentPlaybackStateMethodId == System.IntPtr.Zero) 
-            {
-                getCurrentPlaybackStateMethodId = AndroidJNI.GetStaticMethodID(VideoPlayerClass, "getCurrentPlaybackState", "()I");
-            }
-
-            return (PlabackState)AndroidJNI.CallStaticIntMethod(VideoPlayerClass, getCurrentPlaybackStateMethodId, EmptyParams);
         }
     }
 

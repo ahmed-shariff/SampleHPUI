@@ -7,7 +7,9 @@ using System.Linq;
 
 using UnityEngine;
 using UnityEditor;
+#if UNITY_2018_1_OR_NEWER
 using UnityEditor.Build.Reporting;
+#endif
 
 public class OVRBundleManager
 {
@@ -26,7 +28,11 @@ public class OVRBundleManager
 	private static string projectDefaultAppIdentifier;
 	private static string projectDefaultVersion;
 	private static ScriptingImplementation projectScriptImplementation;
+#if UNITY_2018_3_OR_NEWER
 	private static ManagedStrippingLevel projectManagedStrippingLevel;
+#else
+	private static StrippingLevel projectStrippingLevel;
+#endif
 	private static bool projectStripEngineCode;
 
 	public static void BuildDeployTransitionAPK(bool useOptionalTransitionApkPackage)
@@ -61,6 +67,7 @@ public class OVRBundleManager
 		string apkOutputPath = Path.Combine(BUNDLE_MANAGER_OUTPUT_PATH, "OVRTransition.apk");
 		DateTime apkBuildStart = DateTime.Now;
 
+#if UNITY_2018_1_OR_NEWER
 		var buildPlayerOptions = new BuildPlayerOptions
 		{
 			scenes = buildScenes,
@@ -80,6 +87,19 @@ public class OVRBundleManager
 		{
 			OVRBundleTool.PrintError();
 		}
+#else
+		string error = BuildPipeline.BuildPlayer(buildScenes, apkOutputPath, BuildTarget.Android,
+			BuildOptions.Development | BuildOptions.AutoRunPlayer);
+
+		if (string.IsNullOrEmpty(error))
+		{
+			OVRBundleTool.PrintSuccess();
+		}
+		else
+		{
+			OVRBundleTool.PrintError();
+		}
+#endif
 		OVRPlugin.SendEvent("oculus_bundle_tool", "apk_build_time", (DateTime.Now - apkBuildStart).TotalSeconds.ToString());
 		PostbuildProjectSettingUpdate();
 	}
@@ -105,12 +125,21 @@ public class OVRBundleManager
 		}
 
 		// Avoid stripping managed code that are necessary for the scenes at runtime
+#if UNITY_2018_3_OR_NEWER
 		projectManagedStrippingLevel = PlayerSettings.GetManagedStrippingLevel(BuildTargetGroup.Android);
 		if (projectManagedStrippingLevel != ManagedStrippingLevel.Disabled)
 		{
 			OVRBundleTool.PrintLog("Build will set Managed Stripping Level to Disabled.");
 			PlayerSettings.SetManagedStrippingLevel(BuildTargetGroup.Android, ManagedStrippingLevel.Disabled);
 		}
+#else
+		projectStrippingLevel = PlayerSettings.strippingLevel;
+		if (projectStrippingLevel != StrippingLevel.Disabled)
+		{
+			OVRBundleTool.PrintLog("Build will set Stripping Level to Disabled.");
+			PlayerSettings.strippingLevel = StrippingLevel.Disabled;
+		}
+#endif
 
 		projectStripEngineCode = PlayerSettings.stripEngineCode;
 		if (projectStripEngineCode)
@@ -135,10 +164,17 @@ public class OVRBundleManager
 		}
 
 		// Restore managed stripping level
+#if UNITY_2018_3_OR_NEWER
 		if (PlayerSettings.GetManagedStrippingLevel(BuildTargetGroup.Android) != projectManagedStrippingLevel)
 		{
 			PlayerSettings.SetManagedStrippingLevel(BuildTargetGroup.Android, projectManagedStrippingLevel);
 		}
+#else
+		if (PlayerSettings.strippingLevel != projectStrippingLevel)
+		{
+			PlayerSettings.strippingLevel = projectStrippingLevel;
+		}
+#endif
 
 		if (PlayerSettings.stripEngineCode != projectStripEngineCode)
 		{

@@ -183,7 +183,8 @@ namespace OculusSampleFramework
 			{
 				removedInteractable.UpdateCollisionDepth(this,
 					_prevInteractableToCollisionInfos[removedInteractable].CollisionDepth,
-					InteractableCollisionDepth.None);
+					InteractableCollisionDepth.None,
+					_prevInteractableToCollisionInfos[removedInteractable].CollidingTool);
 			}
 
 			// tell added interactable what state we are now in
@@ -192,7 +193,7 @@ namespace OculusSampleFramework
 				var addedInteractable = _currInteractableToCollisionInfos[addedInteractableKey];
 				var collisionDepth = addedInteractable.CollisionDepth;
 				addedInteractableKey.UpdateCollisionDepth(this, InteractableCollisionDepth.None,
-					collisionDepth);
+					collisionDepth, _currInteractableToCollisionInfos[addedInteractableKey].CollidingTool);
 			}
 
 			// remaining interactables must be updated
@@ -200,7 +201,8 @@ namespace OculusSampleFramework
 			{
 				var newDepth = _currInteractableToCollisionInfos[remainingInteractableKey].CollisionDepth;
 				var oldDepth = _prevInteractableToCollisionInfos[remainingInteractableKey].CollisionDepth;
-				remainingInteractableKey.UpdateCollisionDepth(this, oldDepth, newDepth);
+				remainingInteractableKey.UpdateCollisionDepth(this, oldDepth, newDepth,
+					_currInteractableToCollisionInfos[remainingInteractableKey].CollidingTool);
 			}
 
 			_prevInteractableToCollisionInfos = new Dictionary<Interactable, InteractableCollisionInfo>(

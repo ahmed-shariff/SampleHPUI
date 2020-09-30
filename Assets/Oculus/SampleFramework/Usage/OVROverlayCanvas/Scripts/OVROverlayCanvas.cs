@@ -20,9 +20,9 @@ using UnityEngine;
 public class OVROverlayCanvas : MonoBehaviour
 {
 	[SerializeField, HideInInspector]
-	private Shader _transparentShader = null;
+	private Shader _transparentShader;
 	[SerializeField, HideInInspector]
-	private Shader _opaqueShader = null;
+	private Shader _opaqueShader;
 
 	RectTransform _rectTransform;
 	Canvas _canvas;

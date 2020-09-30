@@ -1,3 +1,4 @@
+#if UNITY_2018_2_OR_NEWER
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.Build;
@@ -31,7 +32,8 @@ public class OVRShaderBuildProcessor : IPreprocessShaders
 		var strippedGraphicsTiers = new HashSet<GraphicsTier>();
 
 		// Unity only uses shader Tier2 on Quest and Go (regardless of graphics API)
-		if (projectConfig.targetDeviceTypes.Contains(OVRProjectConfig.DeviceType.Quest))
+		if (projectConfig.targetDeviceTypes.Contains(OVRProjectConfig.DeviceType.GearVrOrGo) ||
+			projectConfig.targetDeviceTypes.Contains(OVRProjectConfig.DeviceType.Quest))
 		{
 			strippedGraphicsTiers.Add(GraphicsTier.Tier1);
 			strippedGraphicsTiers.Add(GraphicsTier.Tier3);
@@ -51,3 +53,4 @@ public class OVRShaderBuildProcessor : IPreprocessShaders
 		}
 	}
 }
+#endif
