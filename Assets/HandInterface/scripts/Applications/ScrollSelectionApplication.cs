@@ -59,7 +59,7 @@ namespace HPUI.Application.Sample.CarView
 		c3 = null;
 
 	    setCarView(c1, p1);
-	    setCarView(c2, p2);
+	    setCarView(c2, p2, 1);
 	    setCarView(c3, p3);
 	}
 
@@ -83,7 +83,7 @@ namespace HPUI.Application.Sample.CarView
 	    {
 		c.gameObject.SetActive(true);
 		c.setParent(pos);
-		c.setScale(0.012f * scaleFactor);
+		c.setScale(0.025f * scaleFactor);
 	    }
 	}
 
@@ -95,6 +95,13 @@ namespace HPUI.Application.Sample.CarView
 		c.resetScale();
 		c.gameObject.SetActive(setActive);
 	    }
+	}
+
+	void Update()
+	{
+	    p1.Rotate(0, 0, 0.54f, Space.Self);
+	    p2.Rotate(0, 0, 0.47f, Space.Self);
+	    p3.Rotate(0, 0, 0.5f, Space.Self);
 	}
     }
 }

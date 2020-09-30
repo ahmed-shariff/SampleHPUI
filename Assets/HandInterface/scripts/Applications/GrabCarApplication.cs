@@ -20,5 +20,10 @@ namespace HPUI.Application.Sample.CarView
 	    CarManager.currentCar.resetParent();
 	    CarManager.currentCar.resetScale();
 	}
+
+	void Update()
+	{
+	    grabPosition.Rotate(0, 0, 0.3f, Space.Self);
+	}
     }
 }
