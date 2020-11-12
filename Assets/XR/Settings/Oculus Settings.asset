@@ -16,4 +16,4 @@ MonoBehaviour:
   m_StereoRenderingModeAndroid: 0
   SharedDepthBuffer: 1
   DashSupport: 1
-  V2Signing: 1
+  V2Signing: 0

@@ -63,7 +63,7 @@ namespace HPUI.Application.Core
 	    {
 		applications[currentAppIndex].Deacivate();
 		btnMapperStatic.inUse = false;
-		deformableMesh.gameObject.SetActive(false);
+		// deformableMesh.gameObject.SetActive(false);
 		//currentAppIndex = ++currentAppIndex % applications.Length;
 		OnActivate();
 	    }
