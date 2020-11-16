@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 //using System.Numerics;
@@ -21,6 +22,8 @@ namespace HPUI.Core
     
 	public bool meshGenerated { get; private set; } = false;
 
+        public event Action MeshGeneratedEvent;
+
 	public float x_size;
 	public float y_size;
 
@@ -42,6 +45,12 @@ namespace HPUI.Core
 	public float zVerticesOffset;
 
 	public bool flipUp = false;
+
+        private void OnMeshGeneratedEvent()
+        {
+            if (MeshGeneratedEvent != null)
+                MeshGeneratedEvent();
+        }
 
 	public void Start()
 	{
@@ -86,7 +95,8 @@ namespace HPUI.Core
 	    // if (useSendMessage)
 	    //     SendMessage("MeshRegenerated");
 	    meshGenerated = true;
-	}
+            OnMeshGeneratedEvent();
+        }
 
 	Mesh GenerateMeshBottomMiddleOrigin()
 	{
