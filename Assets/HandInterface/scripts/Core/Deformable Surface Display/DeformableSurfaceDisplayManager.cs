@@ -45,8 +45,8 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 
 	private bool processGenerateBtns = false;
 
-	private Vector3[] vertices;
-	private Vector3[] normals; 
+	private NativeArray<Vector3> vertices;
+	private NativeArray<Vector3> normals; 
 	private Vector3 largestAngle, right, up, drawUp, drawRight, temppos;
 	private int maxX, maxY;
 	private float gridSize;
@@ -113,8 +113,17 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 		// var a = DateTimeOffset.Now.ToUnixTimeMilliseconds();
 		meshDeformer.DeformMesh();
 		// var b = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-		vertices = planeMeshGenerator.mesh.vertices;
-		normals = planeMeshGenerator.mesh.normals;
+
+                if (vertices.IsCreated)
+                    vertices.CopyFrom(planeMeshGenerator.mesh.vertices);
+                else
+                    vertices = new NativeArray<Vector3>(planeMeshGenerator.mesh.vertices, Allocator.Persistent);
+
+                if (normals.IsCreated)
+                    normals.CopyFrom(planeMeshGenerator.mesh.normals);
+                else
+                    normals = new NativeArray<Vector3>(planeMeshGenerator.mesh.normals, Allocator.Persistent);
+
 		right = vertices[10] - vertices[1];
 		maxY = vertices.Length - planeMeshGenerator.x_divisions;
 		maxX = planeMeshGenerator.x_divisions;
@@ -129,7 +138,8 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 			gridSize = gridSize,
 			maxX = maxX,
 			maxY = maxY,
-                        manager = this
+                        normals = normals,
+                        vertices = vertices
 		    };
 
 		var jobHandle = job.Schedule(btns);
@@ -256,24 +266,28 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	    public Vector3 scaleFactor;
 	    public float gridSize; 
 	    public int maxX, maxY;
-            public readonly DeformableSurfaceDisplayManager manager;
+
+            [ReadOnly]
+            public NativeArray<Vector3> vertices;
+            [ReadOnly]
+            public NativeArray<Vector3> normals;
 	
 	    public void Execute(int i, TransformAccess btn)
 	    {
-		temppos = manager.vertices[i];
+		temppos = vertices[i];
 		temppos.z += -0.0002f;
 		btn.localPosition = temppos;
 		if (true)//btn.isSelectionBtn)
 		{
 		    if (i > maxX)
-			up = manager.vertices[i] - manager.vertices[i - maxX];//up = btn.transform.position - btns[i - maxX].transform.position;
+			up = vertices[i] - vertices[i - maxX];//up = btn.transform.position - btns[i - maxX].transform.position;
 		    else
-			up = manager.vertices[i + maxX] - manager.vertices[i];
+			up = vertices[i + maxX] - vertices[i];
 		    
 		    if ( i % maxX == 0)
-			right = manager.vertices[i + 1] - manager.vertices[i];
+			right = vertices[i + 1] - vertices[i];
 		    else
-			right = manager.vertices[i] - manager.vertices[i-1];//right = btn.transform.position - btns[i-1].transform.position;
+			right = vertices[i] - vertices[i-1];//right = btn.transform.position - btns[i-1].transform.position;
 
 		    // if (false)//i == 922)
 		    // {
@@ -284,7 +298,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 		    //     Debug.Log("------ " + i + "   " + (i + 1));
 		    // }
 		    
-		    btn.localRotation = Quaternion.LookRotation(manager.normals[i], up);//Vector3.Cross(right, up), up);//-btn.transform.forward, up);
+		    btn.localRotation = Quaternion.LookRotation(normals[i], up);//Vector3.Cross(right, up), up);//-btn.transform.forward, up);
 		    _scaleFactor.x = (right.magnitude / gridSize) * scaleFactor.x;
 		    _scaleFactor.y = (up.magnitude / gridSize) * scaleFactor.y;
 		    _scaleFactor.z = scaleFactor.z;
@@ -294,7 +308,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 		}
 		else
 		{
-		    btn.localRotation = Quaternion.LookRotation(manager.normals[i]);
+		    btn.localRotation = Quaternion.LookRotation(normals[i]);
 		}
 	    }
 	}
