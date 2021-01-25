@@ -57,6 +57,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 
 	public void MeshRegenerated(PlaneMeshGenerator plane)
 	{
+            this.plane = plane;
 	    Debug.Log("Setting deformable mesh");
 	    plane.mesh.MarkDynamic();
 	    modifiedVertices = null;

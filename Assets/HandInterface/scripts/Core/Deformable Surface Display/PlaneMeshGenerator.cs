@@ -57,7 +57,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 		display = GameObject.Find("DeformableDisplay");
 	}
 
-	public void CreateFlatMesh(float[] dimensions)
+	public void CreateFlatMesh(float[] dimensions, DeformationCoordinateManager deformationCoordinateManager)
 	{
 	    Debug.Log(dimensions[0] + "   " + dimensions[1]);
 	    if (y_divisions == 0)
@@ -86,13 +86,13 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 
 	    Debug.Log("check: " + y_size + " " + x_size + " " + y_divisions + " " + x_divisions + " " + step_size);
 
-	    filter.mesh = GenerateMeshBottomMiddleOrigin();
+	    filter.mesh = GenerateMeshBottomMiddleOrigin(deformationCoordinateManager);
 	    Debug.Log("mesh generated");
 	    meshGenerated = true;
             OnMeshGeneratedEvent();
         }
 
-	Mesh GenerateMeshBottomMiddleOrigin()
+	Mesh GenerateMeshBottomMiddleOrigin(DeformationCoordinateManager deformationCoordinateManager)
 	{
 	    Mesh mesh = new Mesh();
 
@@ -140,7 +140,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	    mesh.SetUVs(0, uvs);
 	    mesh.SetTriangles(triangles, 0);
 
-	    AlignDisplay();
+	    AlignDisplay(deformationCoordinateManager);
         
 	    return mesh;
 	}
@@ -189,7 +189,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	//    return mesh;
 	//}
 
-	void AlignDisplay(bool calcRotation=true)
+	void AlignDisplay(DeformationCoordinateManager deformationCoordinateManager, bool calcRotation=true)
 	{
 	    //display.transform.position = HandCoordinateGetter.palmBottom.transform.position;
 	    //display.transform.localPosition = new Vector3(0, -x_size / 20, 0);
@@ -198,9 +198,9 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 
 	    if (calcRotation)
 	    {
-		Vector3 pos1 = HandCoordinateGetter.middle4.transform.position + HandCoordinateGetter.middle4.transform.forward.normalized * 0.005f;
-		Vector3 forwardDirectionVector = pos1 - HandCoordinateGetter.middle1.transform.position;
-		Vector3 sidewaysDirectionVector = HandCoordinateGetter.index1.transform.position - HandCoordinateGetter.pinky1.transform.position;
+		Vector3 pos1 = deformationCoordinateManager.middle4.transform.position + deformationCoordinateManager.middle4.transform.forward.normalized * 0.005f;
+		Vector3 forwardDirectionVector = pos1 - deformationCoordinateManager.middle1.transform.position;
+		Vector3 sidewaysDirectionVector = deformationCoordinateManager.index1.transform.position - deformationCoordinateManager.pinky1.transform.position;
 		Vector3 upwardDirectionVector = Vector3.Cross(sidewaysDirectionVector, forwardDirectionVector);
 
 		//Debug.DrawLine(HandCoordinateGetter.middle4.transform.position, HandCoordinateGetter.palmBottom.transform.position, Color.white, 200f);

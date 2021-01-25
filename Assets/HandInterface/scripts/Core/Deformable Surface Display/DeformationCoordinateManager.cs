@@ -9,9 +9,10 @@ namespace HPUI.Core.DeformableSurfaceDisplay
       This class modifies the coordnates of a mesh based on some criteria
      */
     [DefaultExecutionOrder(-120)]
-    public class DeformationCoordinateManager : MonoBehaviour
+    public class DeformationCoordinateManager : MonoBehaviour, ICalibrationInterface
     {
-	public bool useSendMessage = true;
+        public DeformableSurfaceDisplayManager deformableSurfaceDisplayManager;
+	public bool useSendMessage = false;
 	//public static GameObject hand;
 
 	public GameObject index1;
@@ -60,7 +61,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	// int pinkyTipIndex = 15;
 	// int middleFingerBottomIndex = 4;
 
-	public bool isCalibrated = false;
+	public bool _isCalibrated = false;
 
 	public bool startFinished = false;
 
@@ -76,11 +77,12 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 
 	public bool useStaticDisplaySize = true;
 
-	public GeneratePlaneMesh generatePlaneMesh;
+	public PlaneMeshGenerator planeMeshGenerator;
+        public DynamicMeshDeformer dynamicMeshDeformer;
     
 	void Start()
 	{
-	    isCalibrated = false;
+	    _isCalibrated = false;
 	    keypoints = new List<Vector3>();
 	    keypointObjects = new List<GameObject>();
 	    calibrationKeypoints = new List<Vector3>();
@@ -208,9 +210,6 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	    //Debug.Log(middle1.transform.position + " " + PalmBase.CoordinatesInPalmReferenceFrame(middle1.transform.position));
 	    //Debug.Log(middle4.transform.position + " " + PalmBase.CoordinatesInPalmReferenceFrame(middle4.transform.position));
 
-	    if (useSendMessage)
-		GenerateNotificationBar.notBar.SendMessage("CreateMesh");
-
 	    startFinished = true;
 	
 	    //Calibrate();
@@ -219,7 +218,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	public void Calibrate()
 	{
 	    // Debug.Log("aaaaaaa");
-	    if (true)//isCalibrated == false)
+	    if (true)//_isCalibrated == false)
 	    {
 		if (DeformableMesh.method != "rbf2")
 		{
@@ -268,26 +267,20 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 
 		//0: height, 1: width
 		float[] dimensions = new float[2];
-		var handCoordinateGetter = FindObjectsOfType<HandCoordinateGetter>();
-		if (handCoordinateGetter.Length != 1)
-		    Debug.LogError("There must be 1 HandCoordinateGetter; but have " + handCoordinateGetter.Length + " in the scene.");
-	    
-		if (handCoordinateGetter[0].useStaticDisplaySize)
+                
+		if (useStaticDisplaySize)
 		{
-		    var btnMapperStatic = FindObjectsOfType<BtnMapperStatic>();
-		    if (btnMapperStatic.Length != 1)
-			Debug.LogError("There must be 1 BtnMapperStatic; but have " + btnMapperStatic.Length + " in the scene.");
 		    //dimensions[0] = Vector3.Distance(calibrationKeypoints[middleFingerTipIndex], calibrationKeypoints[palmBaseIndex]);
-		    dimensions[0] = btnMapperStatic[0].height; //Vector3.Distance(calibrationKeypoints[middleFingerTipIndex], calibrationKeypoints[palmBaseIndex]);
-		    dimensions[1] = btnMapperStatic[0].width; //Vector3.Distance(calibrationKeypoints[indexFingerTipIndex], calibrationKeypoints[pinkyTipIndex]);
+		    dimensions[0] = deformableSurfaceDisplayManager.height; //Vector3.Distance(calibrationKeypoints[middleFingerTipIndex], calibrationKeypoints[palmBaseIndex]);
+		    dimensions[1] = deformableSurfaceDisplayManager.width; //Vector3.Distance(calibrationKeypoints[indexFingerTipIndex], calibrationKeypoints[pinkyTipIndex]);
 		}
 		else
 		{
-		    var generatePlaneMesh = FindObjectsOfType<GeneratePlaneMesh>();
-		    if (generatePlaneMesh.Length != 1)
-			Debug.LogError("There must be 1 GeneratePlaneMesh; but have " + generatePlaneMesh.Length + " in the scene.");
+		    var planeMeshGenerator = FindObjectsOfType<PlaneMeshGenerator>();
+		    if (planeMeshGenerator.Length != 1)
+			Debug.LogError("There must be 1 GeneratePlaneMesh; but have " + planeMeshGenerator.Length + " in the scene.");
 		    var height = Vector3.Distance(index2.transform.position, index4.transform.position) * 1.2f;
-		    var width = (height / generatePlaneMesh[0].inputYDivisions) * generatePlaneMesh[0].inputYDivisions * 1.61f;
+		    var width = (height / planeMeshGenerator[0].y_divisions) * planeMeshGenerator[0].y_divisions * 1.61f;
 		    dimensions = new float[] {height, width};
 		    // calibrationKeypoints[middleFingerTipIndex], calibrationKeypoints[palmBaseIndex]);
 		    // dimensions[1] = Vector3.Distance(index1.transform.position, ring1.transform.position) * 1.9f;
@@ -296,27 +289,28 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	    
 		Debug.Log(dimensions[0] + " " + dimensions[1]);
 
-		generatePlaneMesh.CreateFlatMesh(dimensions);
+		planeMeshGenerator.CreateFlatMesh(dimensions, this);
 
 		undeformedVerticesCoordinates.Clear();
-		for (int i = 0; i < GeneratePlaneMesh.vertices.Count; i++)
+		for (int i = 0; i < planeMeshGenerator.vertices.Count; i++)
 		{
-		    undeformedVerticesCoordinates.Add(PalmBase.CoordinatesInPalmReferenceFrame(GeneratePlaneMesh.displayToWorldCoords(new Vector3(GeneratePlaneMesh.vertices[i].x, GeneratePlaneMesh.vertices[i].y, GeneratePlaneMesh.vertices[i].z))));
+		    undeformedVerticesCoordinates.Add(PalmBase.CoordinatesInPalmReferenceFrame(planeMeshGenerator.displayToWorldCoords(new Vector3(planeMeshGenerator.vertices[i].x, planeMeshGenerator.vertices[i].y, planeMeshGenerator.vertices[i].z))));
 		}
 
 		// GenerateNotificationBar.notBar.SendMessage("CreateMesh");
 
 		Debug.Log("Vertices Count = " + undeformedVerticesCoordinates.Count);
 	    
-		GeneratePlaneMesh.display.SendMessage("MeshRegenerated");
-		isCalibrated = true;
+		// GeneratePlaneMesh.display.SendMessage("MeshRegenerated");
+                dynamicMeshDeformer.MeshRegenerated(planeMeshGenerator);
+		_isCalibrated = true;
 	    }
         
 	}
 
 	void Update()
 	{
-	    if (isCalibrated == true)
+	    if (_isCalibrated == true)
 	    {
 		//Debug.Log(keypointObjects.Count + " " + keypoints.Count);
 
@@ -426,5 +420,10 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	    //returnVector.z = returnVector.z / 2f;
 	    //return returnVector;
 	}
+
+        public bool isCalibrated()
+        {
+            return _isCalibrated;
+        }
     }
 }

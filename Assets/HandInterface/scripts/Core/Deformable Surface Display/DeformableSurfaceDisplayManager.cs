@@ -14,7 +14,15 @@ namespace HPUI.Core.DeformableSurfaceDisplay
     {
 	public GameObject btnPrefab;
 	public Transform planeMeshGeneratorRoot;
-	public ICalibrationInterface calibration;
+        
+        // [RequireInterface(typeof(ICalibrationInterface))]
+	// public UnityEngine.Object calibration;
+
+        [SerializeField]
+        [RequireInterface(typeof(ICalibrationInterface))]
+        private UnityEngine.Object _calibration;
+        public ICalibrationInterface calibration => _calibration as ICalibrationInterface;
+        
 	private PlaneMeshGenerator planeMeshGenerator;
 	private DynamicMeshDeformer meshDeformer;
 	private TransformAccessArray btns;
@@ -48,7 +56,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 
 	public Coord currentCoord = new Coord();
 
-	bool _inUse = false;
+	bool _inUse = true;
 	public bool inUse
 	{
 	    get
@@ -108,11 +116,11 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 		vertices = planeMeshGenerator.mesh.vertices;
 		normals = planeMeshGenerator.mesh.normals;
 		right = vertices[10] - vertices[1];
-		maxY = vertices.Length - GeneratePlaneMesh.x_divisions;
-		maxX = GeneratePlaneMesh.x_divisions;
+		maxY = vertices.Length - planeMeshGenerator.x_divisions;
+		maxX = planeMeshGenerator.x_divisions;
 
 		currentCoord.maxX = maxX;
-		currentCoord.maxY = GeneratePlaneMesh.y_divisions;
+		currentCoord.maxY = planeMeshGenerator.y_divisions;
 
                 // Once the mesh has been deformed, update the locations of the buttons to match the mesh
 		var job = new DeformedBtnLayoutJob()
@@ -155,7 +163,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	{
 	    if (btnControllers.Contains(btn))
 	    {
-		GeneratePlaneMesh.btnIdToxy(btn.id, out currentCoord.x, out currentCoord.y);
+		planeMeshGenerator.idToXY(btn.id, out currentCoord.x, out currentCoord.y);
 	    }
 	}
     
@@ -178,7 +186,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	    for(var i = 0; i < positions.Length; i ++)
 	    {
 		btn = Instantiate(btnPrefab);
-		btn.transform.name = "X" + (int) i % GeneratePlaneMesh.x_divisions + "-Y" + (int) i / GeneratePlaneMesh.x_divisions;
+		btn.transform.name = "X" + (int) i % planeMeshGenerator.x_divisions + "-Y" + (int) i / planeMeshGenerator.x_divisions;
 		// Getting the scale values to set the size of the buttons based on the size of a single square in the generated mesh
 		if (scaleFactor == Vector3.zero)
 		{
@@ -248,7 +256,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	    public Vector3 scaleFactor;
 	    public float gridSize; 
 	    public int maxX, maxY;
-            public DeformableSurfaceDisplayManager manager;
+            public readonly DeformableSurfaceDisplayManager manager;
 	
 	    public void Execute(int i, TransformAccess btn)
 	    {
