@@ -8,9 +8,29 @@ namespace HPUI.Core
     {
 	public Transform parent;
 	public Transform secondParent;
+
+        public int handIndex = 0;
+        public string parentName;
+        
 	// Start is called before the first frame update
 	void Start()
 	{
+            if (!parent)
+            {
+                if (parentName == null || parentName == "")
+                {
+                    var name = transform.name;
+                    HandCoordinateManager manager = GetComponentInParent(typeof(HandCoordinateManager)) as HandCoordinateManager;
+                    if (!manager)
+                        Debug.LogError("Transform linker without `parentName` or `parent` defined alllowed only in decendednts of `HandCoordinateManager`.");
+                    else
+                        parent = manager.getLinkedSkepetonTransform(name);
+                }
+                else
+                {
+                    parent = HandsManager.instance.handCoordinateManagers[handIndex].getProxyTrasnform(parentName);
+                }
+            }
         
 	}
 
