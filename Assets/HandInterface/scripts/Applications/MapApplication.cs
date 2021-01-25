@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using HPUI.Core;
 using HPUI.Application.Core;
+using HPUI.Core.DeformableSurfaceDisplay;
 
 namespace HPUI.Application.Sample
 {
     public class MapApplication : ApplicationBase
     {
-	public BtnMapperStatic btnMapperStatic;
-	public GeneratePlaneMesh generatePlaneMesh;
+	public DeformableSurfaceDisplayManager btnMapperStatic;
+	public PlaneMeshGenerator generatePlaneMesh;
 	public Texture2D mainTexture;
 
 	public SpriteRenderer spriteRenderer;

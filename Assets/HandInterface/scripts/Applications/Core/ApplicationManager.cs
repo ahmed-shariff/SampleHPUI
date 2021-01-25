@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using HPUI.Core;
+using HPUI.Core.DeformableSurfaceDisplay;
 
 namespace HPUI.Application.Core
 {
@@ -11,8 +12,8 @@ namespace HPUI.Application.Core
 	public ButtonController nextButton;
 	public ButtonController previousButton;
 
-	public BtnMapperStatic btnMapperStatic;
-	public DeformableMesh deformableMesh;
+	public DeformableSurfaceDisplayManager btnMapperStatic;
+	public PlaneMeshGenerator deformableMesh;
 	
 	public Transform menuDisplay;
 
@@ -35,7 +36,7 @@ namespace HPUI.Application.Core
 	    // {
 	    // 	app.Deacivate();
 	    // }
-	    // applications[5].Activate();
+	    // applications[4].Activate();
 	    baseButton.contactAction.AddListener(SwitchApp);
 	    nextButton.contactAction.AddListener(incrementAppIndex);
 	    previousButton.contactAction.AddListener(decrementAppIndex);
