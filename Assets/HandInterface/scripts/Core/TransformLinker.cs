@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace HPUI.Core
 {
+    [DefaultExecutionOrder(0)]
     public class TransformLinker : MonoBehaviour
     {
 	public Transform parent;
@@ -24,7 +25,7 @@ namespace HPUI.Core
                     if (!manager)
                         Debug.LogError("Transform linker without `parentName` or `parent` defined alllowed only in decendednts of `HandCoordinateManager`.");
                     else
-                        parent = manager.getLinkedSkepetonTransform(name);
+                        parent = manager.getLinkedSkeletonTransform(name);
                 }
                 else
                 {
