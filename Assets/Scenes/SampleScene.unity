@@ -695,7 +695,7 @@ MonoBehaviour:
   btnPrefab: {fileID: 8323219010113896373, guid: e0df6ea09b7dcca45ac6b0bba4e8cf20,
     type: 3}
   planeMeshGeneratorRoot: {fileID: 1861262677}
-  _calibration: {fileID: 96540559}
+  calibration: {fileID: 96540559}
   width: 0.008
   height: 0.035
   method: 1
@@ -2137,11 +2137,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 271969081}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 240381d584c3ef243ab6f7fbd3afe821, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f2165dc18b3d3a4d82a9603be764ba0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnMapperStatic: {fileID: 6712557853689614096}
-  handCoordinateGetter: {fileID: 144810452}
+  managers:
+  - deformationCoordinateManager: {fileID: 96540559}
+    deformableSurfaceDisplayManager: {fileID: 96540560}
+  - deformationCoordinateManager: {fileID: 582744052}
+    deformableSurfaceDisplayManager: {fileID: 582744053}
+  - deformationCoordinateManager: {fileID: 1193824798}
+    deformableSurfaceDisplayManager: {fileID: 1193824799}
+  - deformationCoordinateManager: {fileID: 1073832291}
+    deformableSurfaceDisplayManager: {fileID: 1073832292}
 --- !u!1 &273582171
 GameObject:
   m_ObjectHideFlags: 0
@@ -4951,7 +4958,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 577606580}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f76c5f74139e36342a91d8874d12a8e3, type: 3}
   m_Name: 
@@ -5131,7 +5138,7 @@ MonoBehaviour:
   btnPrefab: {fileID: 8323219010113896373, guid: e0df6ea09b7dcca45ac6b0bba4e8cf20,
     type: 3}
   planeMeshGeneratorRoot: {fileID: 1408808028}
-  _calibration: {fileID: 582744052}
+  calibration: {fileID: 582744052}
   width: 0.008
   height: 0.035
   method: 1
@@ -8167,7 +8174,7 @@ MonoBehaviour:
   btnPrefab: {fileID: 8323219010113896373, guid: e0df6ea09b7dcca45ac6b0bba4e8cf20,
     type: 3}
   planeMeshGeneratorRoot: {fileID: 240909611}
-  _calibration: {fileID: 1073832291}
+  calibration: {fileID: 1073832291}
   width: 0.008
   height: 0.035
   method: 1
@@ -9113,7 +9120,7 @@ MonoBehaviour:
   btnPrefab: {fileID: 8323219010113896373, guid: e0df6ea09b7dcca45ac6b0bba4e8cf20,
     type: 3}
   planeMeshGeneratorRoot: {fileID: 1790361043}
-  _calibration: {fileID: 1193824798}
+  calibration: {fileID: 1193824798}
   width: 0.008
   height: 0.035
   method: 1
@@ -9173,7 +9180,6 @@ GameObject:
   - component: {fileID: 1199351757}
   - component: {fileID: 1199351756}
   - component: {fileID: 1199351755}
-  - component: {fileID: 1199351754}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -9201,27 +9207,6 @@ RectTransform:
   m_AnchoredPosition: {x: -122.5, y: -104.1}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1199351754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1199351752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f2165dc18b3d3a4d82a9603be764ba0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  managers:
-  - deformationCoordinateManager: {fileID: 96540559}
-    deformableSurfaceDisplayManager: {fileID: 96540560}
-  - deformationCoordinateManager: {fileID: 582744052}
-    deformableSurfaceDisplayManager: {fileID: 582744053}
-  - deformationCoordinateManager: {fileID: 1193824798}
-    deformableSurfaceDisplayManager: {fileID: 1193824799}
-  - deformationCoordinateManager: {fileID: 1073832291}
-    deformableSurfaceDisplayManager: {fileID: 1073832292}
 --- !u!114 &1199351755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9265,7 +9250,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1199351754}
+      - m_Target: {fileID: 271969086}
         m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
@@ -9275,7 +9260,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 1
+        m_CallState: 2
 --- !u!114 &1199351756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10520,7 +10505,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1310786497
 Transform:
   m_ObjectHideFlags: 0
@@ -12256,7 +12241,6 @@ Transform:
   - {fileID: 38776902}
   - {fileID: 144810451}
   - {fileID: 1303640609}
-  - {fileID: 1673776569}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13771,13 +13755,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1673776568}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.11042708, y: -1.008948, z: 10.012695}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 271969082}
-  m_Father: {fileID: 1505686280}
-  m_RootOrder: 3
+  m_Father: {fileID: 6712557853689614093}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1673776570
 MonoBehaviour:
@@ -17984,6 +17968,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4499506389526909057}
+  - {fileID: 1673776569}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

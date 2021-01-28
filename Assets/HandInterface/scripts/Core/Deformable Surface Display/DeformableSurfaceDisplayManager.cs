@@ -18,10 +18,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
         // [RequireInterface(typeof(ICalibrationInterface))]
 	// public UnityEngine.Object calibration;
 
-        [SerializeField]
-        [RequireInterface(typeof(ICalibrationInterface))]
-        private UnityEngine.Object _calibration;
-        public ICalibrationInterface calibration => _calibration as ICalibrationInterface;
+        public DeformationCoordinateManager calibration;
         
 	private PlaneMeshGenerator planeMeshGenerator;
 	private DynamicMeshDeformer meshDeformer;

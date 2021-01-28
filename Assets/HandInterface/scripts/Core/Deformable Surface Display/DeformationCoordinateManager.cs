@@ -9,7 +9,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
       This class modifies the coordnates of a mesh based on some criteria
      */
     [DefaultExecutionOrder(-120)]
-    public class DeformationCoordinateManager : MonoBehaviour, ICalibrationInterface
+    public class DeformationCoordinateManager : MonoBehaviour
     {
         public DeformableSurfaceDisplayManager deformableSurfaceDisplayManager;
 	public bool useSendMessage = false;
