@@ -33,6 +33,8 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	//public static int z_divisions = 50;
 	public float step_size {get; private set;}
 
+        public HandCoordinateManager handCoordinateManager;
+
 	public Transform transformAnchor;
 
 	public GameObject display;
@@ -198,9 +200,9 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 
 	    if (calcRotation)
 	    {
-		Vector3 pos1 = deformationCoordinateManager.middle4.transform.position + deformationCoordinateManager.middle4.transform.forward.normalized * 0.005f;
-		Vector3 forwardDirectionVector = pos1 - deformationCoordinateManager.middle1.transform.position;
-		Vector3 sidewaysDirectionVector = deformationCoordinateManager.index1.transform.position - deformationCoordinateManager.pinky1.transform.position;
+		Vector3 pos1 = handCoordinateManager.getManagedCoord("R3D4_anchor").position + handCoordinateManager.getManagedCoord("R3D4_anchor").forward.normalized * 0.005f;
+		Vector3 forwardDirectionVector = pos1 - handCoordinateManager.getManagedCoord("R3D1_anchor").position;
+		Vector3 sidewaysDirectionVector = handCoordinateManager.getManagedCoord("R2D1_anchor").position - handCoordinateManager.getManagedCoord("R5D1_anchor").position;
 		Vector3 upwardDirectionVector = Vector3.Cross(sidewaysDirectionVector, forwardDirectionVector);
 
 		//Debug.DrawLine(HandCoordinateGetter.middle4.transform.position, HandCoordinateGetter.palmBottom.transform.position, Color.white, 200f);

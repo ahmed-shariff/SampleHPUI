@@ -15,44 +15,22 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	public bool useSendMessage = false;
 	//public static GameObject hand;
 
-	public GameObject index1;
-	public GameObject index2;
-	GameObject index3;
-	public GameObject index4;
-
-	public GameObject middle1;
-	GameObject middle2;
-	GameObject middle3;
-	public GameObject middle4;
-
-	public GameObject ring1;
-	GameObject ring2;
-	GameObject ring3;
-	GameObject ring4;
-
-	public GameObject pinky1;
-	GameObject pinky2;
-	GameObject pinky3;
-	GameObject pinky4;
-
-	public GameObject palmBottom;
-
 	//order of keypoints is as follows:
 	//index 1234 middle 1234 ring 1234 pinky 1234 bottom of palm
-	public List<Vector3> keypoints;
-	public List<Vector3> calibrationKeypoints;
-	public List<Vector3> keypointDifferences;
+	public List<Vector3> keypoints {get; private set;}
+	public List<Vector3> calibrationKeypoints {get; private set;}
+	public List<Vector3> keypointDifferences {get; private set;}
 	private List<GameObject> keypointObjects;
 
-	public List<Vector3> undeformedVerticesCoordinates = new List<Vector3>();
+	public List<Vector3> undeformedVerticesCoordinates {get; private set;} = new List<Vector3>();
 
 	//public List<Vector3> xDifferenceVectors = new List<Vector3>();
 	//public List<Vector3> yDifferenceVectors = new List<Vector3>();
 	//public List<Vector3> zDifferenceVectors = new List<Vector3>();
-	public double[,] xDifferenceVectors;
-	public double[,] yDifferenceVectors;
-	public double[,] zDifferenceVectors;
-	public double[,] xyzDifferenceVectors;
+	public double[,] xDifferenceVectors {get; private set;}
+	public double[,] yDifferenceVectors {get; private set;}
+	public double[,] zDifferenceVectors {get; private set;}
+	public double[,] xyzDifferenceVectors {get; private set;}
 
 	//indices of POI for computing calibration width/height of display
 	// int middleFingerTipIndex = 7;
@@ -61,9 +39,9 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	// int pinkyTipIndex = 15;
 	// int middleFingerBottomIndex = 4;
 
-	public bool _isCalibrated = false;
+	public bool _isCalibrated {get; private set;} = false;
 
-	public bool startFinished = false;
+	public bool startFinished {get; private set;} = false;
 
 	float fingerThreshold;
 	bool indexIsStraight;
@@ -79,6 +57,9 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 
 	public PlaneMeshGenerator planeMeshGenerator;
         public DynamicMeshDeformer dynamicMeshDeformer;
+        public HandCoordinateManager handCoordinateManager;
+
+        public List<string> keyPointsUsed = new List<string>();
     
 	void Start()
 	{
@@ -92,124 +73,14 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 
 	    //find keypoint objects on the hand and add them to ordered list
 
+            // Debug.Log(transform.Find("PlaneMeshTransformAnchors/offset"));
+            // Debug.Log(handCoordinateManager.getManagedCoord("R2D1_anchor/left"));
 
-	    index1 = GameObject.Find("R2D1_anchor");
-	    keypointObjects.Add(index1);
-	    index2 = GameObject.Find("R2D2_anchor");
-	    keypointObjects.Add(index2);
-	    index3 = GameObject.Find("R2D3_anchor");
-	    keypointObjects.Add(index3);
-	    index4 = GameObject.Find("R2D4_anchor");
-	    keypointObjects.Add(index4);
-
-	    middle1 = GameObject.Find("R3D1_anchor");
-	    keypointObjects.Add(middle1);
-	    middle2 = GameObject.Find("R3D2_anchor");
-	    keypointObjects.Add(middle2);
-	    middle3 = GameObject.Find("R3D3_anchor");
-	    keypointObjects.Add(middle3);
-	    middle4 = GameObject.Find("R3D4_anchor");
-	    keypointObjects.Add(middle4);
-	
-	    ring1 = GameObject.Find("R4D1_anchor");
-	    keypointObjects.Add(ring1);
-	    ring2 = GameObject.Find("R4D2_anchor");
-	    keypointObjects.Add(ring2);
-	    ring3 = GameObject.Find("R4D3_anchor");
-	    keypointObjects.Add(ring3);
-	    ring4 = GameObject.Find("R4D4_anchor");
-	    keypointObjects.Add(ring4);
-
-	    // pinky1 = GameObject.Find("R5D1_anchor");
-	    // keypointObjects.Add(pinky1);
-	    // pinky2 = GameObject.Find("R5D2_anchor");
-	    // keypointObjects.Add(pinky2);
-	    // pinky3 = GameObject.Find("R5D3_anchor");
-	    // keypointObjects.Add(pinky3);
-	    // pinky4 = GameObject.Find("R5D4_anchor");
-	    // keypointObjects.Add(pinky4);	
-
-
-	    // index1 = GameObject.Find("R2D1_anchor_2");
-	    // keypointObjects.Add(index1);
-	    // index2 = GameObject.Find("R2D2_anchor_2");
-	    // keypointObjects.Add(index2);
-	    // index3 = GameObject.Find("R2D3_anchor_2");
-	    // keypointObjects.Add(index3);
-	    // index4 = GameObject.Find("R2D4_anchor_2");
-	    // keypointObjects.Add(index4);
-
-	    // middle1 = GameObject.Find("R3D1_anchor_2");
-	    // keypointObjects.Add(middle1);
-	    // middle2 = GameObject.Find("R3D2_anchor_2");
-	    // keypointObjects.Add(middle2);
-	    // middle3 = GameObject.Find("R3D3_anchor_2");
-	    // keypointObjects.Add(middle3);
-	    // middle4 = GameObject.Find("R3D4_anchor_2");
-	    // keypointObjects.Add(middle4);
-	
-	    // ring1 = GameObject.Find("R4D1_anchor_2");
-	    // keypointObjects.Add(ring1);
-	    // ring2 = GameObject.Find("R4D2_anchor_2");
-	    // keypointObjects.Add(ring2);
-	    // ring3 = GameObject.Find("R4D3_anchor_2");
-	    // keypointObjects.Add(ring3);
-	    // ring4 = GameObject.Find("R4D4_anchor_2");
-	    // keypointObjects.Add(ring4);
-
-	    // pinky1 = GameObject.Find("R5D1_anchor_2");
-	    // keypointObjects.Add(pinky1);
-	    // pinky2 = GameObject.Find("R5D2_anchor_2");
-	    // keypointObjects.Add(pinky2);
-	    // pinky3 = GameObject.Find("R5D3_anchor_2");
-	    // keypointObjects.Add(pinky3);
-	    // pinky4 = GameObject.Find("R5D4_anchor_2");
-	    // keypointObjects.Add(pinky4);
-	
-	
-	    index1 = GameObject.Find("R2D1");
-	    //keypointObjects.Add(index1);
-	    index2 = GameObject.Find("R2D2");
-	    //keypointObjects.Add(index2);
-	    index3 = GameObject.Find("R2D3");
-	    //keypointObjects.Add(index3);
-	    index4 = GameObject.Find("R2D4");
-	    //keypointObjects.Add(index4);
-
-	    middle1 = GameObject.Find("R3D1");
-	    //keypointObjects.Add(middle1);
-	    middle2 = GameObject.Find("R3D2");
-	    //keypointObjects.Add(middle2);
-	    middle3 = GameObject.Find("R3D3");
-	    //keypointObjects.Add(middle3);
-	    //middle4 = GameObject.Find("R3D4");
-	    //keypointObjects.Add(middle4);
-
-	    ring1 = GameObject.Find("R4D1");
-	    //keypointObjects.Add(ring1);
-	    ring2 = GameObject.Find("R4D2");
-	    //keypointObjects.Add(ring2);
-	    ring3 = GameObject.Find("R4D3");
-	    //keypointObjects.Add(ring3);
-	    ring4 = GameObject.Find("R4D4");
-	    //keypointObjects.Add(ring4);
-
-	    pinky1 = GameObject.Find("R5D1");
-	    //keypointObjects.Add(pinky1);
-	    pinky2 = GameObject.Find("R5D2");
-	    //keypointObjects.Add(pinky2);
-	    pinky3 = GameObject.Find("R5D3");
-	    //keypointObjects.Add(pinky3);
-	    pinky4 = GameObject.Find("R5D4");
-	    //keypointObjects.Add(pinky4);
-	
-	    palmBottom = GameObject.Find("PalmBase");
-	    keypointObjects.Add(palmBottom);
-
-	    //Debug.Log(palmBottom.transform.position + " " + PalmBase.CoordinatesInPalmReferenceFrame(palmBottom.transform.position));
-	    //Debug.Log(middle1.transform.position + " " + PalmBase.CoordinatesInPalmReferenceFrame(middle1.transform.position));
-	    //Debug.Log(middle4.transform.position + " " + PalmBase.CoordinatesInPalmReferenceFrame(middle4.transform.position));
-
+            foreach (var name in keyPointsUsed)
+            {
+                keypointObjects.Add(handCoordinateManager.getManagedCoord(name).gameObject);
+            }
+            
 	    startFinished = true;
 	
 	    //Calibrate();
@@ -279,7 +150,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 		    var planeMeshGenerator = FindObjectsOfType<PlaneMeshGenerator>();
 		    if (planeMeshGenerator.Length != 1)
 			Debug.LogError("There must be 1 GeneratePlaneMesh; but have " + planeMeshGenerator.Length + " in the scene.");
-		    var height = Vector3.Distance(index2.transform.position, index4.transform.position) * 1.2f;
+		    var height = Vector3.Distance(handCoordinateManager.getManagedCoord("R2D2_anchor").transform.position, handCoordinateManager.getManagedCoord("R2D4_anchor").transform.position) * 1.2f;
 		    var width = (height / planeMeshGenerator[0].y_divisions) * planeMeshGenerator[0].y_divisions * 1.61f;
 		    dimensions = new float[] {height, width};
 		    // calibrationKeypoints[middleFingerTipIndex], calibrationKeypoints[palmBaseIndex]);
@@ -357,46 +228,46 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 		//angle between index 1/2 and 1/4 must be small
 		//angle between middle 1/2 and 1/4 must be small
 		//angle between index 1/4 and middle 1/4 along certain axis must be > threshold
-		fingerThreshold = 30;
-		indexIsStraight = false;
-		middleIsStraight = false;
-		notificationWidthSatisfied = false;
+		// fingerThreshold = 30;
+		// indexIsStraight = false;
+		// middleIsStraight = false;
+		// notificationWidthSatisfied = false;
 
-		index = index4.transform.position - index1.transform.position;
-		indexSmall = index2.transform.position - index1.transform.position;
+		// index = index4.transform.position - index1.transform.position;
+		// indexSmall = index2.transform.position - index1.transform.position;
 
-		if (System.Math.Abs(Vector3.Angle(index, indexSmall)) < fingerThreshold)
-		{
-		    indexIsStraight = true;
-		}
+		// if (System.Math.Abs(Vector3.Angle(index, indexSmall)) < fingerThreshold)
+		// {
+		//     indexIsStraight = true;
+		// }
 
-		middle = middle4.transform.position - middle1.transform.position;
-		middleSmall = middle2.transform.position - middle1.transform.position;
+		// middle = middle4.transform.position - middle1.transform.position;
+		// middleSmall = middle2.transform.position - middle1.transform.position;
 
-		if (System.Math.Abs(Vector3.Angle(middle, middleSmall)) < fingerThreshold)
-		{
-		    middleIsStraight = true;
-		}
+		// if (System.Math.Abs(Vector3.Angle(middle, middleSmall)) < fingerThreshold)
+		// {
+		//     middleIsStraight = true;
+		// }
 
 		//float xBottomDistance = System.Math.Abs(PalmBase.CoordinatesInPalmReferenceFrame(index1.transform.position).x - PalmBase.CoordinatesInPalmReferenceFrame(middle1.transform.position).x);
-		float xTopDistance = System.Math.Abs(PalmBase.CoordinatesInPalmReferenceFrame(index4.transform.position).x - PalmBase.CoordinatesInPalmReferenceFrame(middle4.transform.position).x);
-		float xTopDistance2 = System.Math.Abs(PalmBase.CoordinatesInPalmReferenceFrame(ring4.transform.position).x - PalmBase.CoordinatesInPalmReferenceFrame(middle4.transform.position).x);
-		float xTopDistance3 = System.Math.Abs(PalmBase.CoordinatesInPalmReferenceFrame(ring4.transform.position).x - PalmBase.CoordinatesInPalmReferenceFrame(pinky4.transform.position).x);
+		// float xTopDistance = System.Math.Abs(PalmBase.CoordinatesInPalmReferenceFrame(index4.transform.position).x - PalmBase.CoordinatesInPalmReferenceFrame(middle4.transform.position).x);
+		// float xTopDistance2 = System.Math.Abs(PalmBase.CoordinatesInPalmReferenceFrame(ring4.transform.position).x - PalmBase.CoordinatesInPalmReferenceFrame(middle4.transform.position).x);
+		// float xTopDistance3 = System.Math.Abs(PalmBase.CoordinatesInPalmReferenceFrame(ring4.transform.position).x - PalmBase.CoordinatesInPalmReferenceFrame(pinky4.transform.position).x);
 
 
-		if (xTopDistance > 3.5 * xTopDistance2 && xTopDistance > 3.5 * xTopDistance3)
-		{
-		    notificationWidthSatisfied = true;
-		}
+		// if (xTopDistance > 3.5 * xTopDistance2 && xTopDistance > 3.5 * xTopDistance3)
+		// {
+		//     notificationWidthSatisfied = true;
+		// }
 
-		if (indexIsStraight && middleIsStraight && notificationWidthSatisfied)
-		{
-		    GenerateNotificationBar.shouldRender = true;
-		}
-		else
-		{
-		    GenerateNotificationBar.shouldRender = false;
-		}
+		// if (indexIsStraight && middleIsStraight && notificationWidthSatisfied)
+		// {
+		//     GenerateNotificationBar.shouldRender = true;
+		// }
+		// else
+		// {
+		//     GenerateNotificationBar.shouldRender = false;
+		// }
 
 		// Debug.Log("ttttttttt "+indexIsStraight + " " + middleIsStraight + " " + notificationWidthSatisfied+" "+ xTopDistance+" "+ xTopDistance2);
 

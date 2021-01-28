@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace HPUI.Core
 {
-    [DefaultExecutionOrder(0)]
+    [DefaultExecutionOrder(-130)]
     public class TransformLinker : MonoBehaviour
     {
 	public Transform parent;

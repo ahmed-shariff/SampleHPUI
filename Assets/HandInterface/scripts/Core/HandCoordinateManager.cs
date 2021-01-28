@@ -7,7 +7,7 @@ using System;
 
 namespace HPUI.Core
 {
-    [DefaultExecutionOrder(-100)]
+    [DefaultExecutionOrder(-140)]
     public class HandCoordinateManager : MonoBehaviour
     {
         public Transform skeletonRoot;
@@ -49,8 +49,7 @@ namespace HPUI.Core
             {
                 managedCoordTransforms[name] = getProxyTrasnform(name);
             }
-
-            Debug.Log(string.Join(",", managedCoordTransforms.Select(kvp => kvp.Key + ": " + kvp.Value)));
+            // Debug.Log(string.Join(",", managedCoordTransforms.Select(kvp => kvp.Key + ": " + kvp.Value)));
         }
     }
 
