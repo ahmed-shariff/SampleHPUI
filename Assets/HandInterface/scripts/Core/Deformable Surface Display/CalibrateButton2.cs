@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,9 +10,8 @@ namespace HPUI.Core
     public class CalibrateButton2 : MonoBehaviour
     {
 
-	public DeformableSurfaceDisplayManager deformableSurfaceDisplayManager;
-	public DeformationCoordinateManager deformationCoordinateManager;
-
+	public List<Managers> managers = new List<Managers>();
+        
 	private void OnTriggerEnter(Collider other)
 	{
 	    OnClick();
@@ -19,11 +19,21 @@ namespace HPUI.Core
 
 	public void OnClick()
 	{
-	    if (!deformationCoordinateManager.isCalibrated())
-	    {
-		deformationCoordinateManager.Calibrate();
-		deformableSurfaceDisplayManager.generateBtns();
-	    }
+            foreach (var manager in managers)
+            {
+                if (!manager.deformationCoordinateManager.isCalibrated())
+                {
+                    manager.deformationCoordinateManager.Calibrate();
+                    manager.deformableSurfaceDisplayManager.generateBtns();
+                }
+            }
 	}
+
+        [Serializable]
+        public class Managers
+        {
+            public DeformationCoordinateManager deformationCoordinateManager;
+            public DeformableSurfaceDisplayManager deformableSurfaceDisplayManager;
+        }
     }
 }
