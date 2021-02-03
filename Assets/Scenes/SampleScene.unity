@@ -661,8 +661,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4192c3dcaa83dde4197297a5cc95987c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deformableSurfaceDisplayManager: {fileID: 96540560}
-  useSendMessage: 1
+  width: 0.008
+  height: 0.035
   useStaticDisplaySize: 1
   planeMeshGenerator: {fileID: 1861262678}
   dynamicMeshDeformer: {fileID: 1861262679}
@@ -696,8 +696,6 @@ MonoBehaviour:
     type: 3}
   planeMeshGeneratorRoot: {fileID: 1861262677}
   calibration: {fileID: 96540559}
-  width: 0.008
-  height: 0.035
   method: 1
 --- !u!114 &96540561
 MonoBehaviour:
@@ -5104,8 +5102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4192c3dcaa83dde4197297a5cc95987c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deformableSurfaceDisplayManager: {fileID: 582744053}
-  useSendMessage: 1
+  width: 0.008
+  height: 0.035
   useStaticDisplaySize: 1
   planeMeshGenerator: {fileID: 1408808029}
   dynamicMeshDeformer: {fileID: 1408808025}
@@ -5139,8 +5137,6 @@ MonoBehaviour:
     type: 3}
   planeMeshGeneratorRoot: {fileID: 1408808028}
   calibration: {fileID: 582744052}
-  width: 0.008
-  height: 0.035
   method: 1
 --- !u!114 &582744054
 MonoBehaviour:
@@ -8140,8 +8136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4192c3dcaa83dde4197297a5cc95987c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deformableSurfaceDisplayManager: {fileID: 1073832292}
-  useSendMessage: 1
+  width: 0.008
+  height: 0.035
   useStaticDisplaySize: 1
   planeMeshGenerator: {fileID: 240909612}
   dynamicMeshDeformer: {fileID: 240909608}
@@ -8175,8 +8171,6 @@ MonoBehaviour:
     type: 3}
   planeMeshGeneratorRoot: {fileID: 240909611}
   calibration: {fileID: 1073832291}
-  width: 0.008
-  height: 0.035
   method: 1
 --- !u!114 &1073832293
 MonoBehaviour:
@@ -9086,8 +9080,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4192c3dcaa83dde4197297a5cc95987c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deformableSurfaceDisplayManager: {fileID: 1193824799}
-  useSendMessage: 1
+  width: 0.008
+  height: 0.035
   useStaticDisplaySize: 1
   planeMeshGenerator: {fileID: 1790361044}
   dynamicMeshDeformer: {fileID: 1790361040}
@@ -9121,8 +9115,6 @@ MonoBehaviour:
     type: 3}
   planeMeshGeneratorRoot: {fileID: 1790361043}
   calibration: {fileID: 1193824798}
-  width: 0.008
-  height: 0.035
   method: 1
 --- !u!114 &1193824800
 MonoBehaviour:

@@ -191,7 +191,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	//    return mesh;
 	//}
 
-	void AlignDisplay(DeformationCoordinateManager deformationCoordinateManager, bool calcRotation=true)
+	void AlignDisplay(DeformationCoordinateManager deformationCoordinateManager, bool calcRotation=false)
 	{
 	    //display.transform.position = HandCoordinateGetter.palmBottom.transform.position;
 	    //display.transform.localPosition = new Vector3(0, -x_size / 20, 0);

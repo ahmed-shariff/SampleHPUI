@@ -11,9 +11,12 @@ namespace HPUI.Core.DeformableSurfaceDisplay
     [DefaultExecutionOrder(-120)]
     public class DeformationCoordinateManager : MonoBehaviour
     {
-        public DeformableSurfaceDisplayManager deformableSurfaceDisplayManager;
-	public bool useSendMessage = false;
+        //public bool useSendMessage = false;
 	//public static GameObject hand;
+
+        // Height and Width are here because we want to be able to dynamically edjust the sizes of them based on needs
+        public float width = 1.0f;
+	public float height = 5.0f;
 
 	//order of keypoints is as follows:
 	//index 1234 middle 1234 ring 1234 pinky 1234 bottom of palm
@@ -142,8 +145,8 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 		if (useStaticDisplaySize)
 		{
 		    //dimensions[0] = Vector3.Distance(calibrationKeypoints[middleFingerTipIndex], calibrationKeypoints[palmBaseIndex]);
-		    dimensions[0] = deformableSurfaceDisplayManager.height; //Vector3.Distance(calibrationKeypoints[middleFingerTipIndex], calibrationKeypoints[palmBaseIndex]);
-		    dimensions[1] = deformableSurfaceDisplayManager.width; //Vector3.Distance(calibrationKeypoints[indexFingerTipIndex], calibrationKeypoints[pinkyTipIndex]);
+		    dimensions[0] = height; //Vector3.Distance(calibrationKeypoints[middleFingerTipIndex], calibrationKeypoints[palmBaseIndex]);
+		    dimensions[1] = width; //Vector3.Distance(calibrationKeypoints[indexFingerTipIndex], calibrationKeypoints[pinkyTipIndex]);
 		}
 		else
 		{

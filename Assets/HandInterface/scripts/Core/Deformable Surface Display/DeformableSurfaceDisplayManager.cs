@@ -26,9 +26,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	public List<ButtonController> buttonControllers {get; private set;} = new List<ButtonController>();
 
 	public bool generatedBtns {get; private set;} = false;
-	public float width = 1.0f;
-	public float height = 5.0f;
-
+	
 	[SerializeField]
 	public Method method = Method.mulitifingerFOR_dynamic_deformed_spline;
 
