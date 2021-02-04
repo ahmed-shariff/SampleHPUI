@@ -661,7 +661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   width: 0.012
-  height: 0.035
+  height: 0.045
   useStaticDisplaySize: 1
   planeMeshGenerator: {fileID: 1861262678}
   dynamicMeshDeformer: {fileID: 1861262679}
@@ -5093,7 +5093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   width: 0.012
-  height: 0.035
+  height: 0.05
   useStaticDisplaySize: 1
   planeMeshGenerator: {fileID: 1408808029}
   dynamicMeshDeformer: {fileID: 1408808025}
@@ -8260,7 +8260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   width: 0.012
-  height: 0.035
+  height: 0.04
   useStaticDisplaySize: 1
   planeMeshGenerator: {fileID: 240909612}
   dynamicMeshDeformer: {fileID: 240909608}
@@ -9309,7 +9309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   width: 0.012
-  height: 0.035
+  height: 0.045
   useStaticDisplaySize: 1
   planeMeshGenerator: {fileID: 1790361044}
   dynamicMeshDeformer: {fileID: 1790361040}
