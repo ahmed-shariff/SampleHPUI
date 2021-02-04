@@ -25,13 +25,15 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 
         public event Action MeshGeneratedEvent;
 
-	public float x_size;
-	public float y_size;
+	public float x_size {get; private set;}
+	public float y_size {get; private set;}
 
 	public int x_divisions {get; private set;}
 	public int y_divisions = 35;
 	//public static int z_divisions = 50;
 	public float step_size {get; private set;}
+
+        public OrientationInformation orientationInformation;
 
         public HandCoordinateManager handCoordinateManager;
 
@@ -191,7 +193,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	//    return mesh;
 	//}
 
-	void AlignDisplay(DeformationCoordinateManager deformationCoordinateManager, bool calcRotation=false)
+	void AlignDisplay(DeformationCoordinateManager deformationCoordinateManager, bool calcRotation=true)
 	{
 	    //display.transform.position = HandCoordinateGetter.palmBottom.transform.position;
 	    //display.transform.localPosition = new Vector3(0, -x_size / 20, 0);
@@ -200,9 +202,8 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 
 	    if (calcRotation)
 	    {
-		Vector3 pos1 = handCoordinateManager.getManagedCoord("R3D4_anchor").position + handCoordinateManager.getManagedCoord("R3D4_anchor").forward.normalized * 0.005f;
-		Vector3 forwardDirectionVector = pos1 - handCoordinateManager.getManagedCoord("R3D1_anchor").position;
-		Vector3 sidewaysDirectionVector = handCoordinateManager.getManagedCoord("R2D1_anchor").position - handCoordinateManager.getManagedCoord("R5D1_anchor").position;
+		Vector3 forwardDirectionVector = handCoordinateManager.getManagedCoord(orientationInformation.forwardVectorP2).position - handCoordinateManager.getManagedCoord(orientationInformation.forwardVectorP1).position;
+		Vector3 sidewaysDirectionVector = handCoordinateManager.getManagedCoord(orientationInformation.sideVectorP2).position - handCoordinateManager.getManagedCoord(orientationInformation.sideVectorP1).position;
 		Vector3 upwardDirectionVector = Vector3.Cross(sidewaysDirectionVector, forwardDirectionVector);
 
 		//Debug.DrawLine(HandCoordinateGetter.middle4.transform.position, HandCoordinateGetter.palmBottom.transform.position, Color.white, 200f);
@@ -217,7 +218,8 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	    }
 	    else
 	    {
-		display.transform.localRotation = transformAnchor.localRotation;
+                // There is a descrepency with the local rotation to the rotation of the mesh, hence removing this for now
+		// display.transform.localRotation = transformAnchor.localRotation;
 	    }
 	    display.transform.position = transformAnchor.position;
 	}
@@ -269,6 +271,14 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	{
 	    return (int) (id / GeneratePlaneMesh.x_divisions);
 	}
-    
+
+        [Serializable]
+        public class OrientationInformation
+        {
+            public string sideVectorP1;
+            public string sideVectorP2;
+            public string forwardVectorP1;
+            public string forwardVectorP2;
+        }
     }
 }
