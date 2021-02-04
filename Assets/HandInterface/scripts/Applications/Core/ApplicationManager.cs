@@ -24,7 +24,7 @@ namespace HPUI.Application.Core
 	float angleIncrement = 5;
 	// Vector3 currentTarget = Vector3.forward;
 
-	bool showMenu = true;
+	bool showMenu = false;
 
 	int currentAppIndex = 0;
 	
@@ -35,7 +35,12 @@ namespace HPUI.Application.Core
 	    // {
 	    // 	app.Deacivate();
 	    // }
-	    // applications[4].Activate();
+
+            // For testing
+	    // applications[0].Activate();
+            OnDeactivate();
+            // *******************************************
+            
 	    baseButton.contactAction.AddListener(SwitchApp);
 	    nextButton.contactAction.AddListener(incrementAppIndex);
 	    previousButton.contactAction.AddListener(decrementAppIndex);

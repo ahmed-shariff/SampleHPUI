@@ -1732,7 +1732,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 206837211}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0524, y: 0.0019, z: 0.0213}
+  m_LocalPosition: {x: 0.0448, y: 0.0033, z: 0.0213}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 421512540}
@@ -2596,7 +2596,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   usesDeformableSurface: 1
-  deformableSurfaceDisplayManager: {fileID: 0}
+  deformableSurfaceDisplayManager: {fileID: 815325838}
   highlightXRange:
     min: 0.47
     max: 0.57
@@ -4916,7 +4916,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &577606581
 Transform:
   m_ObjectHideFlags: 0
@@ -6256,7 +6256,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 732532730}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0309, y: 0.012, z: 0.0202}
+  m_LocalPosition: {x: 0.0281, y: 0.012, z: 0.0202}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1301568779}
@@ -7506,7 +7506,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &912252882
 Transform:
   m_ObjectHideFlags: 0
@@ -7538,7 +7538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   usesDeformableSurface: 0
-  deformableSurfaceDisplayManager: {fileID: 0}
+  deformableSurfaceDisplayManager: {fileID: 815325838}
   renderObject: {fileID: 2086622303}
   secondRenderObject: {fileID: 773545675}
   btns: []
@@ -10269,7 +10269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   usesDeformableSurface: 1
-  deformableSurfaceDisplayManager: {fileID: 0}
+  deformableSurfaceDisplayManager: {fileID: 815325838}
   mainTexture: {fileID: 2800000, guid: 37635e116f6b1ce47b2691f925739102, type: 3}
   spriteRenderer: {fileID: 1250716143}
   sprites:
@@ -11994,7 +11994,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1445477360
 Transform:
   m_ObjectHideFlags: 0
@@ -12659,7 +12659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   usesDeformableSurface: 1
-  deformableSurfaceDisplayManager: {fileID: 0}
+  deformableSurfaceDisplayManager: {fileID: 815325838}
   mainTexture: {fileID: 2800000, guid: 7a9df69674f5a8449a666ad2fd6d98b1, type: 3}
   spriteRenderer: {fileID: 348606757}
   sprites:

@@ -51,7 +51,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 
 	public Coord currentCoord = new Coord();
 
-	bool _inUse = true;
+	bool _inUse = false;
 	public bool inUse
 	{
 	    get
@@ -156,7 +156,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 			float yCenterOffset, xCenterOffset;
 			generateBtns(planeMeshGenerator.mesh.vertices, planeMeshGenerator.mesh.normals, planeMeshGenerator.transform, out yCenterOffset, out xCenterOffset);
 			generatedBtns = true;
-			inUse = inUse; //triggering the display
+			inUse = inUse; // This will make the surface display either show or hide based onthe "inUse" status
 			if (inUse)
 			    InteractionManger.instance.getButtons();
 		    }
