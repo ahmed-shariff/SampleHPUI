@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using HPUI.Core;
+using HPUI.Core.DeformableSurfaceDisplay;
 using HPUI.Application.Core;
 using HPUI.Utils;
 
@@ -12,8 +13,7 @@ namespace HPUI.Application.Sample.CarView
     {
 	Color color;
 	
-	public BtnMapperStatic btnMapperStatic;
-	public DeformableMesh deformableMesh;
+	public DeformableSurfaceDisplayManager deformableSurfaceDisplayManager;
 
 	public Range highlightXRange;
 	public Range highlightYRange;
@@ -66,7 +66,7 @@ namespace HPUI.Application.Sample.CarView
 	    minX = GeneratePlaneMesh.x_divisions * highlightXRange.min;
 	    minY = GeneratePlaneMesh.y_divisions * highlightYRange.min;
 		    
-	    foreach(var btn in btnMapperStatic.buttonControllers)
+	    foreach(var btn in deformableSurfaceDisplayManager.buttonControllers)
 	    {
 		GeneratePlaneMesh.btnIdToxy(btn.id, out coord.x, out coord.y);
 		if (coord.x >= minX && coord.y >= minY && coord.x < maxX && coord.y < maxY)
@@ -80,7 +80,7 @@ namespace HPUI.Application.Sample.CarView
 		    btn.gameObject.SetActive(false);
 		}
 	    }
-	    material = deformableMesh.GetComponent<MeshRenderer>().material;
+	    material = deformableSurfaceDisplayManager.MeshRenderer.material;
 	    materialColor = material.color;
 	    materialColor.a = 0;
 	    material.color = materialColor;
@@ -132,19 +132,19 @@ namespace HPUI.Application.Sample.CarView
 	    {
 		case selection.x:
 		    if (btn)
-			xLevel = btnMapperStatic.currentCoord.y / (maxY - minY);
+			xLevel = deformableSurfaceDisplayManager.currentCoord.y / (maxY - minY);
 		    CarManager.currentCar.setScaleX(xLevel);
 		    currentThresh = xLevel * (maxY - minY);
 		    break;
 		case selection.y:
 		    if (btn)
-			yLevel = btnMapperStatic.currentCoord.y / (maxY - minY);
+			yLevel = deformableSurfaceDisplayManager.currentCoord.y / (maxY - minY);
 		    CarManager.currentCar.setScaleY(yLevel);
 		    currentThresh = yLevel * (maxY - minY);
 		    break;
 		case selection.z:
 		    if (btn)
-			zLevel = btnMapperStatic.currentCoord.y / (maxY - minY);
+			zLevel = deformableSurfaceDisplayManager.currentCoord.y / (maxY - minY);
 		    CarManager.currentCar.setScaleZ(zLevel);
 		    currentThresh = zLevel * (maxY - minY);
 		    break;
@@ -173,15 +173,15 @@ namespace HPUI.Application.Sample.CarView
 
 	protected override void OnActivate()
 	{
-	    btnMapperStatic.inUse = true;
+	    deformableSurfaceDisplayManager.inUse = true;
 	}
 
 	protected override void OnDeactivate()
 	{
-	    btnMapperStatic.inUse = false;
+	    deformableSurfaceDisplayManager.inUse = false;
 	    highlightButtons = null;
 	    // deformableMesh.skipIds.Clear();
-	    foreach(var btn in btnMapperStatic.buttonControllers)
+	    foreach(var btn in deformableSurfaceDisplayManager.buttonControllers)
 	    {
 		btn.gameObject.SetActive(true);
 		// btn.contactAction.RemoveListener(updateBar);
@@ -196,7 +196,7 @@ namespace HPUI.Application.Sample.CarView
 	// Update is called once per frame
 	void Update()
 	{
-	    if (btnMapperStatic.generatedBtns)
+	    if (deformableSurfaceDisplayManager.generatedBtns)
 	    {
 		if (highlightButtons == null)
 		{

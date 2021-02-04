@@ -70,7 +70,11 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 		}
 	    }	
 	}
-	
+
+        public MeshRenderer MeshRenderer {
+            get {return planeMeshGenerator.GetComponent<MeshRenderer>();}
+            private set {}}
+        
 	// Start is called before the first frame update
 	void Start()
 	{

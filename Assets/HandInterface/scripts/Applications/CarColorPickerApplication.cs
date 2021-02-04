@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using HPUI.Core;
+using HPUI.Core.DeformableSurfaceDisplay;
 using HPUI.Application.Core;
 
 namespace HPUI.Application.Sample.CarView
@@ -10,8 +11,7 @@ namespace HPUI.Application.Sample.CarView
     {
 	Color color;
 	
-	public BtnMapperStatic btnMapperStatic;
-	public GeneratePlaneMesh generatePlaneMesh;
+	public DeformableSurfaceDisplayManager deformableSurfaceDisplayManager;
 	public Texture2D mainTexture;
 
 	public SpriteRenderer spriteRenderer;
@@ -19,18 +19,18 @@ namespace HPUI.Application.Sample.CarView
 
 	protected override void OnActivate()
 	{
-	    btnMapperStatic.inUse = true;
+	    deformableSurfaceDisplayManager.inUse = true;
 	    spriteRenderer.gameObject.SetActive(true);
-	    generatePlaneMesh.GetComponent<MeshRenderer>().material.mainTexture = mainTexture;
+	    deformableSurfaceDisplayManager.MeshRenderer.material.mainTexture = mainTexture;
 
-	    var materialColor = generatePlaneMesh.GetComponent<MeshRenderer>().material.color;
+	    var materialColor = deformableSurfaceDisplayManager.MeshRenderer.material.color;
 	    materialColor.a = 1;
-	    generatePlaneMesh.GetComponent<MeshRenderer>().material.color = materialColor;
+	    deformableSurfaceDisplayManager.MeshRenderer.material.color = materialColor;
 	}
 
 	protected override void OnDeactivate()
 	{
-	    btnMapperStatic.inUse = false;
+	    deformableSurfaceDisplayManager.inUse = false;
 	    spriteRenderer.gameObject.SetActive(false);
 	}
 
@@ -38,9 +38,9 @@ namespace HPUI.Application.Sample.CarView
 	void Update()
 	{
 	    // TODO: replace this with the listner for the btns
-	    if (btnMapperStatic.generatedBtns)
+	    if (deformableSurfaceDisplayManager.generatedBtns)
 	    {
-		color = mainTexture.GetPixel(Mathf.RoundToInt((btnMapperStatic.currentCoord.x / btnMapperStatic.currentCoord.maxX) * mainTexture.width), Mathf.RoundToInt((btnMapperStatic.currentCoord.y / btnMapperStatic.currentCoord.maxY) * mainTexture.height));
+		color = mainTexture.GetPixel(Mathf.RoundToInt((deformableSurfaceDisplayManager.currentCoord.x / deformableSurfaceDisplayManager.currentCoord.maxX) * mainTexture.width), Mathf.RoundToInt((deformableSurfaceDisplayManager.currentCoord.y / deformableSurfaceDisplayManager.currentCoord.maxY) * mainTexture.height));
 		if (spriteRenderer)
 		    spriteRenderer.color = color;
 		CarManager.currentCar.material.color = color;

@@ -9,8 +9,7 @@ namespace HPUI.Application.Sample
 {
     public class MapApplication : ApplicationBase
     {
-	public DeformableSurfaceDisplayManager btnMapperStatic;
-	public PlaneMeshGenerator generatePlaneMesh;
+	public DeformableSurfaceDisplayManager deformableSurfaceDisplayManager;
 	public Texture2D mainTexture;
 
 	public SpriteRenderer spriteRenderer;
@@ -18,14 +17,14 @@ namespace HPUI.Application.Sample
 
 	protected override void OnActivate()
 	{
-	    btnMapperStatic.inUse = true;
+	    deformableSurfaceDisplayManager.inUse = true;
 	    spriteRenderer.gameObject.SetActive(true);
-	    generatePlaneMesh.GetComponent<MeshRenderer>().material.mainTexture = mainTexture;
+	    deformableSurfaceDisplayManager.MeshRenderer.material.mainTexture = mainTexture;
 	}
 
 	protected override void OnDeactivate()
 	{
-	    btnMapperStatic.inUse = false;
+	    deformableSurfaceDisplayManager.inUse = false;
 	    spriteRenderer.gameObject.SetActive(false);
 	}
 	
@@ -38,7 +37,7 @@ namespace HPUI.Application.Sample
 	// Update is called once per frame
 	void Update()
 	{
-	    if (btnMapperStatic.currentCoord.x == 0 && btnMapperStatic.currentCoord.y == 0)
+	    if (deformableSurfaceDisplayManager.currentCoord.x == 0 && deformableSurfaceDisplayManager.currentCoord.y == 0)
 	    {
 		spriteRenderer.gameObject.SetActive(false);
 	    }
@@ -46,7 +45,7 @@ namespace HPUI.Application.Sample
 	    {
 		spriteRenderer.gameObject.SetActive(true);
 	    
-		if ((btnMapperStatic.currentCoord.x / btnMapperStatic.currentCoord.maxX) > 0.7)
+		if ((deformableSurfaceDisplayManager.currentCoord.x / deformableSurfaceDisplayManager.currentCoord.maxX) > 0.7)
 		    spriteRenderer.sprite = sprites[0];
 		else
 		    spriteRenderer.sprite = sprites[1];

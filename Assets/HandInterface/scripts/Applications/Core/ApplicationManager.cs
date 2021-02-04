@@ -12,8 +12,7 @@ namespace HPUI.Application.Core
 	public ButtonController nextButton;
 	public ButtonController previousButton;
 
-	public DeformableSurfaceDisplayManager btnMapperStatic;
-	public PlaneMeshGenerator deformableMesh;
+	public DeformableSurfaceDisplayManager deformableSurfaceDisplayManager;
 	
 	public Transform menuDisplay;
 
@@ -63,7 +62,7 @@ namespace HPUI.Application.Core
 	    if (showMenu)
 	    {
 		applications[currentAppIndex].Deacivate();
-		btnMapperStatic.inUse = false;
+		deformableSurfaceDisplayManager.inUse = false;
 		// deformableMesh.gameObject.SetActive(false);
 		//currentAppIndex = ++currentAppIndex % applications.Length;
 		OnActivate();
