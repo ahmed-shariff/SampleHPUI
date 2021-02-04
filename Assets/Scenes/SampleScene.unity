@@ -452,6 +452,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialized: 0
+  resolution: 400
   url: https://dl.acm.org
 --- !u!1 &53445120
 GameObject:
@@ -7541,8 +7542,12 @@ MonoBehaviour:
   deformableSurfaceDisplayManager: {fileID: 815325838}
   renderObject: {fileID: 2086622303}
   secondRenderObject: {fileID: 773545675}
-  btns: []
   webAppManager: {fileID: 44946598}
+  deformableDisplays:
+  - {fileID: 96540560}
+  - {fileID: 582744053}
+  - {fileID: 1193824799}
+  - {fileID: 1073832292}
   tempTex: {fileID: 2800000, guid: 7a9df69674f5a8449a666ad2fd6d98b1, type: 3}
 --- !u!1 &914477793
 GameObject:

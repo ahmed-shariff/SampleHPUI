@@ -19,6 +19,9 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	// public UnityEngine.Object calibration;
 
         public DeformationCoordinateManager calibration;
+
+        public float height {get {return calibration.height;} private set {}}
+        public float width {get {return calibration.width;} private set {}}
         
 	private PlaneMeshGenerator planeMeshGenerator;
 	private DynamicMeshDeformer meshDeformer;
