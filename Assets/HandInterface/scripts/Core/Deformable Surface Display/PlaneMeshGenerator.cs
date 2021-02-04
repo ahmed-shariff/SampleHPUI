@@ -91,6 +91,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	    Debug.Log("check: " + y_size + " " + x_size + " " + y_divisions + " " + x_divisions + " " + step_size);
 
 	    filter.mesh = GenerateMeshBottomMiddleOrigin(deformationCoordinateManager);
+            display.GetComponent<MeshRenderer>().material.shader = Shader.Find("Transparent/Diffuse");
 	    Debug.Log("mesh generated");
 	    meshGenerated = true;
             OnMeshGeneratedEvent();
