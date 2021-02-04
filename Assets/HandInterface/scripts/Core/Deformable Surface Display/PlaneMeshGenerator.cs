@@ -63,7 +63,6 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 
 	public void CreateFlatMesh(float[] dimensions, DeformationCoordinateManager deformationCoordinateManager)
 	{
-	    Debug.Log(dimensions[0] + "   " + dimensions[1]);
 	    if (y_divisions == 0)
 		return;
 	    //zVerticesOffset = -0.7f;
@@ -88,10 +87,10 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	    step_size = y_size / y_divisions;
 	    x_divisions = (int)(x_size / step_size);
 
-	    Debug.Log("check: " + y_size + " " + x_size + " " + y_divisions + " " + x_divisions + " " + step_size);
-
 	    filter.mesh = GenerateMeshBottomMiddleOrigin(deformationCoordinateManager);
-            display.GetComponent<MeshRenderer>().material.shader = Shader.Find("Transparent/Diffuse");
+            // display.GetComponent<MeshRenderer>().material = new Material(Shader.Find("Transparent/Diffuse"));
+            // display.GetComponent<MeshRenderer>().material.shader = Shader.Find("Transparent/Diffuse");
+            
 	    Debug.Log("mesh generated");
 	    meshGenerated = true;
             OnMeshGeneratedEvent();
@@ -215,7 +214,6 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 		// if (flipUp)
 		// 	upwardDirectionVector = -upwardDirectionVector;
 		display.transform.rotation = Quaternion.LookRotation(upwardDirectionVector, forwardDirectionVector);
-		Debug.Log("Rotation");
 	    }
 	    else
 	    {

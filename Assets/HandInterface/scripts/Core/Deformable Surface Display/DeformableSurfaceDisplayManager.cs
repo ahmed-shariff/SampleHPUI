@@ -203,8 +203,6 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 		if (scaleFactor == Vector3.zero)
 		{
 		    Vector3 buttonSize = btn.GetComponentInChildren<MeshRenderer>().bounds.size;//.Where(x => x.Zone == ButtonZone.Type.contact).ToList()[0].GetComponent<Collider>();
-		    Debug.Log("+++" + parent.InverseTransformVector(Vector3.up * planeMeshGenerator.step_size).magnitude.ToString("F6") + "  " + (positions[0] - positions[1]).magnitude.ToString("F6"));
-		    Debug.Log("+++" + buttonSize.ToString("F6") + "       " + btn.GetComponentInChildren<MeshRenderer>().transform.lossyScale.ToString("F6"));
 		    // float gridSize = parent.InverseTransformVector(Vector3.up * planeMeshGenerator.step_size).magnitude;
 		    gridSize = parent.InverseTransformVector(positions[0] - positions[1]).magnitude;
 		
@@ -214,7 +212,6 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 		    scaleFactor.y = (gridSize / buttonSize.y) * 1.05f * parent.lossyScale.y;
 		    scaleFactor.z = 1/parent.lossyScale.z;
 		    gridSize = (positions[0] - positions[1]).magnitude;
-		    Debug.Log("+++" + scaleFactor.ToString("F4"));
 		}
 		btn.transform.parent = parent;
 		btn.transform.localPosition = positions[i];
