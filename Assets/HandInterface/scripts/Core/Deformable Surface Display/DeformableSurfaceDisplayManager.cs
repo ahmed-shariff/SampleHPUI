@@ -77,6 +77,25 @@ namespace HPUI.Core.DeformableSurfaceDisplay
         public MeshRenderer MeshRenderer {
             get {return planeMeshGenerator.GetComponent<MeshRenderer>();}
             private set {}}
+
+
+	public void idToXY(int id, out int x, out int y)
+	{
+	    planeMeshGenerator.idToXY(id, out x, out y);
+	}
+
+	public int idToX(int id)
+	{
+	    return planeMeshGenerator.idToX(id);
+	}
+
+	public int idToY(int id)
+	{
+	    return planeMeshGenerator.idToY(id);
+	}
+
+        public int x_divisions {get {return planeMeshGenerator.x_divisions;} private set {}}
+        public int y_divisions {get {return planeMeshGenerator.y_divisions;} private set {}}
         
 	// Start is called before the first frame update
 	void Start()

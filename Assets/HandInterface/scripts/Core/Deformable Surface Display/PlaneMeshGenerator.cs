@@ -263,12 +263,12 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 
 	public int idToX(int id)
 	{
-	    return (int) (id % GeneratePlaneMesh.x_divisions);
+	    return (int) (id % x_divisions);
 	}
 
 	public int idToY(int id)
 	{
-	    return (int) (id / GeneratePlaneMesh.x_divisions);
+	    return (int) (id / x_divisions);
 	}
 
         [Serializable]

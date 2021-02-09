@@ -38,7 +38,7 @@ namespace HPUI.Application.Core
 
             // For testing
 	    // applications[0].Activate();
-            OnDeactivate();
+            // OnDeactivate();
             // *******************************************
             
 	    baseButton.contactAction.AddListener(SwitchApp);
@@ -67,7 +67,7 @@ namespace HPUI.Application.Core
 	    if (showMenu)
 	    {
 		applications[currentAppIndex].Deacivate();
-		deformableSurfaceDisplayManager.inUse = false;
+		// deformableSurfaceDisplayManager.inUse = false;
 		// deformableMesh.gameObject.SetActive(false);
 		//currentAppIndex = ++currentAppIndex % applications.Length;
 		OnActivate();

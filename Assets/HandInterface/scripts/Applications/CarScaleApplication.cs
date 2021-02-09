@@ -60,15 +60,15 @@ namespace HPUI.Application.Sample.CarView
 	    yLevel = CarManager.currentCar.scaleYRange.getInverseScaledValue(scale.y);
 	    zLevel = CarManager.currentCar.scaleZRange.getInverseScaledValue(scale.z);
 	    highlightButtons = new List<ButtonController>();
-	    maxX = GeneratePlaneMesh.x_divisions * highlightXRange.max;
-	    maxY = GeneratePlaneMesh.y_divisions * highlightYRange.max;
+	    maxX = deformableSurfaceDisplayManager.x_divisions * highlightXRange.max;
+	    maxY = deformableSurfaceDisplayManager.y_divisions * highlightYRange.max;
 	    
-	    minX = GeneratePlaneMesh.x_divisions * highlightXRange.min;
-	    minY = GeneratePlaneMesh.y_divisions * highlightYRange.min;
+	    minX = deformableSurfaceDisplayManager.x_divisions * highlightXRange.min;
+	    minY = deformableSurfaceDisplayManager.y_divisions * highlightYRange.min;
 		    
 	    foreach(var btn in deformableSurfaceDisplayManager.buttonControllers)
 	    {
-		GeneratePlaneMesh.btnIdToxy(btn.id, out coord.x, out coord.y);
+		deformableSurfaceDisplayManager.idToXY(btn.id, out coord.x, out coord.y);
 		if (coord.x >= minX && coord.y >= minY && coord.x < maxX && coord.y < maxY)
 		{
 		    highlightButtons.Add(btn);
@@ -154,7 +154,7 @@ namespace HPUI.Application.Sample.CarView
 	    {
 		foreach(var otherBtn in highlightButtons)
 		{
-		    GeneratePlaneMesh.btnIdToxy(otherBtn.id, out coord.x, out coord.y);
+		    deformableSurfaceDisplayManager.idToXY(otherBtn.id, out coord.x, out coord.y);
 		    if (coord.y >= currentThresh)
 		    {
 			otherBtn.setSelectionDefault(true, defaultColor);
