@@ -6,7 +6,7 @@ using HPUI.Application.Core;
 
 namespace HPUI.Application.Sample.CarView
 {
-    public class ScrollSelectionApplication : ApplicationBase
+    public class CarScrollSelectionApplication : ApplicationBase
     {
 	public CarManager manager;
 	public Transform p1;
