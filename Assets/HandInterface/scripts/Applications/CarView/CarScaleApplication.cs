@@ -27,8 +27,8 @@ namespace HPUI.Application.Sample.CarView
 	
 	List<ButtonController> highlightButtons;
 
-	Coord coord = new Coord();
-
+        int x, y;
+        
 	Material material;
 	Color materialColor;
 	bool updatedScreen = false;
@@ -60,16 +60,16 @@ namespace HPUI.Application.Sample.CarView
 	    yLevel = CarManager.currentCar.scaleYRange.getInverseScaledValue(scale.y);
 	    zLevel = CarManager.currentCar.scaleZRange.getInverseScaledValue(scale.z);
 	    highlightButtons = new List<ButtonController>();
-	    maxX = deformableSurfaceDisplayManager.x_divisions * highlightXRange.max;
-	    maxY = deformableSurfaceDisplayManager.y_divisions * highlightYRange.max;
+	    maxX = deformableSurfaceDisplayManager.currentCoord.maxX * highlightXRange.max;
+	    maxY = deformableSurfaceDisplayManager.currentCoord.maxY * highlightYRange.max;
 	    
-	    minX = deformableSurfaceDisplayManager.x_divisions * highlightXRange.min;
-	    minY = deformableSurfaceDisplayManager.y_divisions * highlightYRange.min;
+	    minX = deformableSurfaceDisplayManager.currentCoord.maxX * highlightXRange.min;
+	    minY = deformableSurfaceDisplayManager.currentCoord.maxY * highlightYRange.min;
 		    
 	    foreach(var btn in deformableSurfaceDisplayManager.buttonControllers)
 	    {
-		deformableSurfaceDisplayManager.idToXY(btn.id, out coord.x, out coord.y);
-		if (coord.x >= minX && coord.y >= minY && coord.x < maxX && coord.y < maxY)
+		deformableSurfaceDisplayManager.idToXY(btn.id, out x, out y);
+		if (x >= minX && y >= minY && x < maxX && y < maxY)
 		{
 		    highlightButtons.Add(btn);
 		    // deformableMesh.skipIds.Add(btn.id);
@@ -154,8 +154,8 @@ namespace HPUI.Application.Sample.CarView
 	    {
 		foreach(var otherBtn in highlightButtons)
 		{
-		    deformableSurfaceDisplayManager.idToXY(otherBtn.id, out coord.x, out coord.y);
-		    if (coord.y >= currentThresh)
+		    deformableSurfaceDisplayManager.idToXY(otherBtn.id, out x, out y);
+		    if (y >= currentThresh)
 		    {
 			otherBtn.setSelectionDefault(true, defaultColor);
 		    }

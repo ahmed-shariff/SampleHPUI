@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using Unity.Jobs;
 using UnityEngine.Jobs;
 using System;
@@ -40,6 +41,8 @@ namespace HPUI.Core.DeformableSurfaceDisplay
             fingerFOR_dynamic_deofrmed,
 	    palmFOR
 	}
+
+        public UnityEvent SurfaceReadyAction = new UnityEvent();
 
 	private bool processGenerateBtns = false;
 
@@ -94,9 +97,6 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	    return planeMeshGenerator.idToY(id);
 	}
 
-        public int x_divisions {get {return planeMeshGenerator.x_divisions;} private set {}}
-        public int y_divisions {get {return planeMeshGenerator.y_divisions;} private set {}}
-        
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -179,6 +179,9 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 			generateBtns(planeMeshGenerator.mesh.vertices, planeMeshGenerator.mesh.normals, planeMeshGenerator.transform, out yCenterOffset, out xCenterOffset);
 			generatedBtns = true;
 			inUse = inUse; // This will make the surface display either show or hide based onthe "inUse" status
+                        currentCoord.maxX = planeMeshGenerator.x_divisions;
+                        currentCoord.maxY = planeMeshGenerator.y_divisions;
+                        SurfaceReadyAction.Invoke();
 			if (inUse)
 			    InteractionManger.instance.getButtons();
 		    }
@@ -194,7 +197,10 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	{
 	    if (btnControllers.Contains(btn))
 	    {
-		planeMeshGenerator.idToXY(btn.id, out currentCoord.x, out currentCoord.y);
+                int x, y;
+		planeMeshGenerator.idToXY(btn.id, out x, out y);
+                currentCoord.x = x;
+                currentCoord.y = y;
 	    }
 	}
     

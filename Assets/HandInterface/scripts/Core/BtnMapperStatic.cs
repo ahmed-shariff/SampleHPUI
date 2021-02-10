@@ -230,7 +230,10 @@ namespace HPUI.Core
 	{
 	    if (btnControllers.Contains(btn))
 	    {
-		GeneratePlaneMesh.btnIdToxy(btn.id, out currentCoord.x, out currentCoord.y);
+                int x, y;
+		GeneratePlaneMesh.btnIdToxy(btn.id, out x, out y);
+                currentCoord.x = x;
+                currentCoord.y = y;
 	    }
 	}
     
