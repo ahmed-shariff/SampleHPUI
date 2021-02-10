@@ -34,7 +34,10 @@ namespace HPUI.Application.Sample.InteriorDesign
 	// Start is called before the first frame update
 	void Start()
 	{
-            deformableSurfaceDisplayManager.SurfaceReadyAction.AddListener(setupRoomCoords);
+            if (deformableSurfaceDisplayManager.generatedBtns)
+                setupRoomCoords();
+            else
+                deformableSurfaceDisplayManager.SurfaceReadyAction.AddListener(setupRoomCoords);
 	}
 
         void setupRoomCoords()
