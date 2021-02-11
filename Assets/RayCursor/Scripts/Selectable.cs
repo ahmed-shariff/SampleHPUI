@@ -32,8 +32,7 @@ namespace RayCursor
         private static HashSet<Selectable> AllSelectables = new HashSet<Selectable>();
        
         
-        public event System.Action OnSelect;
-        
+        public event System.Action<Selectable> OnSelect;
 
         public void OnEnable()
         {
@@ -66,7 +65,7 @@ namespace RayCursor
         {
             Debug.Log("Selected: " + gameObject.name);
             if (OnSelect != null)
-                OnSelect();
+                OnSelect(this);
         }
 
 

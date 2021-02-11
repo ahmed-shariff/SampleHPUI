@@ -137,6 +137,12 @@ namespace RayCursor
             clicked = false;
         }
 
+        public void OnDisable()
+        {
+            previousClosest.Highlighted = false;
+            previousClosest = null;
+        }
+
 
         public static Selectable ClosestSelectable(Vector3 p, float minDist = 100f)
         {
