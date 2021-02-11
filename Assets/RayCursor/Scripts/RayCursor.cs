@@ -103,8 +103,7 @@ namespace RayCursor
 
 
         private Selectable previousClosest = null;
-
-        bool clicked=false;
+        private Selectable closest;
 
         void Update()
         {
@@ -119,7 +118,7 @@ namespace RayCursor
             if (rayFiltered != ray.FilterEnabled)
                 ray.FilterEnabled = rayFiltered;
             
-            Selectable closest = ClosestSelectable(cursor.Position, minHighlightDist);
+            closest = ClosestSelectable(cursor.Position, minHighlightDist);
             if (previousClosest != closest)
             {
                 if (previousClosest != null)
@@ -129,18 +128,27 @@ namespace RayCursor
                 previousClosest = closest;
             }
 
-            if (GetInputSelect() && closest != null)
-            {
-                closest.Select();
-                GetCursorMode().OnSelect();
-            }
-            clicked = false;
+            // if (GetInputSelect() && closest != null)
+            // {
+            //     closest.Select();
+            //     GetCursorMode().OnSelect();
+            // }
+            // clicked = false;
+        }
+
+        public void OnEnable()
+        {
+            if (modes != null)
+                modes[currentMode].Init();
         }
 
         public void OnDisable()
         {
-            previousClosest.Highlighted = false;
+            if (previousClosest != null)
+                previousClosest.Highlighted = false;
             previousClosest = null;
+            
+            modes[currentMode].Deinit();
         }
 
 
@@ -186,7 +194,12 @@ namespace RayCursor
         public Transform t;
         public void PressButton()
         {
-            clicked = true;
+            if (closest != null)
+            {
+                Debug.Log("Selected: " + closest);
+                closest.Select();
+                GetCursorMode().OnSelect();
+            }
         }
 
         /**
@@ -194,7 +207,7 @@ namespace RayCursor
          */
         internal bool GetInputSelect()
         {
-            return clicked;
+            return false;
         }
 
         /**
@@ -358,7 +371,7 @@ namespace RayCursor
         public override void Deinit()
         {
             base.Deinit();
-            cursor.SetVisibility(1);
+            // cursor.SetVisibility(1);
         }
 
 

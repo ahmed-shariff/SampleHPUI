@@ -103,7 +103,6 @@ namespace HPUI.Core
             if (processGetButtonsPostProcessAction != null)
             {    
                 processGetButtonsPostProcessAction();
-                Debug.Log("PROCESING");
                 processGetButtonsPostProcessAction = null;
             }
 	}
