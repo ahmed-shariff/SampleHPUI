@@ -70,7 +70,12 @@ namespace HPUI.Application.Core
 	public void setCurrentObj(int idx)
 	{
 	    currentObject = Objects[idx];
-	}   
+	}
+
+        public void setCurrentObj(Transform obj)
+	{
+	    currentObject = obj;
+	}
 
         void OnSelect(Selectable selectable)
         {

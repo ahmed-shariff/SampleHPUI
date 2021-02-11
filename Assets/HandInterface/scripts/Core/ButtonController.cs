@@ -201,6 +201,16 @@ namespace HPUI.Core
 	{
 	    colbe.setSelectionHighlight(selection);
 	}
+
+        public void Hide()
+        {
+            transform.parent.gameObject.SetActive(false);
+        }
+
+        public void Show()
+        {
+            transform.parent.gameObject.SetActive(true);
+        }
     }
 
     [Serializable]

@@ -66,6 +66,25 @@ namespace HPUI.Core
 	    processGetButtonsFlag = true;
 	}
 
+        public void RegisterBtn(ButtonController btn)
+        {
+            if (processGetButtonsFlag)
+                processGetButtonsPostProcessAction += () => _registerBtn(btn);
+            else
+                _registerBtn(btn);
+        }
+        
+        public void _registerBtn(ButtonController btn)
+        {
+            if (btns.Contains(btn))
+                return;
+            btn.setValueCallback = setValue;
+            btn.postContactCallback = postContactCallback;
+            btns.Add(btn);
+        }
+
+        System.Action processGetButtonsPostProcessAction;
+        
 	void processGetButtons()
 	{
 	    buttons = FindObjectsOfType<ButtonController>();
@@ -75,13 +94,18 @@ namespace HPUI.Core
 	    {
 		if (btn.transform.root.transform.name == "Right_hand_button_layout" || btn.transform.root.GetComponent<InteractableButtonsRoot>() != null)
 		{
-		    btn.setValueCallback = setValue;
-		    btn.postContactCallback = postContactCallback;
-		    btns.Add(btn);
+		    _registerBtn(btn);
 		}
 	    }
 	    Debug.Log("Got heaps of buttons "  +  btns.Count);
 	    processGetButtonsFlag = false;
+            
+            if (processGetButtonsPostProcessAction != null)
+            {    
+                processGetButtonsPostProcessAction();
+                Debug.Log("PROCESING");
+                processGetButtonsPostProcessAction = null;
+            }
 	}
 
 	protected virtual void startAmend()
@@ -129,7 +153,7 @@ namespace HPUI.Core
 		    foreach (ButtonController btn in btns)
 		    {
 			buttonCallback(btn);
-			if (btn.stateChanged)
+			if (btn.stateChanged && btn.gameObject.activeInHierarchy)
 			{
 			    switch (btn.state)
 			    {
