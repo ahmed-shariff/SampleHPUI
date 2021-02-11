@@ -42,14 +42,14 @@ namespace HPUI.Application.Core
                 if (obj)
                     Destroy(obj.gameObject);
             }
-            var newObj = Object.Instantiate(manager.currentObject.gameObject).transform;
 
-            var newPosition = spawnPosition.position;
-            newPosition += spawnPosition.forward;
-            newPosition.y = manager.currentObject.position.y;
-            newObj.position = newPosition;
-            newObj.gameObject.SetActive(true);
+            OnSelectionExit();
 	}
+
+        public virtual void OnSelectionExit()
+        {
+            
+        }
 
 	void setupViews()
 	{
@@ -58,7 +58,6 @@ namespace HPUI.Application.Core
                 resetObject(obj);
             }
 
-            Debug.Log("hahah  " + currentIndex);
             for (var i = 0; i < 5 ; i++) // positions.Length??
             {
                 var _i = currentIndex - 2 + i;
@@ -98,7 +97,6 @@ namespace HPUI.Application.Core
 
 	void next(ButtonController btn)
 	{
-            Debug.Log("asdfsadf  " + currentIndex);
 	    if (currentIndex < manager.Objects.Count - 1)
 		currentIndex++;
 	    setupViews();
@@ -106,7 +104,6 @@ namespace HPUI.Application.Core
 
 	void prev(ButtonController btn)
 	{
-            Debug.Log("asdfsadf  " + currentIndex);
 	    if (currentIndex > 0)
 		currentIndex--;
 	    setupViews();
