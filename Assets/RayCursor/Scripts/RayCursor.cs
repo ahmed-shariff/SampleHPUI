@@ -71,6 +71,8 @@ namespace RayCursor
 
         public bool rayFiltered;
 
+        public float minHighlightDist = 100f;
+
 
 
         // Start is called before the first frame update
@@ -102,6 +104,8 @@ namespace RayCursor
 
         private Selectable previousClosest = null;
 
+        bool clicked=false;
+
         void Update()
         {
 
@@ -115,7 +119,7 @@ namespace RayCursor
             if (rayFiltered != ray.FilterEnabled)
                 ray.FilterEnabled = rayFiltered;
             
-            Selectable closest = ClosestSelectable(cursor.Position);
+            Selectable closest = ClosestSelectable(cursor.Position, minHighlightDist);
             if (previousClosest != closest)
             {
                 if (previousClosest != null)
@@ -130,10 +134,11 @@ namespace RayCursor
                 closest.Select();
                 GetCursorMode().OnSelect();
             }
+            clicked = false;
         }
 
 
-        public static Selectable ClosestSelectable(Vector3 p)
+        public static Selectable ClosestSelectable(Vector3 p, float minDist = 100f)
         {
             Selectable closest = null;
             float closestDist = float.MaxValue;
@@ -147,7 +152,8 @@ namespace RayCursor
                 }
             }
 
-
+            if (closestDist > minDist)
+                return null;
             return closest;
         }
 
@@ -171,13 +177,18 @@ namespace RayCursor
             return transferFunctions[currentTransfertFunction];
         }
 
+        public Transform t;
+        public void PressButton()
+        {
+            clicked = true;
+        }
 
         /**
          * <summary>Return true only during the frame the selection button is pressed but was not pressed the frame before (like Input.GetButtonDown()).</summary>
          */
         internal bool GetInputSelect()
         {
-            return Input.GetButtonDown("RayCursorSelect");
+            return clicked;
         }
 
         /**
@@ -185,12 +196,12 @@ namespace RayCursor
          */
         internal bool GetInputTouch()
         {
-            return Input.GetButton("RayCursorTouch");
+            return false;
         }
 
         internal float GetInputTouchY()
         {
-            return Input.GetAxis("RayCursorTouchY");
+            return 0;
         }
     }
 
