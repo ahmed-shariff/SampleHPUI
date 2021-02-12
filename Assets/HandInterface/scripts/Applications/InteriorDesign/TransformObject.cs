@@ -51,7 +51,7 @@ namespace HPUI.Application.Sample.InteriorDesign
 
 	float maxX, maxY, minX, minY;
 
-	selection currentSelection = selection.x;
+	selection currentSelection = selection.y;
 
 	void Start()
 	{
@@ -65,11 +65,79 @@ namespace HPUI.Application.Sample.InteriorDesign
 	
 	void setup()
 	{
+            var rotation = manager.currentObject.localRotation;
+	    xLevel = rotation.eulerAngles.x;
+	    yLevel = rotation.eulerAngles.y;
+	    zLevel = rotation.eulerAngles.z;
+	    highlightButtons = new List<ButtonController>();
+	    maxX = deformableSurfaceDisplayManager.currentCoord.maxX * highlightXRange.max;
+	    maxY = deformableSurfaceDisplayManager.currentCoord.maxY * highlightYRange.max;
+	    
+	    minX = deformableSurfaceDisplayManager.currentCoord.maxX * highlightXRange.min;
+	    minY = deformableSurfaceDisplayManager.currentCoord.maxY * highlightYRange.min;
+		    
+	    foreach(var btn in deformableSurfaceDisplayManager.buttonControllers)
+	    {
+		deformableSurfaceDisplayManager.idToXY(btn.id, out x, out y);
+		if (x >= minX && y >= minY && x < maxX && y < maxY)
+		{
+		    highlightButtons.Add(btn);
+		    // deformableMesh.skipIds.Add(btn.id);
+		    // btn.contactAction.AddListener(updateBar);
+		}
+		else
+		{
+		    btn.gameObject.SetActive(false);
+		}
+	    }
+	    material = deformableSurfaceDisplayManager.MeshRenderer.material;
+	    materialColor = material.color;
+	    materialColor.a = 0;
+	    material.color = materialColor;
+	}
+
+        void setX(ButtonController btn)
+	{
+	    currentSelection = selection.x;
+	    xSelector.setSelectionDefault(true, defaultColor);
+	    xSelector.invokeDefault();
+	    
+	    ySelector.setSelectionDefault(false);
+	    ySelector.invokeDefault();
+	    
+	    zSelector.setSelectionDefault(false);
+	    zSelector.invokeDefault();
+	}
+
+	void setY(ButtonController btn)
+	{
+	    currentSelection = selection.y;
+	    ySelector.setSelectionDefault(true, defaultColor);
+	    ySelector.invokeDefault();
+	    
+	    xSelector.setSelectionDefault(false);
+	    xSelector.invokeDefault();
+	    
+	    zSelector.setSelectionDefault(false);
+	    zSelector.invokeDefault();
+	}
+
+	void setZ(ButtonController btn)
+	{
+	    currentSelection = selection.z;
+	    zSelector.setSelectionDefault(true, defaultColor);
+	    zSelector.invokeDefault();
+	    
+	    ySelector.setSelectionDefault(false);
+	    ySelector.invokeDefault();
+	    
+	    xSelector.setSelectionDefault(false);
+	    xSelector.invokeDefault();
 	}
 
 	protected override void OnActivate()
 	{
-	    //deformableSurfaceDisplayManager.inUse = true;
+	    deformableSurfaceDisplayManager.inUse = true;
             selectionBtn.Show();
             selectionDoneBtn.Show();
             rayCursor.gameObject.SetActive(false);
@@ -80,18 +148,103 @@ namespace HPUI.Application.Sample.InteriorDesign
 
 	protected override void OnDeactivate()
 	{
+            deformableSurfaceDisplayManager.inUse = false;
             rayCursor.gameObject.SetActive(false);
+            
+            highlightButtons = null;
+	    // deformableMesh.skipIds.Clear();
+	    foreach(var btn in deformableSurfaceDisplayManager.buttonControllers)
+	    {
+		btn.gameObject.SetActive(true);
+		// btn.contactAction.RemoveListener(updateBar);
+		btn.setSelectionDefault(false);
+		btn.invokeDefault();
+	    }
+	    materialColor.a = 1;
+	    material.color = materialColor;
+	    updatedScreen = false;
 	}
 
+
+        void updateBar(bool btn)
+	{
+	    float currentThresh = 0.5f;
+            Vector3 ea = new Vector3();
+	    switch(currentSelection)
+	    {
+		case selection.x:
+		    if (btn)
+			xLevel = deformableSurfaceDisplayManager.currentCoord.y / (maxY - minY);
+                    ea = manager.currentObject.localEulerAngles;
+                    ea.x = xLevel * 360;
+                    manager.currentObject.localEulerAngles = ea;
+		    currentThresh = xLevel * (maxY - minY);
+		    break;
+		case selection.y:
+		    if (btn)
+			yLevel = deformableSurfaceDisplayManager.currentCoord.y / (maxY - minY);
+                    ea = manager.currentObject.localEulerAngles;
+                    ea.y = yLevel * 360;
+                    manager.currentObject.localEulerAngles = ea;
+                    currentThresh = yLevel * (maxY - minY);
+		    break;
+		case selection.z:
+		    if (btn)
+			zLevel = deformableSurfaceDisplayManager.currentCoord.y / (maxY - minY);
+                    ea = manager.currentObject.localEulerAngles;
+                    ea.z = zLevel * 360;
+                    manager.currentObject.localEulerAngles = ea;
+		    currentThresh = zLevel * (maxY - minY);
+		    break;
+	    }
+
+	    try
+	    {
+		foreach(var otherBtn in highlightButtons)
+		{
+		    deformableSurfaceDisplayManager.idToXY(otherBtn.id, out x, out y);
+		    if (y >= currentThresh)
+		    {
+			otherBtn.setSelectionDefault(true, defaultColor);
+		    }
+		    else
+		    {
+			otherBtn.setSelectionDefault(true, highlightColor);
+		    }
+		    otherBtn.invokeDefault();
+		}
+		updatedScreen = true;
+	    }
+	    catch(NullReferenceException e)
+	    {}
+	}
+
+        
 	// Update is called once per frame
 	void Update()
 	{
+	    if (deformableSurfaceDisplayManager.generatedBtns)
+	    {
+		if (highlightButtons == null)
+		{
+		    setup();
+		}
+		if (!updatedScreen)
+		{
+		    updateBar(false);
+		}
+		else
+		{
+		    updateBar(true);
+		}
+            }
 	}
 
         void selectionBtnEvent(ButtonController btn=null)
         {
             // selectionBtn.Hide();
             // selectionDoneBtn.Show();
+            deformableSurfaceDisplayManager.inUse = false;
             rayCursor.gameObject.SetActive(true);
         }
 
@@ -100,6 +253,7 @@ namespace HPUI.Application.Sample.InteriorDesign
             // selectionBtn.Show();
             // selectionDoneBtn.Hide();
             rayCursor.PressButton();
+            deformableSurfaceDisplayManager.inUse = true;
             rayCursor.gameObject.SetActive(false);
         }
     }

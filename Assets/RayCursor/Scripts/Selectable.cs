@@ -63,7 +63,7 @@ namespace RayCursor
 
         internal void Select()
         {
-            Debug.Log("Selected: " + gameObject.name);
+            Debug.Log("Selected: " + transform.parent.name);
             if (OnSelect != null)
                 OnSelect(this);
         }

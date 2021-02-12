@@ -13,7 +13,7 @@ namespace HPUI.Application.Sample.InteriorDesign
     {
         public override void OnSelectionExit()
         {
-            var newObj = UnityEngine.Object.Instantiate(manager.currentObject.gameObject).transform;
+            var newObj = manager.ReplicateCurrentObject().transform;
 
             var newPosition = spawnPosition.position;
             newPosition += spawnPosition.forward;

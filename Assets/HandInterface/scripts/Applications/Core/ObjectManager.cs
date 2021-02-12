@@ -81,5 +81,12 @@ namespace HPUI.Application.Core
         {
             currentObject = selectable.transform.parent;
         }
+
+        public GameObject ReplicateCurrentObject()
+        {
+            var ob = UnityEngine.Object.Instantiate(currentObject.gameObject);
+            ob.GetComponentInChildren<Selectable>().OnSelect += OnSelect;
+            return ob;
+        }
     }
 }
