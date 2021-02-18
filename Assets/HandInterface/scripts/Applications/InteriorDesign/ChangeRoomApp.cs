@@ -14,6 +14,9 @@ namespace HPUI.Application.Sample.InteriorDesign
 
         public Transform avatar;
 
+	public Color defaultColor;
+	public Color highlightColor;
+
 	public Transform[] positions = new Transform[3];
 
         int[,] roomCoords;
@@ -47,12 +50,13 @@ namespace HPUI.Application.Sample.InteriorDesign
             {
                 for (var _y = 0; _y < deformableSurfaceDisplayManager.currentCoord.maxY; _y++)
                 {
+                    var row = 0;
                     if (_x / deformableSurfaceDisplayManager.currentCoord.maxX < 0.5)
-                        roomCoords[_x, _y] = 0;
-                    else if (_y / deformableSurfaceDisplayManager.currentCoord.maxY > 0.5)
-                        roomCoords[_x, _y] = 1;
+                        row = 1;
+                    if (_y / deformableSurfaceDisplayManager.currentCoord.maxY > 0.5)
+                        roomCoords[_x, _y] = 0 + 2 * row;
                     else
-                        roomCoords[_x, _y] = 2;
+                        roomCoords[_x, _y] = 1 + 2 * row;;
                 }
             }
         }
@@ -64,8 +68,23 @@ namespace HPUI.Application.Sample.InteriorDesign
             {
                 if (deformableSurfaceDisplayManager.currentCoord.StateChanged)
                 {
-                    avatar.position = positions[roomCoords[deformableSurfaceDisplayManager.currentCoord.x, deformableSurfaceDisplayManager.currentCoord.y]].position;
+                    var id = roomCoords[deformableSurfaceDisplayManager.currentCoord.x, deformableSurfaceDisplayManager.currentCoord.y];
+                    avatar.position = positions[id].position;
                     deformableSurfaceDisplayManager.currentCoord.Reset();
+                    foreach(var btn in deformableSurfaceDisplayManager.buttonControllers)
+                    {
+                        int x, y;
+                        deformableSurfaceDisplayManager.idToXY(btn.id, out x, out y);
+                        if (roomCoords[x, y] == id)
+                        {
+                            btn.setSelectionDefault(true, highlightColor);
+                        }
+                        else
+                        {
+                            btn.setSelectionDefault(true, defaultColor);
+                        }
+                        btn.invokeDefault();
+                    }
                 }
             }
         }
