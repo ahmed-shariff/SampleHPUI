@@ -10,14 +10,11 @@ using RayCursor;
 
 namespace HPUI.Application.Sample.InteriorDesign
 {
-    public class TransformObject : ApplicationBase
+    public class TransformObject : ObjectSelection
     {
 	Color color;
 	
 	public DeformableSurfaceDisplayManager deformableSurfaceDisplayManager;
-        public ObjectManager manager;
-
-        public RayCursor.RayCursor rayCursor;
 
 	public Range highlightXRange;
 	public Range highlightYRange;
@@ -29,9 +26,6 @@ namespace HPUI.Application.Sample.InteriorDesign
 	public ButtonController ySelector;
 	public ButtonController zSelector;
 
-        public ButtonController selectionBtn;
-        public ButtonController selectionDoneBtn;
-	
 	List<ButtonController> highlightButtons;
 
         int x, y;
@@ -137,19 +131,14 @@ namespace HPUI.Application.Sample.InteriorDesign
 
 	protected override void OnActivate()
 	{
+            base.OnActivate();
 	    deformableSurfaceDisplayManager.inUse = true;
-            selectionBtn.Show();
-            selectionDoneBtn.Show();
-            rayCursor.gameObject.SetActive(false);
-
-            if (!buttonsToRegister.Contains(selectionDoneBtn))
-                buttonsToRegister.Add(selectionDoneBtn);
 	}
 
 	protected override void OnDeactivate()
 	{
+            base.OnDeactivate();
             deformableSurfaceDisplayManager.inUse = false;
-            rayCursor.gameObject.SetActive(false);
             
             highlightButtons = null;
 	    // deformableMesh.skipIds.Clear();
