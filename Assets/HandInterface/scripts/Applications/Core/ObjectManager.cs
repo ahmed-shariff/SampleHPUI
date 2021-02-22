@@ -14,13 +14,19 @@ namespace HPUI.Application.Core
 
         public bool autoPopulate = false;
 
+        public bool hideObjectsOnInintialization = true;
+        
         public GameObject objectSelectionColliderPrefab;
 
 	void Start()
 	{
+            initialize();
+        }
+
+        public void initialize()
+        {
             if (autoPopulate)
             {
-                int id = 0;
                 foreach (Transform child in transform)
                 {
                     Objects.Add(child);
@@ -29,26 +35,20 @@ namespace HPUI.Application.Core
                     {
                         s.OnSelect += OnSelect;
                     }
-                    else
+                    else if (objectSelectionColliderPrefab != null)
                     {
                         Vector3 min = new Vector3(100, 100, 100);
                         Vector3 max = new Vector3(-100, -100, -100);
+                        var selfMeshRenderer = GetComponent<MeshRenderer>();
+                        if (selfMeshRenderer != null)
+                        {    
+                            min = setMinPoints(selfMeshRenderer, min);
+                            max = setMaxPoints(selfMeshRenderer, max);
+                        }
                         foreach (var mr in child.GetComponentsInChildren<MeshRenderer>())
                         {
-                            Debug.Log(child.name +" :: " + mr.bounds.min);
-                            if (min.x > mr.bounds.min.x)
-                                min.x = mr.bounds.min.x;
-                            if (min.y > mr.bounds.min.y)
-                                min.y = mr.bounds.min.y;
-                            if (min.z > mr.bounds.min.z)
-                                min.z = mr.bounds.min.z;
-
-                            if (max.x < mr.bounds.max.x)
-                                max.x = mr.bounds.max.x;
-                            if (max.y < mr.bounds.max.y)
-                                max.y = mr.bounds.max.y;
-                            if (max.z < mr.bounds.max.z)
-                                max.z = mr.bounds.max.z;
+                            min = setMinPoints(mr, min);
+                            max = setMaxPoints(mr, max);
                         }
                         var diff = max-min;
                         var ob = Instantiate(objectSelectionColliderPrefab, diff/2 + min, Quaternion.identity);
@@ -60,12 +60,38 @@ namespace HPUI.Application.Core
                     }
                 }
             }
-            
-	    foreach(var obj in Objects)
-		obj.gameObject.SetActive(false);
-	    currentObject = Objects[0];
+
+            if (hideObjectsOnInintialization)
+            {    
+                foreach(var obj in Objects)
+                    obj.gameObject.SetActive(false);
+            }
+
+            currentObject = Objects[0];
 	    configured = true;
 	}
+
+        Vector3 setMinPoints(MeshRenderer mr, Vector3 min)
+        {
+            if (min.x > mr.bounds.min.x)
+                min.x = mr.bounds.min.x;
+            if (min.y > mr.bounds.min.y)
+                min.y = mr.bounds.min.y;
+            if (min.z > mr.bounds.min.z)
+                min.z = mr.bounds.min.z;
+            return min;
+        }
+
+        Vector3 setMaxPoints(MeshRenderer mr, Vector3 max)
+        {
+            if (max.x < mr.bounds.max.x)
+                max.x = mr.bounds.max.x;
+            if (max.y < mr.bounds.max.y)
+                max.y = mr.bounds.max.y;
+            if (max.z < mr.bounds.max.z)
+                max.z = mr.bounds.max.z;
+            return max;
+        }
 
 	public void setCurrentObj(int idx)
 	{

@@ -33,6 +33,7 @@ namespace RayCursor
        
         
         public event System.Action<Selectable> OnSelect;
+        public event System.Action<Selectable> OnHighlight;
 
         public void OnEnable()
         {
@@ -104,6 +105,8 @@ namespace RayCursor
 
                 if (value)
                 {
+                    if (OnHighlight != null)
+                        OnHighlight(this);
                     SecondMaterial = RayCursor.instance.highlightMaterial;
                 }
                 else

@@ -11,6 +11,8 @@ namespace HPUI.Application.Sample.InteriorDesign
 {
     public class SpawnHandScrollMenu : HandScrollMenu
     {
+        public Transform spawnPosition;
+        
         public override void OnSelectionExit()
         {
             var newObj = manager.ReplicateCurrentObject().transform;

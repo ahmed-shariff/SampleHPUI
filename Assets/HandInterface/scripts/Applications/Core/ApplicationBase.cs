@@ -24,7 +24,7 @@ namespace HPUI.Application.Core
             }
 	}
 
-	public void Deacivate()
+	public void Deactivate()
 	{
 	    OnDeactivate();
 	    gameObject.SetActive(false);

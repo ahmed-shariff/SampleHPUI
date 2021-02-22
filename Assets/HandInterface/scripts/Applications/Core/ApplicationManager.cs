@@ -66,7 +66,7 @@ namespace HPUI.Application.Core
 	{
 	    if (showMenu)
 	    {
-		applications[currentAppIndex].Deacivate();
+		applications[currentAppIndex].Deactivate();
 		// deformableSurfaceDisplayManager.inUse = false;
 		// deformableMesh.gameObject.SetActive(false);
 		//currentAppIndex = ++currentAppIndex % applications.Length;

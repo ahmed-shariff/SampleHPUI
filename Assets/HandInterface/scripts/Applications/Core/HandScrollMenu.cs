@@ -15,8 +15,6 @@ namespace HPUI.Application.Core
 	public ButtonController nextButton;
 	public ButtonController previousButton;
 
-        public Transform spawnPosition;
-
 	Transform[] displayedObjects = new Transform[5];
 
         Transform[] tempObjects;
@@ -37,6 +35,8 @@ namespace HPUI.Application.Core
 
 	protected override void OnDeactivate()
 	{
+            if (tempObjects == null)
+                return;
             foreach(Transform obj in tempObjects)
             {
                 if (obj)

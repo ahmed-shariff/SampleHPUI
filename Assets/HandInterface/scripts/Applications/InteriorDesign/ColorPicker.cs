@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,11 @@ namespace HPUI.Application.Sample.InteriorDesign
         
         public SpriteRenderer spriteRenderer;
 
+        public ButtonController subSelectionDoneBtn;
+        
+        public HandScrollMenu subSelectionMenu;
+        bool subSelectionMenuActive = false;
+
 	void Start()
 	{
 	    // xSelector.contactAction.AddListener(setX);
@@ -27,11 +33,14 @@ namespace HPUI.Application.Sample.InteriorDesign
             
             selectionBtn.contactAction.AddListener(selectionBtnEvent);
             selectionDoneBtn.contactAction.AddListener(selectionDoneBtnEvent);
+            subSelectionDoneBtn.contactAction.AddListener(subSelectionDoneBtnEvent);
         }
 	
 	protected override void OnActivate()
 	{
             base.OnActivate();
+            subSelectionMenu.Deactivate();
+            subSelectionMenu.manager.setCurrentObj(manager.currentObject.GetComponentsInChildren<MeshRenderer>()[0].transform);
 	    deformableSurfaceDisplayManager.inUse = true;
             spriteRenderer.gameObject.SetActive(true);
 	    deformableSurfaceDisplayManager.MeshRenderer.material.mainTexture = mainTexture;
@@ -53,12 +62,12 @@ namespace HPUI.Application.Sample.InteriorDesign
 	void Update()
 	{
             // TODO: replace this with the listner for the btns
-	    if (deformableSurfaceDisplayManager.generatedBtns)
+	    if (deformableSurfaceDisplayManager.generatedBtns && subSelectionMenu.manager.currentObject != null)
 	    {
 		color = mainTexture.GetPixel(Mathf.RoundToInt((deformableSurfaceDisplayManager.currentCoord.x / deformableSurfaceDisplayManager.currentCoord.maxX) * mainTexture.width), Mathf.RoundToInt((deformableSurfaceDisplayManager.currentCoord.y / deformableSurfaceDisplayManager.currentCoord.maxY) * mainTexture.height));
 		if (spriteRenderer)
 		    spriteRenderer.color = color;
-                var m = manager.currentObject.GetComponentsInChildren<MeshRenderer>()[0].material;
+                var m = subSelectionMenu.manager.currentObject.GetComponent<MeshRenderer>().material;
 		m.color = color;
 	    }
 	}
@@ -76,8 +85,20 @@ namespace HPUI.Application.Sample.InteriorDesign
             // selectionBtn.Show();
             // selectionDoneBtn.Hide();
             rayCursor.PressButton();
-            deformableSurfaceDisplayManager.inUse = true;
+            subSelectionMenu.manager.Objects = manager.currentObject.GetComponentsInChildren<MeshRenderer>().Select(el => el.transform).Where(x => x.GetComponent<Selectable> == null).ToList();
+            subSelectionMenu.Activate();
+            subSelectionMenuActive = true;
             rayCursor.gameObject.SetActive(false);
+        }
+
+        void subSelectionDoneBtnEvent(ButtonController btn)
+        {
+            if (subSelectionMenuActive)
+            {
+                subSelectionMenu.Deactivate();
+                deformableSurfaceDisplayManager.inUse = true;
+                subSelectionMenuActive = false;
+            }
         }
     }
 }
