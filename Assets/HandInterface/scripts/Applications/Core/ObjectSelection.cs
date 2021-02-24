@@ -33,8 +33,10 @@ namespace HPUI.Application.Core
 	
 	protected override void OnActivate()
 	{
-	    selectionBtn.Show();
-            selectionDoneBtn.Show();
+            if (selectionBtn)
+                selectionBtn.Show();
+            if (selectionDoneBtn)
+                selectionDoneBtn.Show();
             rayCursor.gameObject.SetActive(false);
 
             if (!buttonsToRegister.Contains(selectionDoneBtn))

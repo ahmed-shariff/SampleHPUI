@@ -13,23 +13,38 @@ namespace HPUI.Application.Sample.InteriorDesign
     [RequireComponent(typeof(ObjectSelection))]
     public class SpawnHandScrollMenu : HandScrollMenu
     {
-        public Transform spawnPosition;
-
         public Selectable floor;
         private ObjectSelection objectSelectionApp;
+        private CursorObject cursor;
         private Vector3 currentPosition;
+
+        public ButtonController placeBtn;
+        public ButtonController cancelBtn;
+        private bool place = false;
+        private Transform newObj;
 
         protected override void Start()
         {
             base.Start();
-            floor.OnClosest += SetCurrentFloorPosition;
+            placeBtn.contactAction.AddListener(OnPlaceBtn);
+            cancelBtn.contactAction.AddListener(OnCancelBtn);
         }
 
+        public virtual void OnSelectionExit()
+        {
+            if (newObj != null)
+                manager.setCurrentObj(newObj);
+        }
+        
         protected override void OnActivate()
         {
+            base.OnActivate();
             floor.gameObject.SetActive(true);
             if (objectSelectionApp == null)
+            {    
                 objectSelectionApp = GetComponent<ObjectSelection>();
+                cursor = objectSelectionApp.rayCursor.cursor;
+            }
             objectSelectionApp.rayCursor.CheckDistanceDelegate = RayCursorCheckDsitance;
             objectSelectionApp.rayCursor.gameObject.SetActive(true);
             manager.CurrentObjectChanged += OnCurrentObjectChanged;
@@ -37,6 +52,7 @@ namespace HPUI.Application.Sample.InteriorDesign
 
         protected override void OnDeactivate()
         {
+            base.OnDeactivate();
             objectSelectionApp.rayCursor.CheckDistanceDelegate = null;
             objectSelectionApp.rayCursor.gameObject.SetActive(false);
             manager.CurrentObjectChanged -= OnCurrentObjectChanged;
@@ -52,21 +68,51 @@ namespace HPUI.Application.Sample.InteriorDesign
         
         void OnCurrentObjectChanged(Transform t)
         {
-            var newObj = manager.ReplicateCurrentObject().transform;
-
-            var newPosition = spawnPosition.position;
-            newPosition += spawnPosition.forward;
-            newPosition.y = manager.currentObject.position.y;
-            newObj.position = newPosition;
-            newObj.gameObject.SetActive(true);
-            manager.setCurrentObj(newObj);
+            if (place)
+            {
+                newObj = GameObject.Instantiate(manager.currentObject.GetComponentInChildren<FurnitureFloorBox>().gameObject).transform;
+            }
 	}
 
-        void SetCurrentFloorPosition(Selectable s)
+        void OnPlaceBtn(ButtonController btn)
         {
-            if (s == floor)
+            place = !place;
+            if (place)
             {
-                currentPosition = objectSelectionApp.rayCursor.cursor.Position;
+                OnCurrentObjectChanged(null);
+            }
+            else
+            {
+                Destroy(newObj.gameObject);
+                newObj = manager.ReplicateCurrentObject().transform;
+
+                var newPosition = currentPosition;
+                newPosition.y = manager.currentObject.position.y;
+                newObj.position = newPosition;
+                newObj.gameObject.SetActive(true);
+                
+                Debug.Log("Placed object");
+                newObj = null;
+            }
+        }
+
+        void OnCancelBtn(ButtonController btn)
+        {
+            if (newObj != null)
+            {
+                Debug.Log("Destroyed object");    
+                Destroy(newObj.gameObject);
+            }
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+            currentPosition = cursor.Position;
+            if (newObj != null)
+            {
+                currentPosition.y = newObj.position.y;
+                newObj.position = currentPosition;
             }
         }
 

@@ -53,9 +53,20 @@ namespace HPUI.Application.Core
                             max = setMaxPoints(mr, max);
                         }
                         var diff = max-min;
+                        var obposition = diff/2 + min;
                         var ob = Instantiate(objectSelectionColliderPrefab, diff/2 + min, Quaternion.identity);
-                        ob.transform.localScale = diff * 0.01f + diff;
+                        ob.transform.localScale = diff * 0.01f + diff; // making the bounding box slightly larger than the object
                         ob.transform.parent = child;
+
+                        ob = GameObject.CreatePrimitive(PrimitiveType.Plane);
+                        obposition.y = min.y;
+                        ob.transform.position = obposition;
+                        ob.transform.rotation = Quaternion.identity;
+                        ob.transform.localScale =  (diff * 0.01f + diff) / 10;
+                        ob.transform.parent = child;
+                        ob.transform.name = "FloorBox";
+                        // TODO re-think how this is done?
+                        ob.AddComponent(typeof(FurnitureFloorBox));
 
                         s = child.GetComponentInChildren<Selectable>();
                         s.OnSelect += OnSelect;
