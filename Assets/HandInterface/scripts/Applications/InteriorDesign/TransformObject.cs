@@ -12,7 +12,7 @@ namespace HPUI.Application.Sample.InteriorDesign
 {
     public class TransformObject : ObjectSelection
     {
-	Color color;
+	private Color color;
 	
 	public DeformableSurfaceDisplayManager deformableSurfaceDisplayManager;
 

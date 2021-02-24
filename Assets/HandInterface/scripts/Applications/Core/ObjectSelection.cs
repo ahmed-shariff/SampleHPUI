@@ -12,9 +12,7 @@ namespace HPUI.Application.Core
 {
     public class ObjectSelection : ApplicationBase
     {
-	Color color;
-	
-        public ObjectManager manager;
+	public ObjectManager manager;
 
         public RayCursor.RayCursor rayCursor;
 
@@ -26,9 +24,11 @@ namespace HPUI.Application.Core
 	    // xSelector.contactAction.AddListener(setX);
 	    // ySelector.contactAction.AddListener(setY);
 	    // zSelector.contactAction.AddListener(setZ);
-            
-            selectionBtn.contactAction.AddListener(selectionBtnEvent);
-            selectionDoneBtn.contactAction.AddListener(selectionDoneBtnEvent);
+
+            if (selectionBtn)
+                selectionBtn.contactAction.AddListener(selectionBtnEvent);
+            if (selectionDoneBtn)
+                selectionDoneBtn.contactAction.AddListener(selectionDoneBtnEvent);
         }
 	
 	protected override void OnActivate()

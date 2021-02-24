@@ -21,7 +21,7 @@ namespace HPUI.Application.Core
         
 	int currentIndex = 0;
 
-	void Start()
+	protected virtual void Start()
 	{
 	    nextButton.contactAction.AddListener(next);
 	    previousButton.contactAction.AddListener(prev);
@@ -128,7 +128,7 @@ namespace HPUI.Application.Core
 	    }
 	}
 
-	void Update()
+	protected virtual void Update()
 	{
 	    // p1.Rotate(0, 0, 0.54f, Space.Self);
 	    // p2.Rotate(0, 0, 0.47f, Space.Self);

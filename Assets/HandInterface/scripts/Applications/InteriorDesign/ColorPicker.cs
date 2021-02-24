@@ -13,7 +13,7 @@ namespace HPUI.Application.Sample.InteriorDesign
 {
     public class ColorPicker : ObjectSelection
     {
-	Color color;
+	private Color color;
 	
 	public DeformableSurfaceDisplayManager deformableSurfaceDisplayManager;
         public Texture2D mainTexture;
@@ -85,7 +85,7 @@ namespace HPUI.Application.Sample.InteriorDesign
             // selectionBtn.Show();
             // selectionDoneBtn.Hide();
             rayCursor.PressButton();
-            subSelectionMenu.manager.Objects = manager.currentObject.GetComponentsInChildren<MeshRenderer>().Select(el => el.transform).Where(x => x.GetComponent<Selectable> == null).ToList();
+            subSelectionMenu.manager.Objects = manager.currentObject.GetComponentsInChildren<MeshRenderer>().Select(el => el.transform).Where(x => x.GetComponent<Selectable>() == null).ToList();
             subSelectionMenu.Activate();
             subSelectionMenuActive = true;
             rayCursor.gameObject.SetActive(false);

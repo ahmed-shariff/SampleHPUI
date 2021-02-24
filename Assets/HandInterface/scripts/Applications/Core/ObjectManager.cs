@@ -18,6 +18,8 @@ namespace HPUI.Application.Core
         
         public GameObject objectSelectionColliderPrefab;
 
+        public event System.Action<Transform> CurrentObjectChanged;
+
 	void Start()
 	{
             initialize();
@@ -96,11 +98,15 @@ namespace HPUI.Application.Core
 	public void setCurrentObj(int idx)
 	{
 	    currentObject = Objects[idx];
+            if (CurrentObjectChanged != null)
+                CurrentObjectChanged(currentObject);
 	}
 
         public void setCurrentObj(Transform obj)
 	{
 	    currentObject = obj;
+            if (CurrentObjectChanged != null)
+                CurrentObjectChanged(currentObject);
 	}
 
         void OnSelect(Selectable selectable)

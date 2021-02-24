@@ -45,7 +45,8 @@ namespace RayCursor
         public static bool Enabled { get { return Loaded && instance.enabled; } }
         public static Material HighLightMaterial { get { return Loaded ? instance.highlightMaterial : null; } }
 
-
+        public delegate bool CheckDistance(Selectable selectable);
+        public CheckDistance CheckDistanceDelegate;
 
 
 
@@ -150,7 +151,7 @@ namespace RayCursor
             
             modes[currentMode].Deinit();
         }
-
+        
 
         public static Selectable ClosestSelectable(Vector3 p, float minDist = 100f)
         {
@@ -158,6 +159,8 @@ namespace RayCursor
             float closestDist = float.MaxValue;
             foreach (Selectable s in Selectable.Enumerable)
             {
+                if (instance.CheckDistanceDelegate != null && !instance.CheckDistanceDelegate(s))
+                    continue;
                 float d = s.Distance(p);
                 if (d < closestDist)
                 {

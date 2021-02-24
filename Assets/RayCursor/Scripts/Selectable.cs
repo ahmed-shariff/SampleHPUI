@@ -34,6 +34,7 @@ namespace RayCursor
         
         public event System.Action<Selectable> OnSelect;
         public event System.Action<Selectable> OnHighlight;
+        public event System.Action<Selectable> OnClosest;
 
         public void OnEnable()
         {
@@ -98,6 +99,9 @@ namespace RayCursor
             get { return highlightable && SecondMaterial != null; }
             set
             {
+                if (value && OnClosest != null)
+                    OnClosest(this);
+                    
                 if (!highlightable)
                     value = false;
                 if (value == (SecondMaterial != null))

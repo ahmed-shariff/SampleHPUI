@@ -83,7 +83,7 @@ namespace HPUI.Core
             btns.Add(btn);
         }
 
-        System.Action processGetButtonsPostProcessAction;
+        event System.Action processGetButtonsPostProcessAction;
         
 	void processGetButtons()
 	{
