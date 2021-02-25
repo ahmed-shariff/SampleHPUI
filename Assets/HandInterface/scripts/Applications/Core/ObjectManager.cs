@@ -67,6 +67,7 @@ namespace HPUI.Application.Core
                         ob.transform.name = "FloorBox";
                         // TODO re-think how this is done?
                         ob.AddComponent(typeof(FurnitureFloorBox));
+                        ob.SetActive(false);
 
                         s = child.GetComponentInChildren<Selectable>();
                         s.OnSelect += OnSelect;

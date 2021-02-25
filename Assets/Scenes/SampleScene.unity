@@ -9420,7 +9420,7 @@ Transform:
   m_GameObject: {fileID: 549653134}
   m_LocalRotation: {x: -0.75441134, y: -0.024268894, z: 0.027936993, w: 0.655358}
   m_LocalPosition: {x: -0, y: 0.233, z: 0.0245}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.02}
+  m_LocalScale: {x: 0.035, y: 0.05, z: 0.015}
   m_Children:
   - {fileID: 1043423752}
   - {fileID: 1237665613}
@@ -11541,6 +11541,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.pageCount
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2728597525730581634, guid: 14a79f90147fd6543adc4a2f3371fe3b,
+        type: 3}
+      propertyPath: m_text
+      value: open/close app
       objectReference: {fileID: 0}
     - target: {fileID: 5869315021805281650, guid: 14a79f90147fd6543adc4a2f3371fe3b,
         type: 3}
@@ -15893,7 +15898,7 @@ LineRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 0.19607843}
-      key1: {r: 1, g: 1, b: 1, a: 0.19607843}
+      key1: {r: 1, g: 1, b: 1, a: 0.11764706}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -18203,7 +18208,7 @@ LineRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 0.50980395}
-      key1: {r: 1, g: 1, b: 1, a: 0.50980395}
+      key1: {r: 1, g: 1, b: 1, a: 0.47058824}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -18334,7 +18339,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1157705546
 Transform:
   m_ObjectHideFlags: 0
@@ -19957,9 +19962,9 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 0.39215687}
-      key1: {r: 1, g: 1, b: 1, a: 0.41568628}
-      key2: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 1, g: 1, b: 1, a: 0.29411766}
+      key1: {r: 1, g: 1, b: 1, a: 0.29411766}
+      key2: {r: 0, g: 0, b: 0, a: 0.3529412}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -19975,7 +19980,7 @@ LineRenderer:
       ctime7: 0
       atime0: 0
       atime1: 65535
-      atime2: 0
+      atime2: 65535
       atime3: 0
       atime4: 0
       atime5: 0
@@ -22389,7 +22394,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1359626110
 Transform:
   m_ObjectHideFlags: 0
@@ -24550,7 +24555,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1475707073
 Transform:
   m_ObjectHideFlags: 0

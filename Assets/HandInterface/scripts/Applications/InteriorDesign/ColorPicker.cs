@@ -62,7 +62,7 @@ namespace HPUI.Application.Sample.InteriorDesign
 	void Update()
 	{
             // TODO: replace this with the listner for the btns
-	    if (deformableSurfaceDisplayManager.generatedBtns && subSelectionMenu.manager.currentObject != null)
+	    if (deformableSurfaceDisplayManager.generatedBtns && subSelectionMenu.manager.currentObject != null && !subSelectionMenuActive)
 	    {
 		color = mainTexture.GetPixel(Mathf.RoundToInt((deformableSurfaceDisplayManager.currentCoord.x / deformableSurfaceDisplayManager.currentCoord.maxX) * mainTexture.width), Mathf.RoundToInt((deformableSurfaceDisplayManager.currentCoord.y / deformableSurfaceDisplayManager.currentCoord.maxY) * mainTexture.height));
 		if (spriteRenderer)

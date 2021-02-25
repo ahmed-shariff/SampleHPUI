@@ -45,8 +45,6 @@ namespace HPUI.Application.Sample.InteriorDesign
                 objectSelectionApp = GetComponent<ObjectSelection>();
                 cursor = objectSelectionApp.rayCursor.cursor;
             }
-            objectSelectionApp.rayCursor.CheckDistanceDelegate = RayCursorCheckDsitance;
-            objectSelectionApp.rayCursor.gameObject.SetActive(true);
             manager.CurrentObjectChanged += OnCurrentObjectChanged;
         }
 
@@ -70,7 +68,9 @@ namespace HPUI.Application.Sample.InteriorDesign
         {
             if (place)
             {
-                newObj = GameObject.Instantiate(manager.currentObject.GetComponentInChildren<FurnitureFloorBox>().gameObject).transform;
+                clearNewObj();
+                newObj = GameObject.Instantiate(manager.currentObject.GetComponentInChildren<FurnitureFloorBox>(true).gameObject).transform;
+                newObj.gameObject.SetActive(true);
             }
 	}
 
@@ -79,11 +79,17 @@ namespace HPUI.Application.Sample.InteriorDesign
             place = !place;
             if (place)
             {
+                objectSelectionApp.rayCursor.CheckDistanceDelegate = RayCursorCheckDsitance;
+                objectSelectionApp.rayCursor.gameObject.SetActive(true);
+
                 OnCurrentObjectChanged(null);
             }
             else
             {
-                Destroy(newObj.gameObject);
+                objectSelectionApp.rayCursor.CheckDistanceDelegate = null;
+                objectSelectionApp.rayCursor.gameObject.SetActive(false);
+
+                clearNewObj();
                 newObj = manager.ReplicateCurrentObject().transform;
 
                 var newPosition = currentPosition;
@@ -94,6 +100,12 @@ namespace HPUI.Application.Sample.InteriorDesign
                 Debug.Log("Placed object");
                 newObj = null;
             }
+        }
+
+        void clearNewObj()
+        {
+            if (newObj != null)
+                Destroy(newObj.gameObject);
         }
 
         void OnCancelBtn(ButtonController btn)
@@ -108,11 +120,14 @@ namespace HPUI.Application.Sample.InteriorDesign
         protected override void Update()
         {
             base.Update();
-            currentPosition = cursor.Position;
-            if (newObj != null)
-            {
-                currentPosition.y = newObj.position.y;
-                newObj.position = currentPosition;
+            if (place)
+            {    
+                currentPosition = cursor.Position;
+                if (newObj != null)
+                {
+                    currentPosition.y = newObj.position.y;
+                    newObj.position = currentPosition;
+                }
             }
         }
 
