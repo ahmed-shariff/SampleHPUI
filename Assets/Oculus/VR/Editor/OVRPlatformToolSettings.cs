@@ -30,14 +30,6 @@ namespace Assets.Oculus.VR.Editor
 			EditorApplication.update -= Update;
 		}
 
-		public enum GamepadType
-		{
-			OFF,
-			TWINSTICK,
-			RIGHT_D_PAD,
-			LEFT_D_PAD,
-		};
-
 		public static string AppID
 		{
 			get
@@ -309,17 +301,17 @@ namespace Assets.Oculus.VR.Editor
 			}
 		}
 
-		public static GamepadType RiftGamepadEmulation
+		public static OVRPlatformTool.GamepadType RiftGamepadEmulation
 		{
 			get
 			{
 				if (EditorPrefs.HasKey("OVRPlatformToolSettings_RiftGamepadEmulation"))
 				{
-					return (GamepadType)EditorPrefs.GetInt("OVRPlatformToolSettings_RiftGamepadEmulation");
+					return (OVRPlatformTool.GamepadType)EditorPrefs.GetInt("OVRPlatformToolSettings_RiftGamepadEmulation");
 				}
 				else
 				{
-					return GamepadType.OFF;
+					return OVRPlatformTool.GamepadType.OFF;
 				}
 			}
 			set
@@ -365,6 +357,25 @@ namespace Assets.Oculus.VR.Editor
 		{
 			get { return Instance.runOvrLint; }
 			set { Instance.runOvrLint = value; }
+		}
+
+		public static string DebugSymbolsDirectory
+		{
+			get
+			{
+				if (EditorPrefs.HasKey("OVRPlatformToolSettings_DebugSymbolsDirectory"))
+				{
+					return EditorPrefs.GetString("OVRPlatformToolSettings_DebugSymbolsDirectory");
+				}
+				else
+				{
+					return "";
+				}
+			}
+			set
+			{
+				EditorPrefs.SetString("OVRPlatformToolSettings_DebugSymbolsDirectory", value);
+			}
 		}
 
 		[SerializeField]
