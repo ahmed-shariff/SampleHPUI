@@ -39,6 +39,8 @@ namespace HPUI.Application.Sample.InteriorDesign
         protected override void OnActivate()
         {
             base.OnActivate();
+	    place = false;
+	    clearNewObj();
             floor.gameObject.SetActive(true);
             if (objectSelectionApp == null)
             {    
@@ -55,6 +57,8 @@ namespace HPUI.Application.Sample.InteriorDesign
             objectSelectionApp.rayCursor.gameObject.SetActive(false);
             manager.CurrentObjectChanged -= OnCurrentObjectChanged;
             floor.gameObject.SetActive(false);
+	    place = false;
+	    clearNewObj();
         }
         
         private bool RayCursorCheckDsitance(Selectable s)
@@ -110,11 +114,9 @@ namespace HPUI.Application.Sample.InteriorDesign
 
         void OnCancelBtn(ButtonController btn)
         {
-            if (newObj != null)
-            {
-                Debug.Log("Destroyed object");    
-                Destroy(newObj.gameObject);
-            }
+            clearNewObj();
+	    place = false;
+	    objectSelectionApp.rayCursor.gameObject.SetActive(false);
         }
 
         protected override void Update()

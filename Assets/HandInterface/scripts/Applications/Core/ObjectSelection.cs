@@ -36,10 +36,10 @@ namespace HPUI.Application.Core
             if (selectionBtn)
                 selectionBtn.Show();
             if (selectionDoneBtn)
-                selectionDoneBtn.Show();
+                selectionDoneBtn.Hide();
             rayCursor.gameObject.SetActive(false);
 
-            if (!buttonsToRegister.Contains(selectionDoneBtn))
+            if (selectionDoneBtn != null && !buttonsToRegister.Contains(selectionDoneBtn))
                 buttonsToRegister.Add(selectionDoneBtn);
 	}
 
@@ -48,17 +48,18 @@ namespace HPUI.Application.Core
             rayCursor.gameObject.SetActive(false);
 	}
         
-        void selectionBtnEvent(ButtonController btn=null)
+        protected virtual void selectionBtnEvent(ButtonController btn=null)
         {
-            // selectionBtn.Hide();
-            // selectionDoneBtn.Show();
+	    InteractionManger.instance.RegisterBtn(selectionDoneBtn);
+            selectionBtn.Hide();
+            selectionDoneBtn.Show();
             rayCursor.gameObject.SetActive(true);
         }
 
-        void selectionDoneBtnEvent(ButtonController btn=null)
+        protected virtual void selectionDoneBtnEvent(ButtonController btn=null)
         {
-            // selectionBtn.Show();
-            // selectionDoneBtn.Hide();
+            selectionBtn.Show();
+            selectionDoneBtn.Hide();
             rayCursor.PressButton();
             rayCursor.gameObject.SetActive(false);
         }

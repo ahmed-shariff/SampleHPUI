@@ -229,21 +229,16 @@ namespace HPUI.Application.Sample.InteriorDesign
             }
 	}
 
-        void selectionBtnEvent(ButtonController btn=null)
+        protected override void selectionBtnEvent(ButtonController btn=null)
         {
-            // selectionBtn.Hide();
-            // selectionDoneBtn.Show();
+	    base.selectionBtnEvent(btn);
             deformableSurfaceDisplayManager.inUse = false;
-            rayCursor.gameObject.SetActive(true);
         }
 
-        void selectionDoneBtnEvent(ButtonController btn=null)
+        protected override void selectionDoneBtnEvent(ButtonController btn=null)
         {
-            // selectionBtn.Show();
-            // selectionDoneBtn.Hide();
-            rayCursor.PressButton();
+	    base.selectionDoneBtnEvent(btn);
             deformableSurfaceDisplayManager.inUse = true;
-            rayCursor.gameObject.SetActive(false);
         }
     }
 }

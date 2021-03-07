@@ -97,7 +97,6 @@ namespace HPUI.Core
 		    _registerBtn(btn);
 		}
 	    }
-	    Debug.Log("Got heaps of buttons "  +  btns.Count);
 	    processGetButtonsFlag = false;
             
             if (processGetButtonsPostProcessAction != null)
@@ -105,6 +104,7 @@ namespace HPUI.Core
                 processGetButtonsPostProcessAction();
                 processGetButtonsPostProcessAction = null;
             }
+	    Debug.Log("Got heaps of buttons "  +  btns.Count);
 	}
 
 	protected virtual void startAmend()
@@ -151,6 +151,10 @@ namespace HPUI.Core
 		{
 		    foreach (ButtonController btn in btns)
 		    {
+			// This is for cases when the button is being set active while this loop is running
+			if (!btn.initialized)
+			    continue;
+
 			buttonCallback(btn);
 			if (btn.stateChanged && btn.gameObject.activeInHierarchy)
 			{
