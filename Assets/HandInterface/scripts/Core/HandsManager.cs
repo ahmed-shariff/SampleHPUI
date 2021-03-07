@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace HPUI.Core
 {
+    [DefaultExecutionOrder(-200)]
     public class HandsManager : MonoBehaviour
     {
         public static HandsManager instance;

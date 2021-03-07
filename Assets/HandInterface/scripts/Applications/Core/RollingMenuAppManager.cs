@@ -6,7 +6,7 @@ using HPUI.Core.DeformableSurfaceDisplay;
 
 namespace HPUI.Application.Core
 {
-    public class ApplicationManager : ApplicationBase
+    public class RollingMenuAppManager : ApplicationBase
     {
 	public ButtonController baseButton;
 	public ButtonController nextButton;
@@ -70,18 +70,18 @@ namespace HPUI.Application.Core
 		// deformableSurfaceDisplayManager.inUse = false;
 		// deformableMesh.gameObject.SetActive(false);
 		//currentAppIndex = ++currentAppIndex % applications.Length;
-		OnActivate();
+		ShowMenu();
 	    }
 	    else
 	    {
-		OnDeactivate();
+		HideMenu();
 		applications[currentAppIndex].Activate();
 		Debug.Log("Swicthing application  " + applications[currentAppIndex].transform.name);
 	    }
 	    showMenu = !showMenu;
 	}
 
-	protected virtual void OnActivate()
+	void ShowMenu()
 	{
 	    nextButton.gameObject.SetActive(true);
 	    previousButton.gameObject.SetActive(true);
@@ -89,13 +89,26 @@ namespace HPUI.Application.Core
 	    menuDisplay.transform.parent.gameObject.SetActive(true);
 	}
 
-	protected virtual void OnDeactivate()
+	void HideMenu()
 	{
 	    nextButton.gameObject.SetActive(false);
 	    previousButton.gameObject.SetActive(false);
 	    menuDisplay.transform.parent.gameObject.SetActive(false);
 	}
+	
+	protected virtual void OnActivate()
+	{
+	    showMenu = true;
+	    ShowMenu();
+	}
 
+	protected virtual void OnDeactivate()
+	{
+	    HideMenu();
+	    showMenu = true;
+	    applications[currentAppIndex].Deactivate();
+	}
+	
 	void Update()
 	{
 	    if (Mathf.Abs(currentAngle - currentDisplayAngle) > angleIncrement)
