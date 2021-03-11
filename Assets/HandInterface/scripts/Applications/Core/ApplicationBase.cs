@@ -30,6 +30,13 @@ namespace HPUI.Application.Core
 	    gameObject.SetActive(false);
 	}
 
+	protected void LateRegsiterBtn(ButtonController btn)
+	{
+	    if (buttonsToRegister.Contains(btn))
+		return;
+	    buttonsToRegister.Add(btn);
+	}
+
 	protected virtual void OnDeactivate()
 	{}
 

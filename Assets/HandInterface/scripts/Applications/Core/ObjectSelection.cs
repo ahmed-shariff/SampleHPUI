@@ -17,8 +17,9 @@ namespace HPUI.Application.Core
         public RayCursor.RayCursor rayCursor;
 
         public ButtonController selectionBtn;
+	public ButtonController cancelBtn;
 
-	private bool inSelection = false;
+        protected bool inSelection = false;
         // public ButtonController selectionDoneBtn;
 	
 	void Start()
@@ -29,6 +30,12 @@ namespace HPUI.Application.Core
 
             if (selectionBtn)
                 selectionBtn.contactAction.AddListener(selectionBtnEvent);
+	    if (cancelBtn)
+	    {
+		cancelBtn.contactAction.AddListener(cancelBtnEvent);
+		cancelBtn.Hide();
+	        LateRegsiterBtn(cancelBtn);
+	    }
         }
 	
 	protected override void OnActivate()
@@ -48,17 +55,36 @@ namespace HPUI.Application.Core
 	    if (inSelection)
 	    {
         	rayCursor.PressButton();
-		rayCursor.gameObject.SetActive(false);
-		btn.setSelectionHighlight(true);
-		btn.invokeDefault();
+	        selectionStateClear();
 	    }
 	    else
 	    {
 		rayCursor.gameObject.SetActive(true);
 		btn.setSelectionHighlight(false);
 		btn.invokeDefault();
+		if (cancelBtn)
+		    cancelBtn.Show();
 	    }
 	    inSelection = !inSelection;
         }
+
+	protected virtual void selectionStateClear()
+	{
+	    rayCursor.gameObject.SetActive(false);
+	    if (selectionBtn)
+	    {
+		selectionBtn.setSelectionHighlight(true);
+	        selectionBtn.invokeDefault();
+	    }
+
+	    if (cancelBtn)
+		cancelBtn.Hide();
+	}
+
+	protected virtual void cancelBtnEvent(ButtonController btn)
+	{
+	    selectionStateClear();
+	    inSelection = false;
+	}
     }
 }

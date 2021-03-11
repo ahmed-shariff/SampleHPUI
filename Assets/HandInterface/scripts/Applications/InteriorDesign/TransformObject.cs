@@ -230,8 +230,17 @@ namespace HPUI.Application.Sample.InteriorDesign
 
         protected override void selectionBtnEvent(ButtonController btn=null)
         {
+	    if (inSelection)
+		deformableSurfaceDisplayManager.inUse = true;
+	    else
+		deformableSurfaceDisplayManager.inUse = false;
 	    base.selectionBtnEvent(btn);
-            deformableSurfaceDisplayManager.inUse = false;
         }
+
+	protected override void cancelBtnEvent(ButtonController btn)
+	{
+	    base.cancelBtnEvent(btn);
+	    deformableSurfaceDisplayManager.inUse = true;
+	}
     }
 }

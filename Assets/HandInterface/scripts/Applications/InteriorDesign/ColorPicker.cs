@@ -33,6 +33,8 @@ namespace HPUI.Application.Sample.InteriorDesign
             
             selectionBtn.contactAction.AddListener(selectionBtnEvent);
             subSelectionDoneBtn.contactAction.AddListener(subSelectionDoneBtnEvent);
+	    LateRegsiterBtn(subSelectionDoneBtn);
+	    subSelectionDoneBtn.Hide();
         }
 	
 	protected override void OnActivate()
@@ -78,7 +80,30 @@ namespace HPUI.Application.Sample.InteriorDesign
                 subSelectionMenu.Deactivate();
                 deformableSurfaceDisplayManager.inUse = true;
                 subSelectionMenuActive = false;
+		subSelectionDoneBtn.Hide();
+		InteractionManger.instance.getButtons();
             }
+        }
+
+	protected override void selectionBtnEvent(ButtonController btn=null)
+        {
+	    if (inSelection)
+	    {
+		subSelectionMenuActive = true;
+		subSelectionDoneBtn.Show();
+		subSelectionMenu.manager.Objects = manager.currentObject.GetComponentsInChildren<MeshRenderer>().Select(el => el.transform).Where(x => x.GetComponent<Selectable>() == null).ToList();
+		subSelectionMenu.Activate();
+	    }
+	    else
+	    {
+		if (subSelectionMenuActive)
+		{
+		    subSelectionMenuActive = false;
+		    subSelectionMenu.Deactivate();
+		}
+		deformableSurfaceDisplayManager.inUse = false;
+	    }
+	    base.selectionBtnEvent(btn);
         }
     }
 }
