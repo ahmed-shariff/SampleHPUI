@@ -12,6 +12,8 @@ namespace HPUI.Application.Sample.InteriorDesign
 	public DeformableSurfaceDisplayManager deformableSurfaceDisplayManager;
 	public Texture2D mainTexture;
 
+	public Texture2D[] textures = new Texture2D[4];
+
         public Transform avatar;
 
 	public Color defaultColor;
@@ -24,9 +26,9 @@ namespace HPUI.Application.Sample.InteriorDesign
 	protected override void OnActivate()
 	{
 	    deformableSurfaceDisplayManager.inUse = true;
-	    deformableSurfaceDisplayManager.MeshRenderer.material.mainTexture = mainTexture;
-            deformableSurfaceDisplayManager.MeshRenderer.material.mainTexture = mainTexture;
-            deformableSurfaceDisplayManager.MeshRenderer.material.mainTexture = mainTexture;
+	    deformableSurfaceDisplayManager.MeshRenderer.material.mainTexture = textures[0];
+            deformableSurfaceDisplayManager.MeshRenderer.material.mainTexture = textures[0];
+            // deformableSurfaceDisplayManager.MeshRenderer.material.mainTexture = mainTexture;
 	}
 
 	protected override void OnDeactivate()
@@ -71,20 +73,7 @@ namespace HPUI.Application.Sample.InteriorDesign
                     var id = roomCoords[deformableSurfaceDisplayManager.currentCoord.x, deformableSurfaceDisplayManager.currentCoord.y];
                     avatar.position = positions[id].position;
                     deformableSurfaceDisplayManager.currentCoord.Reset();
-                    foreach(var btn in deformableSurfaceDisplayManager.buttonControllers)
-                    {
-                        int x, y;
-                        deformableSurfaceDisplayManager.idToXY(btn.id, out x, out y);
-                        if (roomCoords[x, y] == id)
-                        {
-                            btn.setSelectionDefault(true, highlightColor);
-                        }
-                        else
-                        {
-                            btn.setSelectionDefault(true, defaultColor);
-                        }
-                        btn.invokeDefault();
-                    }
+		    deformableSurfaceDisplayManager.MeshRenderer.material.mainTexture = textures[id];
                 }
             }
         }

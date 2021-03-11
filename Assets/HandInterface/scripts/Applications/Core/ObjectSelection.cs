@@ -17,7 +17,9 @@ namespace HPUI.Application.Core
         public RayCursor.RayCursor rayCursor;
 
         public ButtonController selectionBtn;
-        public ButtonController selectionDoneBtn;
+
+	private bool inSelection = false;
+        // public ButtonController selectionDoneBtn;
 	
 	void Start()
 	{
@@ -27,20 +29,13 @@ namespace HPUI.Application.Core
 
             if (selectionBtn)
                 selectionBtn.contactAction.AddListener(selectionBtnEvent);
-            if (selectionDoneBtn)
-                selectionDoneBtn.contactAction.AddListener(selectionDoneBtnEvent);
         }
 	
 	protected override void OnActivate()
 	{
             if (selectionBtn)
                 selectionBtn.Show();
-            if (selectionDoneBtn)
-                selectionDoneBtn.Hide();
             rayCursor.gameObject.SetActive(false);
-
-            if (selectionDoneBtn != null && !buttonsToRegister.Contains(selectionDoneBtn))
-                buttonsToRegister.Add(selectionDoneBtn);
 	}
 
 	protected override void OnDeactivate()
@@ -50,18 +45,20 @@ namespace HPUI.Application.Core
         
         protected virtual void selectionBtnEvent(ButtonController btn=null)
         {
-	    InteractionManger.instance.RegisterBtn(selectionDoneBtn);
-            selectionBtn.Hide();
-            selectionDoneBtn.Show();
-            rayCursor.gameObject.SetActive(true);
-        }
-
-        protected virtual void selectionDoneBtnEvent(ButtonController btn=null)
-        {
-            selectionBtn.Show();
-            selectionDoneBtn.Hide();
-            rayCursor.PressButton();
-            rayCursor.gameObject.SetActive(false);
+	    if (inSelection)
+	    {
+        	rayCursor.PressButton();
+		rayCursor.gameObject.SetActive(false);
+		btn.setSelectionHighlight(true);
+		btn.invokeDefault();
+	    }
+	    else
+	    {
+		rayCursor.gameObject.SetActive(true);
+		btn.setSelectionHighlight(false);
+		btn.invokeDefault();
+	    }
+	    inSelection = !inSelection;
         }
     }
 }

@@ -204,6 +204,7 @@ namespace HPUI.Core
 
         public void Hide()
         {
+	    resetStates();
             transform.parent.gameObject.SetActive(false);
         }
 

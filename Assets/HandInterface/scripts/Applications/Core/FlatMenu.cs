@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using HPUI.Core;
 using HPUI.Core.DeformableSurfaceDisplay;
@@ -14,7 +15,8 @@ namespace HPUI.Application.Core
 	public ApplicationControl[] applications = new ApplicationControl[1];
 
 	private int currentAppIndex = -1;
-	private bool showMenu = true;
+	private bool showMenu = false;
+	private List<ButtonController> btnsForShow;
 	
 	// Start is called before the first frame update
 	void Start()
@@ -24,14 +26,28 @@ namespace HPUI.Application.Core
 	    for(int i=0; i < applications.Length; i++)
 	    {
 		var idx = i;
-	        applications[i].button.contactAction.AddListener((btn) => {currentAppIndex = idx; HideMenu();});
+	        applications[i].button.contactAction.AddListener((btn) => {
+		    currentAppIndex = idx;
+		    showMenu = false;
+		    SwitchApp(btn);
+		});
 		if (applications[i].layer > 0)
 		    Camera.main.cullingMask &= ~(1 << applications[i].layer);
+	    }
+	    var notForShowBtns = applications.Select(x => x.button).ToList();
+	    btnsForShow = new List<ButtonController>();
+	    notForShowBtns.Add(baseButton);
+	    foreach(var btn in GetComponentsInChildren<ButtonController>())
+	    {
+		if (!notForShowBtns.Contains(btn))
+		{
+		    btnsForShow.Add(btn);
+		}
 	    }
 	}
 	
 	void SwitchApp(ButtonController btn)
-	{
+	{	    
 	    if (currentAppIndex < 0)
 		return;
 	    
@@ -42,13 +58,13 @@ namespace HPUI.Application.Core
 	    else
 	    {
 	        HideMenu();
-		Debug.Log("Swicthing application  " + applications[currentAppIndex].application.transform.name);
 	    }
 	    showMenu = !showMenu;
 	}
 
 	void ShowMenu()
 	{
+	    applications[currentAppIndex].application.Deactivate();
 	    foreach(var app in applications)
 	    {
 		app.button.Show();
@@ -57,9 +73,13 @@ namespace HPUI.Application.Core
 		    Camera.main.cullingMask &= ~(1 << app.layer);
 		}
 	    }
-	    InteractionManger.instance.getButtons();
 
-	    applications[currentAppIndex].application.Deactivate();
+	    foreach(var btn in btnsForShow)
+	    {
+		btn.Show();
+	    }
+
+	    InteractionManger.instance.getButtons();
 	}
 
 	void HideMenu()
@@ -67,11 +87,19 @@ namespace HPUI.Application.Core
 	    foreach(var app in applications)
 	    {
 		app.button.Hide();
-		if (app.layer > 0)
-		{
-		    Camera.main.cullingMask |= 1 << app.layer;
-		}
 	    }
+
+	    foreach(var btn in btnsForShow)
+	    {
+		btn.Hide();
+	    }
+
+	    
+	    if (applications[currentAppIndex].layer > 0)
+	    {
+		Camera.main.cullingMask |= 1 << applications[currentAppIndex].layer;
+	    }
+	    
 	    Debug.Log($"Trying to {currentAppIndex}");
 	    applications[currentAppIndex].application.Activate();
 	}

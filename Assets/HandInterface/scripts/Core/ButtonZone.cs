@@ -82,6 +82,9 @@ namespace HPUI.Core
 
 	void triggerBehaviour(Collider other)
 	{
+	    if (other.GetComponent<ThumbCollider>() == null)
+		return;
+	    
 	    state = State.inside;
 	    if (Zone == Type.contact){
 		this._selfPosition = this.transform.position;

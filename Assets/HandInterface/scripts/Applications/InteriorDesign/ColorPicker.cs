@@ -32,7 +32,6 @@ namespace HPUI.Application.Sample.InteriorDesign
 	    // zSelector.contactAction.AddListener(setZ);
             
             selectionBtn.contactAction.AddListener(selectionBtnEvent);
-            selectionDoneBtn.contactAction.AddListener(selectionDoneBtnEvent);
             subSelectionDoneBtn.contactAction.AddListener(subSelectionDoneBtnEvent);
         }
 	
@@ -71,25 +70,6 @@ namespace HPUI.Application.Sample.InteriorDesign
 		m.color = color;
 	    }
 	}
-
-        void selectionBtnEvent(ButtonController btn=null)
-        {
-            // selectionBtn.Hide();
-            // selectionDoneBtn.Show();
-            deformableSurfaceDisplayManager.inUse = false;
-            rayCursor.gameObject.SetActive(true);
-        }
-
-        void selectionDoneBtnEvent(ButtonController btn=null)
-        {
-            // selectionBtn.Show();
-            // selectionDoneBtn.Hide();
-            rayCursor.PressButton();
-            subSelectionMenu.manager.Objects = manager.currentObject.GetComponentsInChildren<MeshRenderer>().Select(el => el.transform).Where(x => x.GetComponent<Selectable>() == null).ToList();
-            subSelectionMenu.Activate();
-            subSelectionMenuActive = true;
-            rayCursor.gameObject.SetActive(false);
-        }
 
         void subSelectionDoneBtnEvent(ButtonController btn)
         {

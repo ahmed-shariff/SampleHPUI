@@ -54,7 +54,6 @@ namespace HPUI.Application.Sample.InteriorDesign
 	    // zSelector.contactAction.AddListener(setZ);
             
             selectionBtn.contactAction.AddListener(selectionBtnEvent);
-            selectionDoneBtn.contactAction.AddListener(selectionDoneBtnEvent);
         }
 	
 	void setup()
@@ -233,12 +232,6 @@ namespace HPUI.Application.Sample.InteriorDesign
         {
 	    base.selectionBtnEvent(btn);
             deformableSurfaceDisplayManager.inUse = false;
-        }
-
-        protected override void selectionDoneBtnEvent(ButtonController btn=null)
-        {
-	    base.selectionDoneBtnEvent(btn);
-            deformableSurfaceDisplayManager.inUse = true;
         }
     }
 }
