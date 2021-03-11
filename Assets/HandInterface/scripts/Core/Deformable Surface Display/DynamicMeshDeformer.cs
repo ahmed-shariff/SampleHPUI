@@ -247,9 +247,9 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 
 		for (int i = 0; i < undeformedVerticesCoordinates.Length; i++)
 		{
-		    undeformedSpheres[i] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-		    undeformedSpheres[i].transform.localScale += new Vector3(-0.999f, -.999f, -.999f);
-		    undeformedSpheres[i].transform.position = PalmBase.PalmToWorldCoords(new Vector3(undeformedVerticesCoordinates[i].x, undeformedVerticesCoordinates[i].y, undeformedVerticesCoordinates[i].z));
+		    // undeformedSpheres[i] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		    // undeformedSpheres[i].transform.localScale += new Vector3(-0.999f, -.999f, -.999f);
+		    // undeformedSpheres[i].transform.position = PalmBase.PalmToWorldCoords(new Vector3(undeformedVerticesCoordinates[i].x, undeformedVerticesCoordinates[i].y, undeformedVerticesCoordinates[i].z));
 		}
 		triggered = true;
 	    }

@@ -230,7 +230,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 
 	public Vector3 palmToDisplayCoords(Vector3 palmCoords)
 	{
-	    Vector3 worldCoords = PalmBase.PalmToWorldCoords(palmCoords);
+	    Vector3 worldCoords = handCoordinateManager.PalmToWorldCoords(palmCoords);
 	    return filter.transform.InverseTransformPoint(worldCoords);
 	}
 

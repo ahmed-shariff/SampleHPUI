@@ -12,6 +12,7 @@ namespace HPUI.Core
     {
         public Transform skeletonRoot;
         public List<ProxyMapping> proxyToSeletonNameMapping = new List<ProxyMapping>();
+	public GameObject palmBase;
 
         public List<string> managedCoordinates = new List<string>();
         private Dictionary<string, Transform> managedCoordTransforms = new Dictionary<string, Transform>();
@@ -42,6 +43,18 @@ namespace HPUI.Core
             }
             return null;
         }
+
+	public Vector3 CoordinatesInPalmReferenceFrame(Vector3 worldCoordinates)
+	{
+	    //worldCoordinates = HandCoordinateGetter.HandToWorldCoords(worldCoordinates);
+	    worldCoordinates = palmBase.transform.InverseTransformPoint(worldCoordinates);
+	    return worldCoordinates;
+	}
+
+	public Vector3 PalmToWorldCoords(Vector3 palmCoords)
+	{
+	    return palmBase.transform.TransformPoint(palmCoords);
+	}
 
         void Start()
         {

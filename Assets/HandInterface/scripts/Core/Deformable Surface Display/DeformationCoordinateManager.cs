@@ -63,7 +63,12 @@ namespace HPUI.Core.DeformableSurfaceDisplay
         public HandCoordinateManager handCoordinateManager;
 
         public List<string> keyPointsUsed = new List<string>();
-    
+
+	//public static string method = "rbf";
+	string method = "rbf2";
+	//public static string method = "2dsplines";
+	//public static string method = "test";
+	
 	void Start()
 	{
 	    _isCalibrated = false;
@@ -94,7 +99,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 	    // Debug.Log("aaaaaaa");
 	    if (true)//_isCalibrated == false)
 	    {
-		if (DeformableMesh.method != "rbf2")
+		if (method != "rbf2")
 		{
 		    xDifferenceVectors = new double[keypointObjects.Count, 3];
 		    yDifferenceVectors = new double[keypointObjects.Count, 3];
@@ -107,14 +112,14 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 
 		for (int i = 0; i < keypointObjects.Count; i++)
 		{
-		    calibrationKeypoints.Add(PalmBase.CoordinatesInPalmReferenceFrame(keypointObjects[i].transform.position));
-		    keypoints.Add(PalmBase.CoordinatesInPalmReferenceFrame(keypointObjects[i].transform.position));
+		    calibrationKeypoints.Add(handCoordinateManager.CoordinatesInPalmReferenceFrame(keypointObjects[i].transform.position));
+		    keypoints.Add(handCoordinateManager.CoordinatesInPalmReferenceFrame(keypointObjects[i].transform.position));
 		    keypointDifferences.Add(keypoints[i] - calibrationKeypoints[i]);
 
 		    //xDifferenceVectors.Add(new Vector3(calibrationKeypoints[i].x, calibrationKeypoints[i].y, keypointDifferences[i].x));
 		    //yDifferenceVectors.Add(new Vector3(calibrationKeypoints[i].x, calibrationKeypoints[i].y, keypointDifferences[i].y));
 		    //zDifferenceVectors.Add(new Vector3(calibrationKeypoints[i].x, calibrationKeypoints[i].y, keypointDifferences[i].z));
-		    if (DeformableMesh.method != "rbf2")
+		    if (method != "rbf2")
 		    {
 			xDifferenceVectors[i, 0] = calibrationKeypoints[i].x;
 			xDifferenceVectors[i, 1] = calibrationKeypoints[i].y;
@@ -168,7 +173,7 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 		undeformedVerticesCoordinates.Clear();
 		for (int i = 0; i < planeMeshGenerator.vertices.Count; i++)
 		{
-		    undeformedVerticesCoordinates.Add(PalmBase.CoordinatesInPalmReferenceFrame(planeMeshGenerator.displayToWorldCoords(new Vector3(planeMeshGenerator.vertices[i].x, planeMeshGenerator.vertices[i].y, planeMeshGenerator.vertices[i].z))));
+		    undeformedVerticesCoordinates.Add(handCoordinateManager.CoordinatesInPalmReferenceFrame(planeMeshGenerator.displayToWorldCoords(new Vector3(planeMeshGenerator.vertices[i].x, planeMeshGenerator.vertices[i].y, planeMeshGenerator.vertices[i].z))));
 		}
 
 		// GenerateNotificationBar.notBar.SendMessage("CreateMesh");
@@ -193,14 +198,14 @@ namespace HPUI.Core.DeformableSurfaceDisplay
 		//every frame update the coordinates of all keypoints based on transform.position of the corresponding gameobject
 		for (int i = 0; i < keypointObjects.Count; i++)
 		{
-		    keypoints[i] = PalmBase.CoordinatesInPalmReferenceFrame(keypointObjects[i].transform.position);
+		    keypoints[i] = handCoordinateManager.CoordinatesInPalmReferenceFrame(keypointObjects[i].transform.position);
 
 		    keypointDifferences[i] = keypoints[i] - calibrationKeypoints[i];
                 
 
 		    //list of vectors that will be used to create the 3 splines per frame
 		    //contain the calibration x/y coordinates, and an x, y, or z displacement
-		    if(DeformableMesh.method != "rbf2")
+		    if(method != "rbf2")
 		    {
 			xDifferenceVectors[i, 0] = calibrationKeypoints[i].x;
 			xDifferenceVectors[i, 1] = calibrationKeypoints[i].y;
