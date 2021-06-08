@@ -9735,26 +9735,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
-      propertyPath: _colorGamut
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
-      propertyPath: resetTrackerOnLoad
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
-      propertyPath: usePositionTracking
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
-      propertyPath: useIPDInPositionTracking
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400010, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
-      propertyPath: useFixedUpdateForTracking
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
 --- !u!1 &463302356
@@ -13386,6 +13366,9 @@ MonoBehaviour:
     layer: 8
   - application: {fileID: 4499506388585996036}
     button: {fileID: 1592721091}
+    layer: 0
+  - application: {fileID: 1510294222}
+    button: {fileID: 1522174869}
     layer: 0
 --- !u!1 &663487355
 GameObject:
@@ -29971,8 +29954,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   usesDeformableSurface: 1
-  deformableSurfaceDisplayManager: {fileID: 815325838}
-  mainTexture: {fileID: 2800000, guid: 7a9df69674f5a8449a666ad2fd6d98b1, type: 3}
+  deformableSurfaceDisplayManager: {fileID: 254224405}
+  mainTexture: {fileID: 2800000, guid: 93f00276e4061014390c1a722d095cea, type: 3}
   spriteRenderer: {fileID: 348606757}
   sprites:
   - {fileID: 21300000, guid: 2a97a59fad60a8f459695360e6859325, type: 3}
@@ -30171,6 +30154,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1511592929}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1522174869 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7436014447172359011, guid: fffe4b9b67453614186705a7f457c2fe,
+    type: 3}
+  m_PrefabInstance: {fileID: 1227191259}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf3046db9def6c4283c8ef2c52f4379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1523486039
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43635,15 +43630,15 @@ MonoBehaviour:
   usesDeformableSurface: 0
   btns:
   - {fileID: 1946185844}
-  - {fileID: 1065113846}
-  - {fileID: 186332887}
   - {fileID: 1049237446}
-  - {fileID: 1339034833}
-  - {fileID: 1253124125}
+  - {fileID: 186332887}
+  - {fileID: 1065113846}
   - {fileID: 1085218470}
-  - {fileID: 823832653}
-  - {fileID: 189157096}
+  - {fileID: 1253124125}
+  - {fileID: 1339034833}
   - {fileID: 2117896416}
+  - {fileID: 189157096}
+  - {fileID: 823832653}
   backspce: {fileID: 1415311098}
   text: {fileID: 1456568281}
 --- !u!114 &4499506389526909056

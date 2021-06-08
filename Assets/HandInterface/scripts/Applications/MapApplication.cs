@@ -18,14 +18,14 @@ namespace HPUI.Application.Sample
 	protected override void OnActivate()
 	{
 	    deformableSurfaceDisplayManager.inUse = true;
-	    spriteRenderer.gameObject.SetActive(true);
+	    // spriteRenderer.gameObject.SetActive(true);
 	    deformableSurfaceDisplayManager.MeshRenderer.material.mainTexture = mainTexture;
 	}
 
 	protected override void OnDeactivate()
 	{
 	    deformableSurfaceDisplayManager.inUse = false;
-	    spriteRenderer.gameObject.SetActive(false);
+	    // spriteRenderer.gameObject.SetActive(false);
 	}
 	
 	// Start is called before the first frame update
@@ -39,16 +39,16 @@ namespace HPUI.Application.Sample
 	{
 	    if (deformableSurfaceDisplayManager.currentCoord.x == 0 && deformableSurfaceDisplayManager.currentCoord.y == 0)
 	    {
-		spriteRenderer.gameObject.SetActive(false);
+		// spriteRenderer.gameObject.SetActive(false);
 	    }
 	    else
 	    {
-		spriteRenderer.gameObject.SetActive(true);
+		// spriteRenderer.gameObject.SetActive(true);
 	    
-		if ((deformableSurfaceDisplayManager.currentCoord.x / deformableSurfaceDisplayManager.currentCoord.maxX) > 0.7)
-		    spriteRenderer.sprite = sprites[0];
-		else
-		    spriteRenderer.sprite = sprites[1];
+		// if ((deformableSurfaceDisplayManager.currentCoord.x / deformableSurfaceDisplayManager.currentCoord.maxX) > 0.7)
+		//     spriteRenderer.sprite = sprites[0];
+		// else
+		//     spriteRenderer.sprite = sprites[1];
 	    }
 	}
     }
