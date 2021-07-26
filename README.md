@@ -16,3 +16,12 @@ The current implementation of the deformable user interface is computationally e
 ## To site this work
 ```
 ```
+
+### Disclosure
+This repo uses
+- [Furnished Cabin](https://assetstore.unity.com/packages/3d/environments/urban/furnished-cabin-71426) by Johnny Kasapi
+- Oculus SDK: Copyright © Facebook Technologies, LLC and its affiliates. All rights reserved;
+- Ray cursor: Copyright 2019 Marc Baloup, Géry Casiez, Thomas Pietrzak (Université de Lille, Inria, France)
+
+## License
+Project published under MIT license (see `LICENSE`)
