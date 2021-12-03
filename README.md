@@ -13,8 +13,18 @@ This is the accompanying demo application for the paper [HPUI: Hand Proximate Us
 ## Performance considerations
 The current implementation of the deformable user interface is computationally expensive, hence the framerate would drop when using an interface with the deformable UI with the application deployed on the headset. Alternatively, the headset can be connected to the development pc via Oculus Link and play the scene in unity to interact with the scene. As the application would be running on the development pc it would have lesser framerate drops. Note that Oculus Link is [compatible only with specific graphics cards](https://support.oculus.com/articles/headsets-and-accessories/oculus-link/oculus-link-compatibility).
 
-## To site this work
+## To cite this work
 ```
+@article{faleel21_hpui,  
+  author={Faleel, Shariff AM and Gammon, Michael and Fan, Kevin and Huang, Da-Yuan and Li, Wei and Irani, Pourang},  
+  journal={IEEE Transactions on Visualization and Computer Graphics},   
+  title={HPUI: Hand Proximate User Interfaces for One-Handed Interactions on Head Mounted Displays},   
+  year={2021},  
+  volume={27},  
+  number={11},  
+  pages={4215-4225},  
+  doi={10.1109/TVCG.2021.3106493}
+}
 ```
 
 ### Disclosure
