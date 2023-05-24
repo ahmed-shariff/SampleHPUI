@@ -11,9 +11,9 @@ namespace HPUI.Application.Sample.CarView
 	public Material material;
 	public Transform carObject;
 
-	public Range scaleXRange;
-	public Range scaleYRange;
-	public Range scaleZRange;
+	public HPUI.Utils.Range scaleXRange;
+	public HPUI.Utils.Range scaleYRange;
+	public HPUI.Utils.Range scaleZRange;
 	
 	private Transform defaulParent;
 	private Vector3 defaultScale;

@@ -15,8 +15,8 @@ namespace HPUI.Application.Sample.CarView
 	
 	public DeformableSurfaceDisplayManager deformableSurfaceDisplayManager;
 
-	public Range highlightXRange;
-	public Range highlightYRange;
+	public HPUI.Utils.Range highlightXRange;
+	public HPUI.Utils.Range highlightYRange;
 
 	public Color defaultColor;
 	public Color highlightColor;
