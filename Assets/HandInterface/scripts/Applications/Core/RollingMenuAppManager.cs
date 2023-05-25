@@ -85,7 +85,7 @@ namespace HPUI.Application.Core
 	{
 	    nextButton.gameObject.SetActive(true);
 	    previousButton.gameObject.SetActive(true);
-	    InteractionManger.instance.getButtons();
+	    InteractionManger.instance.GetButtons();
 	    menuDisplay.transform.parent.gameObject.SetActive(true);
 	}
 

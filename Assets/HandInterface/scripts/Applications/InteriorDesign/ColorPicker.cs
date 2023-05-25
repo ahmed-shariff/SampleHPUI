@@ -81,7 +81,7 @@ namespace HPUI.Application.Sample.InteriorDesign
                 deformableSurfaceDisplayManager.inUse = true;
                 subSelectionMenuActive = false;
 		subSelectionDoneBtn.Hide();
-		InteractionManger.instance.getButtons();
+		InteractionManger.instance.GetButtons();
             }
         }
 

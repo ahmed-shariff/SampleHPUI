@@ -79,7 +79,7 @@ namespace HPUI.Application.Core
 		btn.Show();
 	    }
 
-	    InteractionManger.instance.getButtons();
+	    InteractionManger.instance.GetButtons();
 	}
 
 	void HideMenu()

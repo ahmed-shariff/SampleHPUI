@@ -15,7 +15,7 @@ namespace HPUI.Application.Core
 	{
 	    gameObject.SetActive(true);
 	    OnActivate();
-	    InteractionManger.instance.getButtons();
+	    InteractionManger.instance.GetButtons();
             Debug.Log(buttonsToRegister.Count);
             foreach (var btn in buttonsToRegister)
             {

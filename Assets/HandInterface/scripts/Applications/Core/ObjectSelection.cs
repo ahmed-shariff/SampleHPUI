@@ -60,8 +60,8 @@ namespace HPUI.Application.Core
 	    else
 	    {
 		rayCursor.gameObject.SetActive(true);
-		btn.setSelectionHighlight(false);
-		btn.invokeDefault();
+		// btn.SetSelectionHighlight(false);
+		btn.InvokeDefault();
 		if (cancelBtn)
 		    cancelBtn.Show();
 	    }
@@ -73,8 +73,8 @@ namespace HPUI.Application.Core
 	    rayCursor.gameObject.SetActive(false);
 	    if (selectionBtn)
 	    {
-		selectionBtn.setSelectionHighlight(true);
-	        selectionBtn.invokeDefault();
+		// selectionBtn.SetSelectionHighlight(true);
+	        selectionBtn.InvokeDefault();
 	    }
 
 	    if (cancelBtn)

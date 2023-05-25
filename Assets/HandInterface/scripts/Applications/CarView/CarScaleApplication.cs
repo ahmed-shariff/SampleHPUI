@@ -89,40 +89,40 @@ namespace HPUI.Application.Sample.CarView
 	void setX(ButtonController btn)
 	{
 	    currentSelection = selection.x;
-	    xSelector.setSelectionDefault(true, defaultColor);
-	    xSelector.invokeDefault();
+	    // xSelector.setSelectionDefault(true, defaultColor);
+	    xSelector.InvokeDefault();
 	    
-	    ySelector.setSelectionDefault(false);
-	    ySelector.invokeDefault();
+	    // ySelector.setSelectionDefault(false);
+	    ySelector.InvokeDefault();
 	    
-	    zSelector.setSelectionDefault(false);
-	    zSelector.invokeDefault();
+	    // zSelector.setSelectionDefault(false);
+	    zSelector.InvokeDefault();
 	}
 
 	void setY(ButtonController btn)
 	{
 	    currentSelection = selection.y;
-	    ySelector.setSelectionDefault(true, defaultColor);
-	    ySelector.invokeDefault();
+	    // ySelector.setSelectionDefault(true, defaultColor);
+	    ySelector.InvokeDefault();
 	    
-	    xSelector.setSelectionDefault(false);
-	    xSelector.invokeDefault();
+	    // xSelector.setSelectionDefault(false);
+	    xSelector.InvokeDefault();
 	    
-	    zSelector.setSelectionDefault(false);
-	    zSelector.invokeDefault();
+	    // zSelector.setSelectionDefault(false);
+	    zSelector.InvokeDefault();
 	}
 
 	void setZ(ButtonController btn)
 	{
 	    currentSelection = selection.z;
-	    zSelector.setSelectionDefault(true, defaultColor);
-	    zSelector.invokeDefault();
+	    // zSelector.setSelectionDefault(true, defaultColor);
+	    zSelector.InvokeDefault();
 	    
-	    ySelector.setSelectionDefault(false);
-	    ySelector.invokeDefault();
+	    // ySelector.setSelectionDefault(false);
+	    ySelector.InvokeDefault();
 	    
-	    xSelector.setSelectionDefault(false);
-	    xSelector.invokeDefault();
+	    // xSelector.setSelectionDefault(false);
+	    xSelector.InvokeDefault();
 	}
 
 	void updateBar(bool btn)
@@ -157,13 +157,13 @@ namespace HPUI.Application.Sample.CarView
 		    deformableSurfaceDisplayManager.idToXY(otherBtn.id, out x, out y);
 		    if (y >= currentThresh)
 		    {
-			otherBtn.setSelectionDefault(true, defaultColor);
+                        otherBtn.GetComponent<ButtonColorBehaviour>().DefaultColor = defaultColor;
 		    }
 		    else
 		    {
-			otherBtn.setSelectionDefault(true, highlightColor);
+                        otherBtn.GetComponent<ButtonColorBehaviour>().DefaultColor = highlightColor;
 		    }
-		    otherBtn.invokeDefault();
+		    otherBtn.InvokeDefault();
 		}
 		updatedScreen = true;
 	    }
@@ -185,8 +185,8 @@ namespace HPUI.Application.Sample.CarView
 	    {
 		btn.gameObject.SetActive(true);
 		// btn.contactAction.RemoveListener(updateBar);
-		btn.setSelectionDefault(false);
-		btn.invokeDefault();
+		// btn.setSelectionDefault(false);
+		btn.InvokeDefault();
 	    }
 	    materialColor.a = 1;
 	    material.color = materialColor;
